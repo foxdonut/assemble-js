@@ -4,11 +4,7 @@ module.exports = {
   ],
 
   $plugins: [
+    { module: require("wire/aop") },
     { module: require("wire/debug") }
-  ],
-
-  onReady: {
-    module: require("./ready"),
-    ready: "onReady"
-  }
+  ]
 };
