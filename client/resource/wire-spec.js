@@ -1,17 +1,19 @@
+define(function(require, exports, module) {
+
 module.exports = {
   $plugins: [
-    { module: require("wire/aop") }
+    "wire/aop"
   ],
 
   client: {
     create: {
-      module: require("./client")
+      module: "resource/client"
     }
   },
 
   stir: {
     create: {
-      module: require("./stir"),
+      module: "resource/stir",
       args: { $ref: "client" }
     }
   },
@@ -22,9 +24,11 @@ module.exports = {
   },
   
   bookOutput: {
-    module: require("./output"),
+    module: "resource/output",
     afterFulfilling: {
       "bookResource.query": "log"
     }
   }
 };
+
+});

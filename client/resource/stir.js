@@ -1,3 +1,5 @@
+define(function(require, exports, module) {
+
 var when = require("when");
 
 module.exports = function(client) {
@@ -45,3 +47,5 @@ module.exports = function(client) {
     };
   };
 };
+
+});

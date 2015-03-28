@@ -1,14 +1,13 @@
+define(function(require, exports, module) {
+
 module.exports = {
   $imports: [
-    { module: require("./resource/wire-spec") }
+    { module: "resource/wire-spec" }
   ],
 
   $plugins: [
-    { module: require("wire/debug") }
-  ],
-
-  onReady: {
-    module: require("./ready"),
-    ready: "onReady"
-  }
+    { module: "wire/debug" }
+  ]
 };
+
+});

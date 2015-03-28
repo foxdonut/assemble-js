@@ -1,3 +1,5 @@
+define(function(require, exports, module) {
+
 module.exports = function() {
   var browser = require("rest/browser");
   var mime = require("rest/interceptor/mime");
@@ -5,3 +7,5 @@ module.exports = function() {
 
   return client;
 };
+
+});
