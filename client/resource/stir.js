@@ -3,6 +3,7 @@ define(function(require, exports, module) {
 var when = require("when");
 
 module.exports = function(client) {
+  console.log("** stir client created.");
   return function(baseUrl) {
     return {
       query: function(params) {
