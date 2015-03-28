@@ -1,6 +1,6 @@
 module.exports = {
   $plugins: [
-    { module: require("wire/aop") }
+    require("wire/aop")
   ],
 
   client: {

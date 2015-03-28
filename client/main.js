@@ -4,7 +4,7 @@ module.exports = {
   ],
 
   $plugins: [
-    { module: require("wire/aop") },
-    { module: require("wire/debug") }
+    require("wire/aop")/*,
+    { module: require("wire/debug") }*/
   ]
 };
