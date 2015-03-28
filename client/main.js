@@ -6,8 +6,8 @@ module.exports = {
   ],
 
   $plugins: [
-    "wire/aop",
-    "wire/debug"
+    "wire/aop"/*,
+    "wire/debug"*/
   ]
 };
 
