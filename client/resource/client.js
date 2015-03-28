@@ -5,7 +5,6 @@ module.exports = function() {
   var mime = require("rest/interceptor/mime");
   var client = browser.wrap(mime, { mime: "application/json" });
 
-  console.log("** client created");
   return client;
 };
 
