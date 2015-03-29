@@ -1,8 +1,4 @@
 module.exports = {
-  $imports: [
-    require("../resource/wire-spec")
-  ],
-
   bookOutput: {
     module: require("./output"),
     afterFulfilling: {
