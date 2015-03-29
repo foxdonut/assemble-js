@@ -17,18 +17,6 @@ module.exports = {
       args: { $ref: "client" }
     }
   },
-
-  bookResource: {
-    create: { $ref: "stir", args: "/books" },
-    ready: "query"
-  },
-  
-  bookOutput: {
-    module: "resource/output",
-    afterFulfilling: {
-      "bookResource.query": "log"
-    }
-  }
 };
 
 });
