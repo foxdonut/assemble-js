@@ -1,6 +1,6 @@
 module.exports = {
   $imports: [
-    { module: require("./books/resource/wire-spec") }
+    { module: require("./books/bookList/wire-spec") }
   ],
 
   $plugins: [
