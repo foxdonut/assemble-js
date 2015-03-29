@@ -1,8 +1,4 @@
 module.exports = {
-  $plugins: [
-    require("wire/aop")
-  ],
-
   client: {
     create: {
       module: require("./client")
@@ -13,18 +9,6 @@ module.exports = {
     create: {
       module: require("./stir"),
       args: { $ref: "client" }
-    }
-  },
-
-  bookResource: {
-    create: { $ref: "stir", args: "/books" },
-    ready: "query"
-  },
-  
-  bookOutput: {
-    module: require("./output"),
-    afterFulfilling: {
-      "bookResource.query": "log"
     }
   }
 };
