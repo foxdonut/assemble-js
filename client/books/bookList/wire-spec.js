@@ -1,4 +1,8 @@
-module.exports = {
+var _ = require("lodash");
+
+module.exports = _.extend(
+  require("../resource/wire-spec"), {
+
   bookOutput: {
     module: require("./output"),
     afterFulfilling: {
@@ -12,4 +16,4 @@ module.exports = {
       register: "book-list"
     }
   }
-};
+});

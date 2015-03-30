@@ -7,7 +7,5 @@ module.exports = _.extend(
       require("wire/debug")*/
     ]
   },
-  require("./resource/wire-spec"),
-  require("./books/resource/wire-spec"),
   require("./books/bookList/wire-spec")
 );
