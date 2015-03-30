@@ -1,3 +1,5 @@
+define(function(require, exports, module) {
+
 var ko = require("knockout");
 
 module.exports = {
@@ -6,3 +8,5 @@ module.exports = {
     ko.components.register(componentName, componentModule);
   }
 };
+  
+});

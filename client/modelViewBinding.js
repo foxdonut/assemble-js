@@ -1,3 +1,5 @@
+define(function(require, exports, module) {
+
 var ko = require("knockout");
 
 module.exports = {
@@ -8,3 +10,5 @@ module.exports = {
     }, 1000);
   }
 };
+
+});

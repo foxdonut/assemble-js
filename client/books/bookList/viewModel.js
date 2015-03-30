@@ -1,3 +1,5 @@
+define(function(require, exports, module) {
+
 var ko = require("knockout");
 
 var books = ko.observableArray();
@@ -20,3 +22,5 @@ module.exports = {
     this.books.push(book);
   }
 };
+
+});

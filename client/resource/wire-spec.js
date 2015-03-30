@@ -1,3 +1,5 @@
+define(function(require, exports, module) {
+
 module.exports = {
   client: {
     create: {
@@ -12,3 +14,5 @@ module.exports = {
     }
   }
 };
+
+});

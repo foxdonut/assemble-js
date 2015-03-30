@@ -1,3 +1,5 @@
+define(function(require, exports, module) {
+
 var _ = require("lodash");
 
 module.exports = _.extend(
@@ -7,4 +9,6 @@ module.exports = _.extend(
     create: { $ref: "stir", args: "/books" },
     ready: "query"
   }
+});
+
 });

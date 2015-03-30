@@ -1,4 +1,3 @@
-var wire = require("wire");
-var main = require("./main");
-
-wire(main);
+require(["wire", "./main"], function(wire, main) {
+  wire(main);  
+});

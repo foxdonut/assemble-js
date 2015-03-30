@@ -1,4 +1,8 @@
+define(function(require, exports, module) {
+
 module.exports = {
   viewModel: { instance: require("./viewModel") },
-  template: require("./view.html")
+  template: require("text!./view.html")
 };
+
+});
