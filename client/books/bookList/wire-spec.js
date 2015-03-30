@@ -1,19 +1,32 @@
 var _ = require("lodash");
 
-module.exports = _.extend(
+module.exports = _.extend({
+  $plugins: [
+    require("wire/aop")
+  ]},
+
   require("../resource/wire-spec"), {
 
-  bookOutput: {
-    module: require("./output"),
+  bookListViewModel: {
+    module: require("./viewModel"),
+    
     afterFulfilling: {
-      "bookResource.query": "log"
+      "bookResource.query": "bookResource.getEntity | books"
+    },
+    
+    afterReturning: {
+      /*
+      deleteBook: "log",
+      log: "bookResource.delete"
+      */
+      deleteBook: "bookResource.delete"
     }
   },
-  
-  bookRegistry: {
+
+  bookListRegistry: {
     module: require("../../component/registry"),
     init: {
-      register: "book-list"
+      register: [ "book-list", require("./component") ]
     }
   }
 });

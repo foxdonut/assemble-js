@@ -1,6 +1,8 @@
-var counter = 1;
+var ko = require("knockout");
+
 module.exports = {
-  register: function(componentName) {
-    console.log("register:", (counter++), componentName);
+  register: function(componentName, componentModule) {
+    console.log("register:", componentName);
+    ko.components.register(componentName, componentModule);
   }
 };
