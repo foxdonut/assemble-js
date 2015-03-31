@@ -13,10 +13,6 @@ module.exports = _.extend(
     },
     
     afterReturning: {
-      /*
-      deleteBook: "log",
-      log: "bookResource.delete"
-      */
       deleteBook: "bookResource.delete"
     }
   },
