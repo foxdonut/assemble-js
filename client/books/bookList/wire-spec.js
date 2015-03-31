@@ -24,7 +24,7 @@ module.exports = _.extend(
   bookListRegistry: {
     module: require("../../component/registry"),
     init: {
-      register: [ "book-list", require("./component") ]
+      register: [ "book-list", { $ref: "bookListViewModel" }, require("text!./view.html") ]
     }
   }
 });

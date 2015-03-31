@@ -1,48 +1,68 @@
 define(function(require, exports, module) {
 
 var _ = require("lodash");
-var aop = require("wire/aop");
-
 /*
+require("wire/aop");
+require("wire/debug"); 
+require("./resource/client");
+require("./resource/stir");
+require("./component/registry");
+require("./books/bookList/viewModel");
+require("./modelViewBinding");
+  
+var bookListComponent = {
+  viewModel: { instance: require("./books/bookList/viewModel") },
+  template: require("text!./books/bookList/view.html")
+};
+*/
+
 module.exports = _.extend(
   {
     $plugins: [
-      require("wire/aop")*//*,
-      require("wire/debug")*//*
+      require("wire/aop")/*,
+      require("wire/debug")*/
     ]
   },
   require("./books/bookList/wire-spec"), {
-  */
+
   /*
   modelViewBinding: {
     module: require("knockout"),
     ready: "applyBindings"
   }
   */
-  /*
+
   modelViewBinding: {
     module: require("./modelViewBinding"),
     ready: "applyBindings"
   }
 });
-*/
-  
+
+/*
 module.exports = {
   $plugins: [
-    "wire/aop"
+    require("wire/aop")*//*,
+    "wire/debug"*/
     /*require("wire/aop")*//*,
-    require("wire/debug")*/
+    require("wire/debug")*//*
   ],
+
+  bookListRegistry: {
+    module: "component/registry",
+    init: {
+      register: [ "book-list", bookListComponent ]
+    }
+  },
   
   client: {
     create: {
-      module: require("./resource/client")
+      module: "resource/client"
     }
   },
 
   stir: {
     create: {
-      module: require("./resource/stir"),
+      module: "resource/stir",
       args: { $ref: "client" }
     }
   },
@@ -53,37 +73,32 @@ module.exports = {
   },
 
   bookListViewModel: {
-    module: require("./books/bookList/viewModel"),
+    module: "books/bookList/viewModel",
     
     afterFulfilling: {
       "bookResource.query": "bookResource.getEntity | books"
     },
     
     afterReturning: {
-      /*
+      *//*
       deleteBook: "log",
       log: "bookResource.delete"
-      */
+      *//*
       deleteBook: "bookResource.delete"
     }
   },
-
-  bookListRegistry: {
-    module: require("./component/registry"),
-    init: {
-      register: [ "book-list", require("./books/bookList/component") ]
-    }
-  },
-  /*
+  *//*
   modelViewBinding: {
     module: require("knockout"),
     ready: "applyBindings"
   }
-  */
+  *//*
   modelViewBinding: {
-    module: require("./modelViewBinding"),
+    module: "modelViewBinding",
     ready: "applyBindings"
+  
   }
 }
+*/
 
 });
