@@ -9,14 +9,8 @@ module.exports = _.extend(
   },
   require("./books/bookList/wire-spec"), {
 
-  /*
   modelViewBinding: {
     module: require("knockout"),
-    ready: "applyBindings"
-  }
-  */
-  modelViewBinding: {
-    module: require("./modelViewBinding"),
     ready: "applyBindings"
   }
 });

@@ -11,11 +11,6 @@ module.exports = {
     return book;
   },
 
-  log: function(value) {
-    console.log("logged");
-    return value;
-  },
-
   addBook: function(book) {
     this.books.push(book);
   }
