@@ -2,11 +2,7 @@ define(function(require, exports, module) {
 
 var _ = require("lodash");
 
-module.exports = _.extend({
-  $plugins: [
-    require("wire/aop")
-  ]},
-
+module.exports = _.extend(
   require("../resource/wire-spec"), {
 
   bookListViewModel: {
