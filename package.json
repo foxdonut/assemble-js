@@ -6,7 +6,7 @@
   "scripts": {
     "build": "browserify -t stringify client/run.js -o client/generated-app.js --debug",
     "start": "node server/run.js",
-    "test": "browserify client/resource/stir-tests.js | testling"
+    "test": "browserify client/resource/stir-tests.js | testling | faucet"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "browserify": "^9.0.3",
+    "faucet": "0.0.1",
     "phantomjs": "^1.9.16",
     "redtape": "^1.0.0",
     "sinon": "^1.14.1",
