@@ -31,10 +31,10 @@ stirTest.afterEach(function(tt, context) {
 stirTest.test("issues a GET request for get", function(tt, context) {
   var id = 42;
 
-  context.server.respondWith([
+  context.server.respondWith("GET", baseUrl + "/" + id, [
     200,
     { "Content-Type": "application/json" },
-    JSON.stringify({ id: id, title: "Test", author: "Test" })      
+    JSON.stringify({ id: id, title: "Test", author: "Test" })
   ]);
 
   stir.get(id).then(function() {
