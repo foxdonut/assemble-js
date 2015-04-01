@@ -1,28 +1,33 @@
 var expect = require("chai").expect;
 var sinon = require("sinon");
 
-var client = require("./client");
+var client = require("./client")();
 var baseUrl = "/test";
 var stir = require("./stir")(client)(baseUrl);
 
 describe("stir", function() {
-  var xhr, requests;
+  var server = null;
 
   beforeEach(function() {
-    xhr = sinon.useFakeXMLHttpRequest();
-    requests = [];
-    xhr.onCreate = function (req) {
-      requests.push(req);
-    };
-  });
-  
-  afterEach(function() {
-    xhr.restore();
+    server = sinon.fakeServer.create();
+    server.autoRespond = true;
   });
 
-  it("issues a GET request for query", function() {
-    stir.get(42);
-    expect(requests.length).to.equal(1);
-    expect(requests[0].url).to.equal(baseUrl);
+  afterEach(function() {
+    server.restore();
+  });
+
+  it("issues a GET request for query", function(done) {
+    var id = 42;
+    
+    server.respondWith([
+      200,
+      { "Content-Type": "application/json" },
+      JSON.stringify({ id: id, title: "Test", author: "Test" })      
+    ]);
+
+    stir.get(id).then(function() {
+      done();
+    });
   });
 });

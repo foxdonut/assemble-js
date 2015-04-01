@@ -7,7 +7,8 @@
     "build": "browserify -t stringify client/run.js -o client/generated-app.js --debug",
     "start": "node server/run.js",
     "test": "mochify ./client/**/*-tests.js",
-    "test2": "node_modules/mocha/bin/mocha client/**/*-tests.js"
+    "test2": "mocha client/**/*-tests.js",
+    "testgen": "browserify client/resource/stir-tests.js -o client/generated-test-suite.js"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,7 @@
     "chai": "^2.2.0",
     "mocha": "^2.2.1",
     "mochify": "^2.7.0",
-    "phantomjs": "^1.9.16"
+    "phantomjs": "^1.9.16",
+    "sinon": "^1.14.1"
   }
 }
