@@ -6,7 +6,8 @@
   "scripts": {
     "build": "browserify -t stringify client/run.js -o client/generated-app.js --debug",
     "start": "node server/run.js",
-    "test": "node_modules/mocha/bin/mocha client/**/*-tests.js"
+    "test": "mochify ./client/**/*-tests.js",
+    "test2": "node_modules/mocha/bin/mocha client/**/*-tests.js"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,8 @@
   "devDependencies": {
     "browserify": "^9.0.3",
     "chai": "^2.2.0",
-    "mocha": "^2.2.1"
+    "mocha": "^2.2.1",
+    "mochify": "^2.7.0",
+    "phantomjs": "^1.9.16"
   }
 }
