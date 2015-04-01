@@ -1,33 +1,48 @@
-var expect = require("chai").expect;
+// for bind not being in phantomjs
+if (!Function.prototype.bind) {
+  Function.prototype.bind = Function.prototype.bind || function (thisp) {
+    var fn = this;
+    return function () {
+        return fn.apply(thisp, arguments);
+    };
+  };
+}
+
+var redtape = require("redtape");
 var sinon = require("sinon");
 
 var client = require("./client")();
 var baseUrl = "/test";
 var stir = require("./stir")(client)(baseUrl);
 
-describe("stir", function() {
-  var server = null;
+var server = null;
 
-  beforeEach(function() {
-    server = sinon.fakeServer.create();
-    server.autoRespond = true;
-  });
+var beforeEach = function() {
+  server = sinon.fakeServer.create();
+  server.autoRespond = true;
+};
 
-  afterEach(function() {
-    server.restore();
-  });
+var afterEach = function() {
+  server.restore();
+};
 
-  it("issues a GET request for query", function(done) {
-    var id = 42;
-    
-    server.respondWith([
-      200,
-      { "Content-Type": "application/json" },
-      JSON.stringify({ id: id, title: "Test", author: "Test" })      
-    ]);
+/*
+var test = redtape(beforeEach, afterEach);
+*/
 
-    stir.get(id).then(function() {
-      done();
-    });
+var test = require("tape");
+
+test("stir issues a GET request for get", function(tt) {
+  beforeEach();
+  var id = 42;
+
+  server.respondWith([
+    200,
+    { "Content-Type": "application/json" },
+    JSON.stringify({ id: id, title: "Test", author: "Test" })      
+  ]);
+
+  stir.get(id).then(function() {
+    tt.end();
   });
 });
