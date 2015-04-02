@@ -35,11 +35,12 @@
   "devDependencies": {
     "browserify": "^9.0.3",
     "faucet": "0.0.1",
+    "phantomic": "^1.1.0",
     "phantomjs": "^1.9.16",
     "redtape": "^1.0.0",
     "sinon": "^1.14.1",
     "tape": "^3.5.0",
-    "testling": "^1.7.1",
-    "tessed": "^1.0.1"
+    "tessed": "^1.0.1",
+    "testling": "^1.7.1"
   }
 }
