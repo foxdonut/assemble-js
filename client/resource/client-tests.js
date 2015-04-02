@@ -9,20 +9,12 @@ var baseUrl = "/test";
 var clientTest = test("client");
 
 clientTest.beforeEach(function(tt, context) {
+  console.log("beforeEach");
   context.xhr = sinon.useFakeXMLHttpRequest();
-  context.requests = [];
   
   context.xhr.onCreate = function(request) {
-    context.requests.push(request);
     console.log("request before:", JSON.stringify(request));
-    request.readyState = 1;
-    request.respond(
-      200,
-      { "Content-Type": "application/json" },
-      JSON.stringify({ id: 1, title: "Test", author: "Test" })
-    );
-    request.readyState = 4;
-    console.log("request after:", JSON.stringify(request));
+    context.onRequest(request);
   };
 
   tt.end();
@@ -40,11 +32,21 @@ clientTest.test("issues a request", function(tt, context) {
   var id = 42;
   var req = { method: "GET", path: baseUrl };
   
-  client(req).then(function() {
-    // console.log("c.r 2:", context.requests.length);
-    console.log("received response");
-    tt.equal(context.requests.length, 1);
-    console.log(JSON.stringify(context.requests[0]));
+  context.onRequest = function(request) {
+    console.log("trying to respond to request:", request.method, request.url);
+    request.readyState = 1;
+    request.onSend = function(xhr) {
+      xhr.readyStateChange(4);
+    };
+    request.respond(
+      200,
+      { "Content-Type": "application/json" },
+      JSON.stringify({ id: 1, title: "Test", author: "Test" })
+    );
+  };
+  
+  client(req).then(function(response) {
+    console.log("received response:", JSON.stringify(response));
     tt.end();
   },
   function(err) {
