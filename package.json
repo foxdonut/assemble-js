@@ -6,7 +6,7 @@
   "scripts": {
     "build": "browserify -t stringify client/run.js -o client/generated-app.js --debug",
     "start": "node server/run.js",
-    "test": "browserify client/resource/stir-tests.js | testling | faucet"
+    "test": "browserify client/resource/*-tests.js | testling | faucet"
   },
   "repository": {
     "type": "git",
