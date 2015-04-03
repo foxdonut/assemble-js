@@ -1,9 +1,9 @@
 require("../test/util/function-bind")();
 
 var test = require("tape");
+var sinon = require("sinon");
 var wire = require("wire");
 var spec = require("./wire-spec");
-var sinon = require("sinon");
 var _ = require("lodash");
 
 test("resource/wire-spec wires correctly", function(tt) {
