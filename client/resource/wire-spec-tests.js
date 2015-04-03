@@ -26,7 +26,6 @@ test("resource/wire-spec passes client to stir", function(tt) {
   wire(testSpec).then(function(testContext) {
     tt.is(testContext.client, client, "using test client");
     testContext.stir(baseUrl).query();
-    console.log("client called:", client.called);
     tt.ok(client.calledOnce, "client called once");
     tt.end();
   });
