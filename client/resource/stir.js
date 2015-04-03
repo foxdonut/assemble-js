@@ -4,7 +4,6 @@ module.exports = function(client) {
   return function(baseUrl) {
     return {
       query: function(params) {
-        console.log("query:", params);
         return client({
           method: "GET",
           path: baseUrl,
@@ -12,14 +11,12 @@ module.exports = function(client) {
         });
       },
       get: function(id) {
-        console.log("get:", id);
         return client({
           method: "GET",
           path: baseUrl + "/" + id
         });
       },
       save: function(model) {
-        console.log("save:", model);
         if (model) {
           var request = (model.id) ? {
             method: "PUT",
@@ -36,7 +33,6 @@ module.exports = function(client) {
         return when.reject();
       },
       "delete": function(model) {
-        console.log("delete:", model);
         return client({
           method: "DELETE",
           path: baseUrl + "/" + model.id
