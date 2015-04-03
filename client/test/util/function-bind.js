@@ -8,15 +8,4 @@ module.exports = function() {
       };
     };
   }
-  
-  // fix for sinon fake xhr not working
-  if (typeof window.ProgressEvent !== "function") {
-    window.ProgressEvent = function(type, params) {
-      params = params || {};
-
-      this.lengthComputable = params.lengthComputable || false;
-      this.loaded = params.loaded || 0;
-      this.total = params.total || 0;
-    };
-  }
 };
