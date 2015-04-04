@@ -1,6 +1,6 @@
 var test = require("tape");
 
-var viewModel = require("./viewModel");
+var ViewModel = require("./viewModel");
 
 test("bookList/viewModel", function(tt) {
   tt.plan(4);
@@ -10,7 +10,7 @@ test("bookList/viewModel", function(tt) {
     { id: 22, title: "Two" }
   ];
 
-  viewModel.books(bookList);
+  var viewModel = new ViewModel(bookList);
   tt.equal(bookList, viewModel.books(), "books");
 
   var newLength = bookList.length + 1;

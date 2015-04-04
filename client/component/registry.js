@@ -1,10 +1,7 @@
 var ko = require("knockout");
 
 module.exports = {
-  register: function(componentName, viewModel, template) {
-    ko.components.register(componentName, {
-      viewModel: { instance: viewModel },
-      template: template
-    });
+  register: function(componentName, component) {
+    ko.components.register(componentName, component);
   }
 };

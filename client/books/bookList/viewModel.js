@@ -1,16 +1,16 @@
 var ko = require("knockout");
 
-var books = ko.observableArray();
+module.exports = function(bookList) {
+  var self = this;
 
-module.exports = {
-  books: books,
+  self.books = ko.observableArray(bookList);
 
-  deleteBook: function(book) {
-    books.remove(book);
+  self.deleteBook = function(book) {
+    self.books.remove(book);
     return book;
-  },
+  };
 
-  addBook: function(book) {
-    books.push(book);
-  }
+  self.addBook = function(book) {
+    self.books.push(book);
+  };
 };

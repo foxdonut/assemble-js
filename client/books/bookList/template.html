@@ -1,0 +1,7 @@
+<div>Book list:</div>
+<ul data-bind="foreach: books">
+  <li>
+    <button data-bind="click: $parent.deleteBook">Delete</button>
+    <span data-bind="text: title"></span>
+  </li>
+</ul>
