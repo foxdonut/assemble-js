@@ -9,11 +9,11 @@ module.exports = _.extend({
 
   bookListViewModel: {
     module: require("./viewModel"),
-    
+
     afterFulfilling: {
       "bookResource.query": "bookResource.getEntity | books"
     },
-    
+
     afterReturning: {
       deleteBook: "bookResource.delete"
     }

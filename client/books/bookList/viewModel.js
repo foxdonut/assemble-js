@@ -11,6 +11,6 @@ module.exports = {
   },
 
   addBook: function(book) {
-    this.books.push(book);
+    books.push(book);
   }
 };
