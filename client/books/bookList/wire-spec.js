@@ -17,12 +17,5 @@ module.exports = _.extend({
     afterReturning: {
       deleteBook: "bookResource.delete"
     }
-  },
-
-  bookListRegistry: {
-    module: require("../../component/registry"),
-    init: {
-      register: [ "book-list", { $ref: "bookListViewModel" }, require("./view.html") ]
-    }
   }
 });

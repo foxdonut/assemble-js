@@ -1,6 +1,8 @@
 module.exports = {
+  viewModel: require("./viewModel"),
+
   component: {
-    viewModel: require("./viewModel"),
+    viewModel: { $ref: "viewModel" },
     template: require("./template.html")
   }
 };

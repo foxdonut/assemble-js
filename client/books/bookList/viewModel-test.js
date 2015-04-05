@@ -1,5 +1,7 @@
 var test = require("tape");
 
+var ko = require("knockout");
+
 var ViewModel = require("./viewModel");
 
 test("bookList/viewModel", function(tt) {
@@ -10,7 +12,9 @@ test("bookList/viewModel", function(tt) {
     { id: 22, title: "Two" }
   ];
 
-  var viewModel = new ViewModel(bookList);
+  var books = ko.observableArray(bookList);
+
+  var viewModel = new ViewModel(books);
   tt.equal(bookList, viewModel.books(), "books");
 
   var newLength = bookList.length + 1;

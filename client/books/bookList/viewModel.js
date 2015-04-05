@@ -1,9 +1,7 @@
-var ko = require("knockout");
-
-module.exports = function(bookList) {
+module.exports = function(books) {
   var self = this;
 
-  self.books = ko.observableArray(bookList);
+  self.books = books;
 
   self.deleteBook = function(book) {
     self.books.remove(book);
