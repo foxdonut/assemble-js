@@ -4,22 +4,20 @@ var sinon = require("sinon");
 var ko = require("knockout");
 var $ = require("jquery");
 
-test("bookList/view", function(tt) {
+test("bookList/template", function(tt) {
   var div = $("<div/>");
-  var view = require("./view.html");
+  var template = require("./template.html");
 
-  div.append(view);
+  div.append(template);
 
   var bookList = [
     { title: "One" },
     { title: "Two" }
   ];
 
-  var spy = sinon.spy();
-
   var viewModel = {
     books: ko.observableArray(bookList),
-    deleteBook: spy
+    deleteBook: sinon.spy()
   };
 
   ko.applyBindings(viewModel, div[0]);
@@ -35,5 +33,5 @@ test("bookList/view", function(tt) {
 
   $(items.get(0)).find("button").trigger("click");
 
-  tt.ok(spy.calledOnce, "delete button");
+  tt.ok(viewModel.deleteBook.calledOnce, "delete button");
 });

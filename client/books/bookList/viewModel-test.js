@@ -14,7 +14,7 @@ test("bookList/viewModel", function(tt) {
 
   var books = ko.observableArray(bookList);
 
-  var viewModel = new ViewModel(books);
+  var viewModel = new ViewModel({books: books});
   tt.equal(bookList, viewModel.books(), "books");
 
   var newLength = bookList.length + 1;

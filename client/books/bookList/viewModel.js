@@ -1,7 +1,7 @@
-module.exports = function(books) {
+module.exports = function(params) {
   var self = this;
 
-  self.books = books;
+  self.books = params.books;
 
   self.deleteBook = function(book) {
     self.books.remove(book);
