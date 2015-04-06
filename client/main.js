@@ -1,11 +1,10 @@
-var ko = require("knockout");
-
 require("./books/bookList/component").registerAs("book-list");
 
+var ko = require("knockout");
 var viewModel = require("./viewModel");
 ko.applyBindings({ bookList: viewModel });
 
-module.exports = {
+var wireSpec = {
   $plugins: [
     require("wire/aop")/*,
     require("wire/debug")*/
@@ -26,3 +25,6 @@ module.exports = {
     }
   }
 };
+
+require("wire")(wireSpec);
+

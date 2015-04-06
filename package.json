@@ -4,7 +4,7 @@
   "description": "Assemble different stacks for JS development for learning purposes.",
   "main": "index.js",
   "scripts": {
-    "build": "browserify -t stringify client/run.js -o client/generated-app.js --debug",
+    "build": "browserify -t stringify client/main.js -o client/generated-app.js --debug",
     "start": "node server/run.js",
     "test": "browserify client/resource/*-tests.js | testling | faucet"
   },

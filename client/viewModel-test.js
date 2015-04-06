@@ -2,7 +2,7 @@ var test = require("tape");
 
 var ko = require("knockout");
 
-var ViewModel = require("./viewModel");
+var viewModel = require("./viewModel");
 
 test("bookList/viewModel", function(tt) {
   tt.plan(4);
@@ -12,18 +12,16 @@ test("bookList/viewModel", function(tt) {
     { id: 22, title: "Two" }
   ];
 
-  var books = ko.observableArray(bookList);
-
-  var viewModel = new ViewModel({ viewModel: { books: books } });
+  viewModel.books(bookList);
   tt.equal(bookList, viewModel.books(), "books");
 
   var newLength = bookList.length + 1;
-  viewModel.books.push({ id: 42, title: "Another" });
+  viewModel.addBook({ id: 42, title: "Another" });
   tt.equal(viewModel.books().length, newLength, "addBook");
 
   newLength = bookList.length - 1;
   var bookToDelete = bookList[0];
-  var deletedBook = viewModel.books.remove(bookToDelete)[0];
+  var deletedBook = viewModel.deleteBook(bookToDelete);
   tt.equal(viewModel.books().length, newLength, "deleteBook");
   tt.equal(deletedBook, bookToDelete, "deleted book");
 });
