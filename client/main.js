@@ -1,16 +1,25 @@
-var _ = require("lodash");
+var ko = require("knockout");
 
-module.exports = _.extend(
-  {
-    $plugins: [
-      require("wire/aop")/*,
-      require("wire/debug")*/
-    ]
+require("./books/bookList/component").registerAs("book-list");
+
+var viewModel = require("./viewModel");
+ko.applyBindings(viewModel);
+
+module.exports = {
+  $plugins: [
+    require("wire/aop")/*,
+    require("wire/debug")*/
+  ],
+
+  bookResource: {
+    module: require("./books/resource"),
+    ready: "query"
   },
-  require("./books/bookList/wire-spec"), {
 
-  modelViewBinding: {
-    module: require("knockout"),
-    ready: "applyBindings"
-  }
-});
+  viewModel: {
+    module: viewModel,
+    afterFulfilling: {
+      "bookResource.query": "bookResource.getEntity | books"
+    }
+  },
+};
