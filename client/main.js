@@ -20,6 +20,9 @@ module.exports = {
     module: viewModel,
     afterFulfilling: {
       "bookResource.query": "bookResource.getEntity | books"
+    },
+    afterReturning: {
+      "deleteBook": "bookResource.delete"
     }
   },
 };
