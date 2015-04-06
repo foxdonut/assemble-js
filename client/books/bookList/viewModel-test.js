@@ -14,16 +14,16 @@ test("bookList/viewModel", function(tt) {
 
   var books = ko.observableArray(bookList);
 
-  var viewModel = new ViewModel({books: books});
+  var viewModel = new ViewModel({ viewModel: { books: books } });
   tt.equal(bookList, viewModel.books(), "books");
 
   var newLength = bookList.length + 1;
-  viewModel.addBook({ id: 42, title: "Another" });
+  viewModel.books.push({ id: 42, title: "Another" });
   tt.equal(viewModel.books().length, newLength, "addBook");
 
   newLength = bookList.length - 1;
   var bookToDelete = bookList[0];
-  var deletedBook = viewModel.deleteBook(bookToDelete);
+  var deletedBook = viewModel.books.remove(bookToDelete)[0];
   tt.equal(viewModel.books().length, newLength, "deleteBook");
   tt.equal(deletedBook, bookToDelete, "deleted book");
 });

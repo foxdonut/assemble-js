@@ -3,7 +3,7 @@ var ko = require("knockout");
 require("./books/bookList/component").registerAs("book-list");
 
 var viewModel = require("./viewModel");
-ko.applyBindings(viewModel);
+ko.applyBindings({ bookList: viewModel });
 
 module.exports = {
   $plugins: [
