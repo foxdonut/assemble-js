@@ -22,7 +22,7 @@ module.exports = {
       "bookResource.query": "bookResource.getEntity | books"
     },
     afterReturning: {
-      "deleteBook": "bookResource.delete"
+      deleteBook: "bookResource.delete"
     }
-  },
+  }
 };
