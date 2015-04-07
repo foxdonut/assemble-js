@@ -3,7 +3,7 @@ module.exports = function() {
   var nodeEnv = "dev";
 
   var config = {
-    clientSourceFiles: "client/**/*.js",
+    clientSourceFiles: "client/**",
 
     serverOptions: {
       script: "./server/main.js",

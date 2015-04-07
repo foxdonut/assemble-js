@@ -17,13 +17,15 @@ gulp.task("browserify", function() {
     .pipe(gulp.dest("./client/"));
 });
 
-gulp.task("watch", function() {
+var startClientWatch = function() {
   gulp.watch(config.clientSourceFiles, ["browserify"]);
-});
+};
 
 gulp.task("serve-dev", ["browserify"], function() {
   return $.nodemon(config.serverOptions)
-    .on("start", ["watch"]);
+    .on("start", function() {
+      startClientWatch();
+    });
 });
 
 gulp.task("default", ["serve-dev"]);
