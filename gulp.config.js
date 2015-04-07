@@ -1,6 +1,5 @@
 module.exports = function() {
   var port = process.env.PORT || 3000;
-  var ip = process.env.IP || "0.0.0.0";
   var nodeEnv = "dev";
 
   var config = {
