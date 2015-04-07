@@ -27,3 +27,4 @@ build/Release
 node_modules
 generated-app.js
 generated-test-suite.js
+.codio
