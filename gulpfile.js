@@ -14,28 +14,22 @@ gulp.task("browserify", function() {
   return browserify("./client/main.js")
     .bundle()
     .pipe(vinyl("generated-app.js"))
-    .pipe(gulp.dest("./client/"));
+    .pipe(gulp.dest("./public/"));
 });
 
-gulp.task("watch", function() {
+gulp.task("watch", ["browserify"], function() {
   gulp.watch(config.clientSourceFiles, ["browserify"]);
 });
 
 var serve = function(watch) {
-  var task = $.nodemon(config.serverOptions);
-  
-  if (watch) {
-    task = task.on("start", ["watch"]);
-  }
-
-  return task;
+  return $.nodemon(config.serverOptions);
 };
   
-gulp.task("serve", function() {
+gulp.task("serve", ["browserify"], function() {
   return serve(false);
 });
 
-gulp.task("serve-dev", ["browserify"], function() {
+gulp.task("serve-dev", ["watch"], function() {
   return serve(true);
 });
 
