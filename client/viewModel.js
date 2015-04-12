@@ -13,5 +13,9 @@ module.exports = {
 
   addBook: function(book) {
     books.push(book);
+  },
+
+  saveBook: function(book) {
+    console.log("saveBook: ", book);
   }
 };

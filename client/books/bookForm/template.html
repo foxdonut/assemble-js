@@ -2,17 +2,17 @@
   <button data-bind="click: showNewBookForm">New Book</button>
 </div>
 
-<div>Book form:</div>
 <form data-bind="visible: newBookFormVisible, submit: saveBook">
   <div>Title:</div>
-  <div><input type="text" data-bind="value: title"/></div>
+  <!--div><input type="text" data-bind="value: title"/></div-->
+  <div><input type="text"/></div>
 
   <div>Author:</div>
-  <div><input type="text" data-bind="value: author"/></div>
+  <!--div><input type="text" data-bind="value: author"/></div-->
+  <div><input type="text"/></div>
 
   <div>
     <input type="submit" value="Save"/>
     <button data-bind="click: hideNewBookForm">Cancel</button>
   </div>
 </form>
-

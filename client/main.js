@@ -1,8 +1,9 @@
 require("./books/bookList/component").registerAs("book-list");
+require("./books/bookForm/component").registerAs("book-form");
 
 var ko = require("knockout");
 var viewModel = require("./viewModel");
-ko.applyBindings({ bookList: viewModel });
+ko.applyBindings({ bookList: viewModel, bookForm: viewModel });
 
 var wireSpec = {
   $plugins: [
@@ -28,4 +29,3 @@ var wireSpec = {
 
 var wire = require("wire");
 wire(wireSpec);
-
