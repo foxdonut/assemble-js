@@ -26,5 +26,6 @@ var wireSpec = {
   }
 };
 
-require("wire")(wireSpec);
+var wire = require("wire");
+wire(wireSpec);
 
