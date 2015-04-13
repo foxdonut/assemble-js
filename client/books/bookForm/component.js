@@ -14,6 +14,13 @@ module.exports = {
           viewModel.hideNewBookForm = function() {
             viewModel.newBookFormVisible(false);
           };
+          viewModel.book = {
+            author: ko.observable(),
+            title: ko.observable()
+          };
+          viewModel.saveBook = function() {
+            return ko.toJS(viewModel.book);
+          };
 
           return viewModel;
         }

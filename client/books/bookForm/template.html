@@ -3,13 +3,11 @@
 </div>
 
 <form data-bind="visible: newBookFormVisible, submit: saveBook">
-  <div>Title:</div>
-  <!--div><input type="text" data-bind="value: title"/></div-->
-  <div><input type="text"/></div>
-
   <div>Author:</div>
-  <!--div><input type="text" data-bind="value: author"/></div-->
-  <div><input type="text"/></div>
+  <div><input type="text" data-bind="value: book.author"/></div>
+
+  <div>Title:</div>
+  <div><input type="text" data-bind="value: book.title"/></div>
 
   <div>
     <input type="submit" value="Save"/>

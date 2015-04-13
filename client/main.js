@@ -19,10 +19,13 @@ var wireSpec = {
   viewModel: {
     module: viewModel,
     afterFulfilling: {
-      "bookResource.query": "bookResource.getEntity | books"
+      "bookResource.query": "bookResource.getEntity | books",
+      "bookResource.save": "bookResource.getEntity | addBook"
     },
     afterReturning: {
-      deleteBook: "bookResource.delete"
+      deleteBook: "bookResource.delete",
+      saveBook: "bookResource.save",
+      addBook: "hideNewBookForm"
     }
   }
 };
