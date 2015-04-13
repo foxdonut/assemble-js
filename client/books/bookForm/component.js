@@ -8,8 +8,6 @@ module.exports = {
           var viewModel = params.viewModel;
 
           viewModel.formVisible = ko.observable(false);
-          viewModel.hideForm = function() { viewModel.formVisible(false); };
-          viewModel.showForm = function() { viewModel.formVisible(true); };
 
           viewModel.book = {
             author: ko.observable(),
@@ -17,16 +15,16 @@ module.exports = {
           };
           
           viewModel.newBook = function() {
-            viewModel.showForm();
+            viewModel.formVisible(true);
           };
           
           viewModel.saveBook = function() {
-            viewModel.hideForm();
+            viewModel.formVisible(false);
             return ko.toJS(viewModel.book);
           };
           
           viewModel.cancel = function() {
-            viewModel.hideForm();
+            viewModel.formVisible(false);
           };
 
           return viewModel;
