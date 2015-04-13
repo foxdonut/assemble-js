@@ -7,18 +7,14 @@ module.exports = {
         createViewModel: function(params) {
           var viewModel = params.viewModel;
 
-          viewModel.newBookFormVisible = ko.observable(false);
-          viewModel.showNewBookForm = function() {
-            viewModel.newBookFormVisible(true);
-          };
-          viewModel.hideNewBookForm = function() {
-            viewModel.newBookFormVisible(false);
-          };
+          viewModel.bookFormVisible = ko.observable(false);
+
           viewModel.book = {
             author: ko.observable(),
             title: ko.observable()
           };
           viewModel.saveBook = function() {
+            viewModel.bookFormVisible(false);
             return ko.toJS(viewModel.book);
           };
 

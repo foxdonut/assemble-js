@@ -24,8 +24,7 @@ var wireSpec = {
     },
     afterReturning: {
       deleteBook: "bookResource.delete",
-      saveBook: "bookResource.save",
-      addBook: "hideNewBookForm"
+      saveBook: "bookResource.save"
     }
   }
 };
