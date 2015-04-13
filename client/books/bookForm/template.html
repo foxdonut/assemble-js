@@ -1,8 +1,8 @@
 <div>
-  <button data-bind="click: function() { bookFormVisible(true) }">New Book</button>
+  <button data-bind="click: newBook">New Book</button>
 </div>
 
-<form data-bind="visible: bookFormVisible, submit: saveBook">
+<form data-bind="visible: formVisible, submit: saveBook">
   <div>Author:</div>
   <div><input type="text" data-bind="value: book.author"/></div>
 
@@ -11,6 +11,6 @@
 
   <div>
     <input type="submit" value="Save"/>
-    <button data-bind="click: function() { bookFormVisible(false) }">Cancel</button>
+    <button data-bind="click: cancel">Cancel</button>
   </div>
 </form>
