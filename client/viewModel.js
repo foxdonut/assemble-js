@@ -8,6 +8,7 @@ module.exports = _.extend({}, bookFormViewModel, {
   books: books,
   
   onNew: function() {
+    bookFormViewModel.clear();
     bookFormViewModel.formVisible(true)
   },
   
@@ -16,7 +17,6 @@ module.exports = _.extend({}, bookFormViewModel, {
   },
   
   onCancel: function() {
-    //bookFormViewModel.book({});
     bookFormViewModel.formVisible(false)
   },
   

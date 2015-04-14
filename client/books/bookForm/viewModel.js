@@ -13,4 +13,13 @@ viewModel.getBook = function() {
   return ko.toJS(viewModel.book);
 };
 
+viewModel.editBook = function(book) {
+  viewModel.book = ko.mapping.fromJS(book);
+};
+
+viewModel.clear = function() {
+  viewModel.book.author("");
+  viewModel.book.title("");
+};
+
 module.exports = viewModel;

@@ -1,5 +1,7 @@
-require("./books/bookList/component").registerAs("book-list");
-require("./books/bookForm/component").registerAs("book-form");
+var componentRegistry = require("./component/registry");
+
+componentRegistry.register("book-list", require("./books/bookList/template.html"));
+componentRegistry.register("book-form", require("./books/bookForm/template.html"));
 
 var ko = require("knockout");
 var viewModel = require("./viewModel");
