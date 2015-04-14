@@ -1,7 +1,8 @@
 <div>Book list:</div>
 <ul data-bind="foreach: books">
   <li>
-    <button data-bind="click: $parent.deleteBook">Delete</button>
+    <button data-action="edit" data-bind="click: $parent.onEdit">Edit</button>
+    <button data-action="delete" data-bind="click: $parent.onDelete">Delete</button>
      <span data-bind="text: title"></span>
     (<span data-bind="text: author"></span>)
   </li>

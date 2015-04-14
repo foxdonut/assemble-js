@@ -6,21 +6,27 @@ var bookFormViewModel = require("./books/bookForm/viewModel");
 
 module.exports = _.extend({}, bookFormViewModel, {
   books: books,
-  
+
   onNew: function() {
     bookFormViewModel.clear();
     bookFormViewModel.formVisible(true)
   },
-  
+
   onSave: function() {
     bookFormViewModel.formVisible(false);
   },
-  
+
   onCancel: function() {
     bookFormViewModel.formVisible(false)
   },
-  
-  deleteBook: function(book) {
+
+  onEdit: function(book) {
+    bookFormViewModel.editBook(book);
+    bookFormViewModel.formVisible(true);
+    return book;
+  },
+
+  onDelete: function(book) {
     books.remove(book);
     return book;
   },

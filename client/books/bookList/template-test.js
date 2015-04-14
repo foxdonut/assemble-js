@@ -11,18 +11,19 @@ test("bookList/template", function(tt) {
   div.append(template);
 
   var bookList = [
-    { title: "One" },
-    { title: "Two" }
+    { author: "Test1", title: "One" },
+    { author: "Test2", title: "Two" }
   ];
 
   var viewModel = {
     books: ko.observableArray(bookList),
-    deleteBook: sinon.spy()
+    onEdit: sinon.spy,
+    onDelete: sinon.spy()
   };
 
   ko.applyBindings(viewModel, div[0]);
 
-  tt.plan(2 + bookList.length);
+  tt.plan(3 + bookList.length);
 
   var items = div.find("li");
   tt.equal(items.size(), bookList.length, "number of books rendered");
@@ -31,7 +32,9 @@ test("bookList/template", function(tt) {
     tt.equal($(items.get(i)).find("span").html(), bookList[i].title, "book title");
   }
 
-  $(items.get(0)).find("button").trigger("click");
+  $(items.get(0)).find("button[data-action='edit']").trigger("click");
+  tt.ok(viewModel.onEdit.calledOnce, "edit button");
 
-  tt.ok(viewModel.deleteBook.calledOnce, "delete button");
+  $(items.get(0)).find("button[data-action='delete']").trigger("click");
+  tt.ok(viewModel.onDelete.calledOnce, "delete button");
 });

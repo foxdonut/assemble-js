@@ -1,4 +1,5 @@
 var ko = require("knockout");
+require("knockout-mapping");
 
 var viewModel = {};
 
@@ -14,12 +15,11 @@ viewModel.getBook = function() {
 };
 
 viewModel.editBook = function(book) {
-  viewModel.book = ko.mapping.fromJS(book);
+  ko.mapping.fromJS(book, {}, viewModel.book);
 };
 
 viewModel.clear = function() {
-  viewModel.book.author("");
-  viewModel.book.title("");
+  ko.mapping.fromJS({author: "", title: ""}, {}, viewModel.book);
 };
 
 module.exports = viewModel;
