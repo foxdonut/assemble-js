@@ -30,12 +30,13 @@ gulp.task("browserify-test", function() {
 
   return gulp.src(["./client/**/*-test.js"])
     .pipe(browserified)
-    // .pipe(vinyl("generated-test.js"))
+    .pipe($.concat("generated-test.js"))
     .pipe(gulp.dest("./generated-test/"));
 });
 
 gulp.task("test", ["browserify-test"], function() {
-  shell.exec("node_modules/tape/bin/tape test/**/*-test.js | node_modules/faucet/bin/cmd.js");
+  //shell.exec("cat generated-test/generated-test.js | node_modules/phantomic/bin/cmd.js | node_modules/faucet/bin/cmd.js");
+  shell.exec("cat generated-test/generated-test.js | node_modules/phantomic/bin/cmd.js");
 });
 
 var serve = function(watch) {
