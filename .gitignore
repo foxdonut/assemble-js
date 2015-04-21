@@ -28,3 +28,4 @@ node_modules
 generated-app.js
 generated-test-suite.js
 .codio
+generated-test
