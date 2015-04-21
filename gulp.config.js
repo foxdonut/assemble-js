@@ -3,7 +3,18 @@ module.exports = function() {
   var nodeEnv = "dev";
 
   var config = {
-    clientSourceFiles: "client/**",
+    client: {
+      source: {
+        files: "client/**",
+        generatedFile: "generated-app.js",
+        dest: "./public/"
+      },
+      test: {
+        files: "./client/**/*-test.js",
+        generatedFile: "generated-test.js",
+        dest: "./generated-test/"
+      }
+    },
 
     serverOptions: {
       script: "./server/main.js",
@@ -14,7 +25,7 @@ module.exports = function() {
       },
       watch: [ "./server/" ]
     }
-  };  
-  
+  };
+
   return config;
 };

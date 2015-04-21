@@ -5,38 +5,47 @@ var browserify = require("browserify");
 var vinyl = require("vinyl-source-stream");
 var transform = require("vinyl-transform");
 var shell = require("shelljs");
+var phantomic = require("phantomic");
 
 var config = require("./gulp.config")();
-
-gulp.task("hello-world", function() {
-  console.log("hello gulp");
-});
 
 gulp.task("browserify", function() {
   return browserify("./client/main.js")
     .bundle()
-    .pipe(vinyl("generated-app.js"))
-    .pipe(gulp.dest("./public/"));
+    .pipe(vinyl(config.client.source.generatedFile))
+    .pipe(gulp.dest(config.client.source.dest));
 });
 
 gulp.task("watch", ["browserify"], function() {
-  gulp.watch(config.clientSourceFiles, ["browserify"]);
+  gulp.watch(config.client.source.files, ["browserify"]);
 });
 
-gulp.task("browserify-test", function() {
+gulp.task("browserify-tests", function() {
   var browserified = transform(function(filename) {
     return browserify(filename).bundle();
   });
 
-  return gulp.src(["./client/**/*-test.js"])
+  return gulp.src(config.client.test.files)
     .pipe(browserified)
-    .pipe($.concat("generated-test.js"))
-    .pipe(gulp.dest("./generated-test/"));
+    .pipe($.concat(config.client.test.generatedFile))
+    .pipe(gulp.dest(config.client.test.dest));
 });
 
-gulp.task("test", ["browserify-test"], function() {
-  //shell.exec("cat generated-test/generated-test.js | node_modules/phantomic/bin/cmd.js | node_modules/faucet/bin/cmd.js");
-  shell.exec("cat generated-test/generated-test.js | node_modules/phantomic/bin/cmd.js");
+gulp.task("test", ["browserify-tests"], function() {
+  shell.exec("cat " + config.client.test.dest + config.client.test.generatedFile + " | node_modules/phantomic/bin/cmd.js");
+  /*
+  return browserifyTests()
+    .pipe(function(input) {
+      return phantomic(input, {
+        debug: false,
+        brout: false,
+        port: 0
+      }, function(code) {
+        process.exit(code);
+      })
+      .pipe(process.stdout);
+    });
+  */
 });
 
 var serve = function(watch) {

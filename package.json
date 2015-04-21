@@ -51,6 +51,7 @@
     "tape": "^3.5.0",
     "tessed": "^1.0.1",
     "testling": "^1.7.1",
+    "vinyl-phantomic": "0.0.9",
     "vinyl-source-stream": "^1.1.0",
     "vinyl-transform": "^1.0.0"
   }
