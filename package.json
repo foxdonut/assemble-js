@@ -57,6 +57,7 @@
     "vinyl-phantomic": "0.0.9",
     "vinyl-source-stream": "^1.1.0",
     "vinyl-transform": "^1.0.0",
-    "enstore": "^1.0.1"
+    "enstore": "^1.0.1",
+    "tape-run": "^1.0.0"
   }
 }
