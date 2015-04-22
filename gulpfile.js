@@ -2,8 +2,8 @@ var gulp = require("gulp");
 var $ = require("gulp-load-plugins")({ lazy: true });
 
 var browserify = require("browserify");
-var vinyl = require("vinyl-source-stream");
-var transform = require("vinyl-transform");
+var vinylSource = require("vinyl-source-stream");
+var vinylTransform = require("vinyl-transform");
 var shell = require("shelljs");
 var phantomic = require("phantomic");
 
@@ -12,7 +12,7 @@ var config = require("./gulp.config")();
 gulp.task("browserify", function() {
   return browserify("./client/main.js")
     .bundle()
-    .pipe(vinyl(config.client.source.generatedFile))
+    .pipe(vinylSource(config.client.source.generatedFile))
     .pipe(gulp.dest(config.client.source.dest));
 });
 
@@ -21,7 +21,7 @@ gulp.task("watch", ["browserify"], function() {
 });
 
 gulp.task("browserify-tests", function() {
-  var browserified = transform(function(filename) {
+  var browserified = vinylTransform(function(filename) {
     return browserify(filename).bundle();
   });
 
@@ -33,19 +33,20 @@ gulp.task("browserify-tests", function() {
 
 gulp.task("test", ["browserify-tests"], function() {
   shell.exec("cat " + config.client.test.dest + config.client.test.generatedFile + " | node_modules/phantomic/bin/cmd.js");
-  /*
+});
+
+var browserifyTests = function() {
+  var browserified = vinylTransform(function(filename) {
+    return browserify(filename).bundle();
+  });
+
+  return gulp.src(config.client.test.files)
+    .pipe(browserified);
+};
+
+gulp.task("test2", function() {
   return browserifyTests()
-    .pipe(function(input) {
-      return phantomic(input, {
-        debug: false,
-        brout: false,
-        port: 0
-      }, function(code) {
-        process.exit(code);
-      })
-      .pipe(process.stdout);
-    });
-  */
+    .pipe(gulp.dest(config.client.test.dest));
 });
 
 var serve = function(watch) {
