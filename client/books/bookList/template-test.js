@@ -17,7 +17,7 @@ test("bookList/template", function(tt) {
 
   var viewModel = {
     books: ko.observableArray(bookList),
-    onEdit: sinon.spy,
+    onEdit: sinon.spy(),
     onDelete: sinon.spy()
   };
 

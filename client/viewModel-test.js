@@ -21,7 +21,7 @@ test("bookList/viewModel", function(tt) {
 
   newLength = bookList.length - 1;
   var bookToDelete = bookList[0];
-  var deletedBook = viewModel.deleteBook(bookToDelete);
+  var deletedBook = viewModel.onDelete(bookToDelete);
   tt.equal(viewModel.books().length, newLength, "deleteBook");
   tt.equal(deletedBook, bookToDelete, "deleted book");
 });

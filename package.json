@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "Assemble different stacks for JS development for learning purposes.",
   "main": "server/main.js",
+  "scripts": {
+    "test": "browserify $(find client -name '*-test.js') | testling | faucet"
+  },
   "browserify": {
     "transform": [
       "stringify"
