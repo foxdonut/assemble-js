@@ -4,7 +4,7 @@
   "description": "Assemble different stacks for JS development for learning purposes.",
   "main": "server/main.js",
   "scripts": {
-    "test": "browserify $(find client -name '*-test.js') | testling | faucet"
+    "test": "browserify $(find client -name '*-test.js') | testling | tap-spec"
   },
   "browserify": {
     "transform": [
@@ -56,6 +56,7 @@
     "testling": "^1.7.1",
     "vinyl-phantomic": "0.0.9",
     "vinyl-source-stream": "^1.1.0",
-    "vinyl-transform": "^1.0.0"
+    "vinyl-transform": "^1.0.0",
+    "enstore": "^1.0.1"
   }
 }

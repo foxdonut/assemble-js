@@ -2,10 +2,13 @@ var gulp = require("gulp");
 var $ = require("gulp-load-plugins")({ lazy: true });
 
 var browserify = require("browserify");
+var glob = require("glob");
 var vinylSource = require("vinyl-source-stream");
 var vinylTransform = require("vinyl-transform");
 var shell = require("shelljs");
 var phantomic = require("phantomic");
+var vinylPhantomic = require("vinyl-phantomic");
+var enstore = require("enstore");
 
 var config = require("./gulp.config")();
 
@@ -35,18 +38,36 @@ gulp.task("test", ["browserify-tests"], function() {
   shell.exec("cat " + config.client.test.dest + config.client.test.generatedFile + " | node_modules/phantomic/bin/cmd.js");
 });
 
-var browserifyTests = function() {
-  var browserified = vinylTransform(function(filename) {
-    return browserify(filename).bundle();
+gulp.task("test2", function(callback) {
+  glob(config.client.test.files, {}, function(err, files) {
+    if (err) {
+      throw err;
+    }
+    var brwsf = browserify();
+
+    files.forEach(function(file) {
+      brwsf.add(file);
+    });
+
+    var opts = {
+      debug: false,
+      port: 0,
+      brout: false,
+      "web-security": false
+    };
+    var handler = function(code) {
+      process.exit(code);
+    };
+    var runInPhantomic = function() {
+      return phantomic(storage.createReadStream(), opts, handler);
+    };
+
+    var storage = enstore();
+    brwsf.bundle().pipe(storage.createWriteStream());
+    runInPhantomic().pipe(process.stdout);
+
+    callback();
   });
-
-  return gulp.src(config.client.test.files)
-    .pipe(browserified);
-};
-
-gulp.task("test2", function() {
-  return browserifyTests()
-    .pipe(gulp.dest(config.client.test.dest));
 });
 
 var serve = function(watch) {
