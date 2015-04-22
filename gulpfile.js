@@ -68,15 +68,16 @@ gulp.task("test2", function(callback) {
     };
 
     var storage = enstore();
+    var tapSpecStream = tapSpec();
+    tapSpecStream.on("end", callback);
+
     brwsf.bundle()
       //.pipe(storage.createWriteStream())
       //.pipe(runInPhantomic())
       //.pipe(runInPhantomic)
       .pipe(tapeRun())
-      .pipe(tapSpec())
-      .pipe(process.stdout)
-
-    callback();
+      .pipe(tapSpecStream)
+      .pipe(process.stdout);
   });
 });
 
