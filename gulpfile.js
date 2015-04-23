@@ -32,28 +32,12 @@ gulp.task("browserify-tests", function() {
 });
 
 gulp.task("test", ["browserify-tests"], function() {
-  // shell.exec("cat " + config.client.test.dest + config.client.test.generatedFile + " | node_modules/phantomic/bin/cmd.js");
   shell.exec("cat " + config.client.test.dest + config.client.test.generatedFile +
              " | node_modules/tape-run/bin/run.js | node_modules/tap-spec/bin/cmd.js");
 });
 
-/*
-gulp.task("test1", function() {
-  var browserified = vinylTransform(function(filename) {
-    return browserify(filename).bundle();
-  });
-
-  return gulp.src(config.client.test.files)
-    .pipe(browserified)
-    .pipe(vts())
-    .pipe(tapeRun())
-    .pipe(tapSpec())
-    .pipe(process.stdout);
-});
-*/
-
-gulp.task("test2", function(callback) {
-  //var deferred = Q.defer();
+gulp.task("test2", function() {
+  var deferred = Q.defer();
 
   glob(config.client.test.files, {}, function(err, files) {
     if (err) {
@@ -67,24 +51,17 @@ gulp.task("test2", function(callback) {
 
     var bundle = brwsf.bundle();
 
-    /*
     bundle.on("end", function() {
       deferred.resolve();
     });
-    */
 
     bundle
-      //.pipe(storage.createWriteStream())
-      //.pipe(runInPhantomic())
-      //.pipe(runInPhantomic)
       .pipe(tapeRun())
       .pipe(tapSpec())
       .pipe(process.stdout);
-
-    callback();
   });
 
-  //return deferred.promise;
+  return deferred.promise;
 });
 
 var serve = function(watch) {
