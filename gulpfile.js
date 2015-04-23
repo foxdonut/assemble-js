@@ -3,11 +3,12 @@ var $ = require("gulp-load-plugins")({ lazy: true });
 
 var browserify = require("browserify");
 var vinylSource = require("vinyl-source-stream");
+var vinylTransform = require("vinyl-transform");
 
-var glob = require("glob");
 var tapeRun = require("tape-run");
 var tapSpec = require("tap-spec");
 var faucet = require("faucet");
+var through = require("through");
 
 var config = require("./gulp.config")();
 
@@ -22,24 +23,21 @@ gulp.task("watch", ["browserify"], function() {
   gulp.watch(config.client.source.files, ["browserify"]);
 });
 
-gulp.task("test", function() {
-  glob(config.client.test.files, {}, function(err, files) {
-    if (err) {
-      throw err;
-    }
-    var brwsf = browserify();
-
-    files.forEach(function(file) {
-      brwsf.add(file);
-    });
-
-    brwsf.bundle()
-      .pipe(tapeRun())
-      .pipe(faucet())
-      //.pipe(tapSpec())
-      .pipe(process.stdout);
-
+var browserified = function() {
+  return vinylTransform(function(filename) {
+    return browserify(filename).bundle();
   });
+};
+
+var runTests = function(vinyl) {
+  return vinyl.pipe(tapeRun()).pipe(tapSpec()).pipe(process.stdout);
+};
+
+gulp.task("test", function() {
+  return gulp.src([config.client.test.files])
+    .pipe(browserified())
+    .pipe($.concat("generated-tests.js"))
+    .pipe(through(runTests));
 });
 
 var serve = function(watch) {
@@ -55,3 +53,4 @@ gulp.task("serve-dev", ["watch"], function() {
 });
 
 gulp.task("default", ["serve-dev"]);
+
