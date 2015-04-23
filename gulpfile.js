@@ -11,6 +11,9 @@ var vinylPhantomic = require("vinyl-phantomic");
 var enstore = require("enstore");
 var tapeRun = require("tape-run");
 var tapSpec = require("tap-spec");
+var streamify = require("gulp-streamify");
+var vts = require("vinyl-to-stream");
+var Q = require("q");
 
 var config = require("./gulp.config")();
 
@@ -42,7 +45,22 @@ gulp.task("test", ["browserify-tests"], function() {
              " | node_modules/tape-run/bin/run.js | node_modules/tap-spec/bin/cmd.js");
 });
 
+gulp.task("test1", function() {
+  var browserified = vinylTransform(function(filename) {
+    return browserify(filename).bundle();
+  });
+
+  return gulp.src(config.client.test.files)
+    .pipe(browserified)
+    .pipe(vts())
+    .pipe(tapeRun())
+    .pipe(tapSpec())
+    .pipe(process.stdout);
+});
+
 gulp.task("test2", function(callback) {
+  var deferred = Q.defer();
+
   glob(config.client.test.files, {}, function(err, files) {
     if (err) {
       throw err;
@@ -68,17 +86,26 @@ gulp.task("test2", function(callback) {
     };
 
     var storage = enstore();
-    var tapSpecStream = tapSpec();
-    tapSpecStream.on("end", callback);
+    var bundle = brwsf.bundle();
 
-    brwsf.bundle()
+    /*
+    bundle.on("end", function() {
+      deferred.resolve();
+    });
+    */
+
+    bundle
       //.pipe(storage.createWriteStream())
       //.pipe(runInPhantomic())
       //.pipe(runInPhantomic)
       .pipe(tapeRun())
-      .pipe(tapSpecStream)
+      .pipe(tapSpec())
       .pipe(process.stdout);
+
+    callback();
   });
+
+  //return deferred.promise;
 });
 
 var serve = function(watch) {

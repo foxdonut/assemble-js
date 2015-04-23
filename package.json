@@ -58,6 +58,9 @@
     "vinyl-source-stream": "^1.1.0",
     "vinyl-transform": "^1.0.0",
     "enstore": "^1.0.1",
-    "tape-run": "^1.0.0"
+    "tape-run": "^1.0.0",
+    "gulp-streamify": "0.0.5",
+    "vinyl-to-stream": "^1.0.1",
+    "q": "^1.2.0"
   }
 }
