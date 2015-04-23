@@ -4,7 +4,7 @@ var ko = require("knockout");
 
 var viewModel = require("./viewModel");
 
-test("bookList/viewModel", function(tt) {
+test("viewModel", function(tt) {
   tt.plan(4);
 
   var bookList = [

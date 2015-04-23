@@ -4,7 +4,7 @@ var sinon = require("sinon");
 var ko = require("knockout");
 var $ = require("jquery");
 
-test("bookList/template", function(tt) {
+test("books/bookList/template", function(tt) {
   var div = $("<div/>");
   var template = require("./template.html");
 
