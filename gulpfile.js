@@ -3,16 +3,8 @@ var $ = require("gulp-load-plugins")({ lazy: true });
 
 var browserify = require("browserify");
 var glob = require("glob");
-var vinylSource = require("vinyl-source-stream");
-var vinylTransform = require("vinyl-transform");
-var shell = require("shelljs");
-var phantomic = require("phantomic");
-var vinylPhantomic = require("vinyl-phantomic");
-var enstore = require("enstore");
 var tapeRun = require("tape-run");
 var tapSpec = require("tap-spec");
-var streamify = require("gulp-streamify");
-var vts = require("vinyl-to-stream");
 var Q = require("q");
 
 var config = require("./gulp.config")();
@@ -45,6 +37,7 @@ gulp.task("test", ["browserify-tests"], function() {
              " | node_modules/tape-run/bin/run.js | node_modules/tap-spec/bin/cmd.js");
 });
 
+/*
 gulp.task("test1", function() {
   var browserified = vinylTransform(function(filename) {
     return browserify(filename).bundle();
@@ -57,9 +50,10 @@ gulp.task("test1", function() {
     .pipe(tapSpec())
     .pipe(process.stdout);
 });
+*/
 
 gulp.task("test2", function(callback) {
-  var deferred = Q.defer();
+  //var deferred = Q.defer();
 
   glob(config.client.test.files, {}, function(err, files) {
     if (err) {
@@ -71,21 +65,6 @@ gulp.task("test2", function(callback) {
       brwsf.add(file);
     });
 
-    var opts = {
-      debug: false,
-      port: 0,
-      brout: false,
-      "web-security": false
-    };
-    var handler = function(code) {
-      process.exit(code);
-    };
-    var runInPhantomic = function(input) {
-      // return phantomic(storage.createReadStream(), opts, handler);
-      return phantomic(input, opts, handler);
-    };
-
-    var storage = enstore();
     var bundle = brwsf.bundle();
 
     /*
