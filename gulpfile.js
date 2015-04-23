@@ -2,10 +2,12 @@ var gulp = require("gulp");
 var $ = require("gulp-load-plugins")({ lazy: true });
 
 var browserify = require("browserify");
+var vinylSource = require("vinyl-source-stream");
+
 var glob = require("glob");
 var tapeRun = require("tape-run");
 var tapSpec = require("tap-spec");
-var Q = require("q");
+var faucet = require("faucet");
 
 var config = require("./gulp.config")();
 
@@ -20,25 +22,7 @@ gulp.task("watch", ["browserify"], function() {
   gulp.watch(config.client.source.files, ["browserify"]);
 });
 
-gulp.task("browserify-tests", function() {
-  var browserified = vinylTransform(function(filename) {
-    return browserify(filename).bundle();
-  });
-
-  return gulp.src(config.client.test.files)
-    .pipe(browserified)
-    .pipe($.concat(config.client.test.generatedFile))
-    .pipe(gulp.dest(config.client.test.dest));
-});
-
-gulp.task("test", ["browserify-tests"], function() {
-  shell.exec("cat " + config.client.test.dest + config.client.test.generatedFile +
-             " | node_modules/tape-run/bin/run.js | node_modules/tap-spec/bin/cmd.js");
-});
-
-gulp.task("test2", function() {
-  var deferred = Q.defer();
-
+gulp.task("test", function() {
   glob(config.client.test.files, {}, function(err, files) {
     if (err) {
       throw err;
@@ -49,19 +33,13 @@ gulp.task("test2", function() {
       brwsf.add(file);
     });
 
-    var bundle = brwsf.bundle();
-
-    bundle.on("end", function() {
-      deferred.resolve();
-    });
-
-    bundle
+    brwsf.bundle()
       .pipe(tapeRun())
-      .pipe(tapSpec())
+      .pipe(faucet())
+      //.pipe(tapSpec())
       .pipe(process.stdout);
-  });
 
-  return deferred.promise;
+  });
 });
 
 var serve = function(watch) {

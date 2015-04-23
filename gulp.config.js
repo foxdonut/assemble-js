@@ -10,9 +10,7 @@ module.exports = function() {
         dest: "./public/"
       },
       test: {
-        files: "./client/**/*-test.js",
-        generatedFile: "generated-test.js",
-        dest: "./generated-test/"
+        files: "./client/**/*-test.js"
       }
     },
 
