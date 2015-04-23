@@ -29,7 +29,8 @@ For testing:
 
 * [tape](https://github.com/substack/tape)
 * [tessed](https://github.com/scottcorgan/tessed)
-* [testling](https://ci.testling.com/guide/tape)
+* [tape-run](https://github.com/juliangruber/tape-run)
+* [tap-spec](https://github.com/scottcorgan/tap-spec)
 * [PhantomJS](http://phantomjs.org)
 
 On the server:
@@ -39,7 +40,7 @@ On the server:
 
 For building:
 
-* [Gulp](http://gulpjs.com)
+* [npm](https://www.npmjs.com/)
 
 Of particular interest to me is [CujoJS](http://cujojs.com) and its [wire.js](https://github.com/cujojs/wire) and [rest.js](https://github.com/cujojs/rest) libraries. From there stems the motivation of assembling a JavaScript web application stack composed of small, focused libraries instead of large frameworks.
 
