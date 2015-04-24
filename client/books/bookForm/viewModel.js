@@ -1,42 +1,45 @@
 var ko = require("knockout");
 require("knockout-mapping");
 
-var viewModel = {};
+var ViewModel = function() {
 
-viewModel.formVisible = ko.observable(false);
-viewModel.showForm = function() {
-  viewModel.formVisible(true);
+  var self = this;
+
+  self.onNew = function() {
+    self.showForm();
+  };
+
+  self.onSave = function() {
+  };
+
+  self.onCancel = function() {
+  };
+
+  self.formVisible = ko.observable(false);
+  self.showForm = function() {
+    self.formVisible(true);
+  };
+  self.hideForm = function() {
+    self.formVisible(false);
+  };
+
+  self.book = {
+    author: ko.observable(),
+    title: ko.observable()
+  };
+
+  self.getBook = function() {
+    return ko.toJS(self.book);
+  };
+
+  self.editBook = function(book) {
+    self.showForm();
+    ko.mapping.fromJS(book, {}, self.book);
+  };
+
+  self.clear = function() {
+    ko.mapping.fromJS({author: "", title: ""}, {}, self.book);
+  };
 };
-viewModel.hideForm = function() {
-  viewModel.formVisible(false);
-};
 
-viewModel.onNew = function() {
-};
-
-viewModel.onSave = function() {
-};
-
-viewModel.onCancel = function() {
-};
-
-viewModel.books = ko.observableArray();
-
-viewModel.book = {
-  author: ko.observable(),
-  title: ko.observable()
-};
-
-viewModel.getBook = function() {
-  return ko.toJS(viewModel.book);
-};
-
-viewModel.editBook = function(book) {
-  ko.mapping.fromJS(book, {}, viewModel.book);
-};
-
-viewModel.clear = function() {
-  ko.mapping.fromJS({author: "", title: ""}, {}, viewModel.book);
-};
-
-module.exports = viewModel;
+module.exports = ViewModel;

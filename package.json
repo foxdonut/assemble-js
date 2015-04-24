@@ -10,7 +10,10 @@
     "build": "browserify ./client/main.js -o $npm_package_config_generatedApp",
 
     "pretest": "npm run build",
-    "test:raw": "browserify $(find client -name '*-test.js') | tape-run",
+		"test:build": "browserify $(find client -name '*-test.js')",
+    "test:raw": "npm run test:build | tail -n +5 | tape-run",
+    "test:generate": "browserify $(find client -name '*-test.js') -o ./public/generated-test.js",
+    "test:faucet": "npm run test:raw 2>/dev/null | faucet",
     "test": "npm run test:raw | tap-spec",
 
     "watch": "watch 'npm run build' ./client",

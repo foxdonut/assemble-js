@@ -4,10 +4,10 @@
 
 <form data-bind="visible: formVisible, submit: onSave">
   <div>Author:</div>
-  <div><input type="text" data-bind="value: book.author"/></div>
+  <div><input type="text" data-field="author" data-bind="value: book.author"/></div>
 
   <div>Title:</div>
-  <div><input type="text" data-bind="value: book.title"/></div>
+  <div><input type="text" data-field="title" data-bind="value: book.title"/></div>
 
   <div>
     <input data-action="save" type="submit" value="Save"/>
