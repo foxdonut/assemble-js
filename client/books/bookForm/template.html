@@ -1,5 +1,5 @@
 <div>
-  <button data-bind="click: onNew">New Book</button>
+  <button data-action="new" data-bind="click: onNew">New Book</button>
 </div>
 
 <form data-bind="visible: formVisible, submit: onSave">
@@ -10,7 +10,7 @@
   <div><input type="text" data-bind="value: book.title"/></div>
 
   <div>
-    <input type="submit" value="Save"/>
-    <button data-bind="click: onCancel">Cancel</button>
+    <input data-action="save" type="submit" value="Save"/>
+    <button data-action="cancel" data-bind="click: onCancel">Cancel</button>
   </div>
 </form>

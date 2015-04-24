@@ -11,6 +11,17 @@ viewModel.hideForm = function() {
   viewModel.formVisible(false);
 };
 
+viewModel.onNew = function() {
+};
+
+viewModel.onSave = function() {
+};
+
+viewModel.onCancel = function() {
+};
+
+viewModel.books = ko.observableArray();
+
 viewModel.book = {
   author: ko.observable(),
   title: ko.observable()

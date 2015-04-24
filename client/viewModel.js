@@ -7,6 +7,7 @@ var bookFormViewModel = require("./books/bookForm/viewModel");
 module.exports = _.extend({}, bookFormViewModel, {
   books: books,
 
+  /*
   onNew: function() {
     bookFormViewModel.clear();
     bookFormViewModel.formVisible(true)
@@ -19,6 +20,7 @@ module.exports = _.extend({}, bookFormViewModel, {
   onCancel: function() {
     bookFormViewModel.formVisible(false)
   },
+  */
 
   onEdit: function(book) {
     bookFormViewModel.editBook(book);
