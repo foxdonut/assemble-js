@@ -8,7 +8,7 @@ var _ = require("lodash");
 var template = require("./template.html");
 var ViewModel = require("./viewModel");
 
-var bookFormTest = tessed("books/bookForm/bookForm");
+var bookFormTest = tessed("books/bookForm/bookForm-test");
 
 bookFormTest.beforeEach(function(tt, context) {
   var div = $("<div/>");

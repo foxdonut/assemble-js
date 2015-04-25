@@ -4,7 +4,7 @@ var test = require("tape");
 var client = require("./client")();
 var baseUrl = "/test";
 
-test("resource/client", function(tt) {
+test("resource/client-test", function(tt) {
   tt.timeoutAfter(1500);
 
   var req = { method: "GET", path: baseUrl };

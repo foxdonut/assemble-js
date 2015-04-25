@@ -6,7 +6,7 @@ var client = sinon.spy();
 var baseUrl = "/test";
 var stir = require("./stir")(client)(baseUrl);
 
-test("resource/stir", function(tt) {
+test("resource/stir-test", function(tt) {
   tt.plan(1);
 
   var id = 42;
