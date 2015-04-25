@@ -32,6 +32,13 @@ bookFormTest.afterEach(function(tt, context) {
 });
 
 var newButton = "button[data-action='new']";
+var saveButton = "input[data-action='save']";
+var cancelButton = "button[data-action='cancel']";
+
+var authorField = "input[data-field='author']";
+var titleField = "input[data-field='title']";
+
+var book = { author: "Test1", title: "One" };
 
 bookFormTest.test("initial", function(tt, context) {
   tt.plan(2);
@@ -44,7 +51,7 @@ bookFormTest.test("initial", function(tt, context) {
 
 bookFormTest.test("new book", function(tt, context) {
   tt.plan(2);
-  
+
   var div = context.div;
   div.find(newButton).trigger("click");
 
@@ -55,9 +62,8 @@ bookFormTest.test("new book", function(tt, context) {
 
 bookFormTest.test("edit book", function(tt, context) {
   tt.plan(4);
-  
+
   var div = context.div;
-  var book = { author: "Test1", title: "One" };
 
   context.viewModel.editBook(book);
 
@@ -65,6 +71,37 @@ bookFormTest.test("edit book", function(tt, context) {
   tt.equal(form.size(), 1, "renders a form");
   tt.notEqual(form.css("display"), "none", "form is visible");
 
-  tt.equal(div.find("input[data-field='author']").val(), book.author, "populates author input");
-  tt.equal(div.find("input[data-field='title']").val(), book.title, "populates title input");
+  tt.equal(div.find(authorField).val(), book.author, "populates author input");
+  tt.equal(div.find(titleField).val(), book.title, "populates title input");
+});
+
+bookFormTest.test("save book", function(tt, context) {
+  tt.plan(1);
+
+  var div = context.div;
+  var viewModel = context.viewModel;
+
+  div.find(authorField).val(book.author);
+  div.find(titleField).val(book.title);
+
+  sinon.spy(viewModel, "onSave");
+  div.find(saveButton).trigger("click");
+  tt.ok(viewModel.onSave.calledOnce);
+
+  viewModel.onSave.restore();
+});
+
+bookFormTest.test("cancel", function(tt, context) {
+  tt.plan(3);
+
+  var div = context.div;
+  context.viewModel.editBook(book);
+
+  div.find(cancelButton).trigger("click");
+
+  var form = div.find("form");
+  tt.equal(form.css("display"), "none", "form is hidden");
+
+  tt.equal(div.find(authorField).val(), "", "clears author input");
+  tt.equal(div.find(titleField).val(), "", "clears title input");
 });

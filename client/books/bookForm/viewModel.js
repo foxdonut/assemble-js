@@ -13,6 +13,8 @@ var ViewModel = function() {
   };
 
   self.onCancel = function() {
+    self.clear();
+    self.hideForm();
   };
 
   self.formVisible = ko.observable(false);
