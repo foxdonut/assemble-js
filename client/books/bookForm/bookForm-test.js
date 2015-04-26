@@ -1,35 +1,10 @@
 var tessed = require("tessed");
 var sinon = require("sinon");
 
-var ko = require("knockout");
-var $ = require("jquery");
-var _ = require("lodash");
-
 var template = require("./template.html");
 var ViewModel = require("./viewModel");
 
-var bookFormTest = tessed("books/bookForm/bookForm-test");
-
-bookFormTest.beforeEach(function(tt, context) {
-  var div = $("<div/>");
-  div.append(template);
-  var viewModel = new ViewModel();
-  ko.applyBindings(viewModel, div[0]);
-
-  context.div = div;
-  context.viewModel = viewModel;
-
-  tt.end();
-});
-
-bookFormTest.afterEach(function(tt, context) {
-  var div = context.div;
-
-  ko.cleanNode(div[0]);
-  div.remove();
-
-  tt.end();
-});
+var componentUtil = require("../../test/util/component-util");
 
 var newButton = "button[data-action='new']";
 var saveButton = "input[data-action='save']";
@@ -39,6 +14,11 @@ var authorField = "input[data-field='author']";
 var titleField = "input[data-field='title']";
 
 var book = { author: "Test1", title: "One" };
+
+var bookFormTest = tessed("books/bookForm/bookForm-test");
+
+bookFormTest.beforeEach(componentUtil.setup(ViewModel));
+bookFormTest.afterEach(componentUtil.cleanup);
 
 bookFormTest.test("initial", function(tt, context) {
   tt.plan(2);

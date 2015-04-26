@@ -23,8 +23,4 @@ module.exports = _.extend({}, bookFormViewModel, {
     books.remove(book);
     return book;
   },
-
-  addBook: function(book) {
-    books.push(book);
-  }
 });

@@ -1,15 +1,17 @@
-var test = require("tape");
+var test = require("tessed");
 var sinon = require("sinon");
 
-var ko = require("knockout");
-var $ = require("jquery");
+var template = require("./template.html");
+var ViewModel = require("./viewModel");
 
-test("books/bookList/bookList-test", function(tt) {
-  var div = $("<div/>");
-  var template = require("./template.html");
+var componentUtil = require("../../test/util/component-util");
 
-  div.append(template);
+var bookListTest = tessed("books/bookList/bookList-test");
 
+bookListTest.beforeEach(componentUtil.setup(ViewModel));
+bookListTest.afterEach(componentUtil.cleanup);
+
+bookListTest.test("books/bookList/bookList-test", function(tt, context) {
   var bookList = [
     { author: "Test1", title: "One" },
     { author: "Test2", title: "Two" }
@@ -20,8 +22,6 @@ test("books/bookList/bookList-test", function(tt) {
     onEdit: sinon.spy(),
     onDelete: sinon.spy()
   };
-
-  ko.applyBindings(viewModel, div[0]);
 
   tt.plan(3 + bookList.length);
 
