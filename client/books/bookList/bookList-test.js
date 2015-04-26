@@ -10,8 +10,8 @@ var viewModel = require("./viewModel")();
 
 var componentUtil = require("../../test/util/component-util");
 
-var editButton = "button[data-action='edit']";
-var deleteButton = "button[data-action='delete']";
+var editButton = "[data-action='edit']";
+var deleteButton = "[data-action='delete']";
 
 var bookField = "[data-field='book']";
 var authorField = "[data-field='author']";
@@ -39,8 +39,8 @@ bookListTest.test("book list", function(tt, context) {
 
   for (var i = 0, t = bookList.length; i < t; i++) {
     var book = $(books.get(i));
-    tt.equal(book.find(authorField).html(), bookList[i].title, "book author");
-    tt.equal(book.find(titleFIeld).html(), bookList[i].title, "book title");
+    tt.equal(book.find(authorField).html(), bookList[i].author, "book author");
+    tt.equal(book.find(titleField).html(), bookList[i].title, "book title");
   }
 });
 
@@ -49,6 +49,8 @@ bookListTest.test("edit book", function(tt, context) {
 
   var viewModel = context.viewModel;
   var div = context.div;
+
+  viewModel.books([bookList[0]]);
 
   sinon.spy(viewModel, "onEdit");
 
@@ -63,6 +65,8 @@ bookListTest.test("delete book", function(tt, context) {
 
   var viewModel = context.viewModel;
   var div = context.div;
+
+  viewModel.books([bookList[0]]);
 
   sinon.spy(viewModel, "onDelete");
 
