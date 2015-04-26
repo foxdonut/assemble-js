@@ -1,14 +1,21 @@
 var ko = require("knockout");
 
-var ViewModel = function() {
+var viewModel = function() {
+  var obj = {};
 
-  var self = this;
+  obj.books = ko.observableArray();
 
-  self.books = ko.observableArray();
+  obj.onEdit = function(book) {
+  };
+  obj.onDelete = function(book) {
+    return obj.books.remove(book)[0];
+  };
 
-  self.addBook = function(book) {
-    self.books.push(book);
-  }
+  obj.addBook = function(book) {
+    obj.books.push(book);
+  };
+
+  return obj;
 };
 
-module.exports = ViewModel;
+module.exports = viewModel;

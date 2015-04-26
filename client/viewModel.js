@@ -1,26 +1,12 @@
-var ko = require("knockout");
 var _ = require("lodash");
 
-var books = ko.observableArray();
 var bookFormViewModel = require("./books/bookForm/viewModel");
+var bookListViewModel = require("./books/bookList/viewModel");
 
-module.exports = _.extend({}, bookFormViewModel, {
-  books: books,
+var viewModel = function() {
+  var obj = bookFormViewModel();
+  _.extend(obj, bookListViewModel());
+  return obj;
+};
 
-  /*
-  onSave: function() {
-    bookFormViewModel.formVisible(false);
-  },
-  */
-
-  onEdit: function(book) {
-    bookFormViewModel.editBook(book);
-    bookFormViewModel.formVisible(true);
-    return book;
-  },
-
-  onDelete: function(book) {
-    books.remove(book);
-    return book;
-  },
-});
+module.exports = viewModel;

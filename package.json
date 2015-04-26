@@ -17,13 +17,15 @@
     "test": "npm run test:raw | tap-spec",
 
     "watch": "watch 'npm run build' ./client",
+    "watch:test": "watch 'npm run test:generate' ./client",
 		"livereload": "livereload ./public --port 9099",
 
     "server": "nodemon server/main --watch server",
+    "preserver:test": "npm run test:generate",
+    "server:test": "parallelshell 'node server/main' 'npm run watch:test'",
 
     "prestart": "npm run build",
-    "start": "parallelshell 'npm run watch' 'npm run server'",
-    "poststart": "npm run watch"
+    "start": "parallelshell 'npm run watch' 'npm run server'"
   },
   "browserify": {
     "transform": [

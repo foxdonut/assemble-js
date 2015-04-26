@@ -1,8 +1,6 @@
 var test = require("tape");
 
-var ko = require("knockout");
-
-var viewModel = require("./viewModel");
+var viewModel = require("./viewModel")();
 
 test("viewModel-test", function(tt) {
   tt.plan(4);
