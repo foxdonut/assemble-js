@@ -1,5 +1,5 @@
-/*var ko = require("knockout");
-var $ = require("jquery");*/
+var ko = require("knockout");
+var $ = require("jquery");
 
 module.exports = {
   setup: function(viewModel, template) {
