@@ -9,12 +9,12 @@
   "scripts": {
     "build": "browserify ./client/main.js -o $npm_package_config_generatedApp",
     "pretest": "npm run build",
-    "test:build": "browserify $(find client -name '*-test.js')",
-    "test:raw": "npm run test:build | tail -n +5 | tape-run",
-    "test:generate": "browserify $(find client -name '*-test.js') -o ./public/generated-test.js",
+    "test:compile": "browserify $(find client -name '*-test.js')",
+    "test:raw": "npm run test:compile | tail -n +5 | tape-run",
+    "test:build": "browserify $(find client -name '*-test.js') -o ./public/generated-test.js",
     "test:faucet": "npm run test:raw 2>/dev/null | faucet",
     "test": "npm run test:raw | tap-spec",
-    "watch": "watch 'npm run build' ./client",
+    "watch": "watch 'npm run compile' ./client",
     "watch:test": "watch 'npm run test:generate' ./client",
     "nodemon": "nodemon server/main --watch server",
     "test:server": "parallelshell 'node server/main' 'npm run watch:test'",
@@ -52,6 +52,9 @@
   "devDependencies": {
     "browserify": "^9.0.3",
     "faucet": "0.0.1",
+    "karma": "^0.12.31",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-tap": "^1.0.3",
     "nodemon": "^1.3.7",
     "parallelshell": "^1.1.1",
     "phantomjs": "^1.9.16",
@@ -59,9 +62,9 @@
     "stringify": "^3.1.0",
     "tap-spec": "^3.0.0",
     "tape": "^3.5.0",
+    "tape-catch": "^1.0.4",
     "tape-run": "^1.0.0",
     "tessed": "^1.0.1",
-    "watch": "^0.16.0",
-    "tape-catch": "^1.0.4"
+    "watch": "^0.16.0"
   }
 }
