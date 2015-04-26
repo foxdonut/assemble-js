@@ -6,12 +6,12 @@ var ViewModel = require("./viewModel");
 
 var componentUtil = require("../../test/util/component-util");
 
-var newButton = "button[data-action='new']";
-var saveButton = "input[data-action='save']";
-var cancelButton = "button[data-action='cancel']";
+var newButton = "[data-action='new']";
+var saveButton = "[data-action='save']";
+var cancelButton = "[data-action='cancel']";
 
-var authorField = "input[data-field='author']";
-var titleField = "input[data-field='title']";
+var authorField = "[data-field='author']";
+var titleField = "[data-field='title']";
 
 var book = { author: "Test1", title: "One" };
 
