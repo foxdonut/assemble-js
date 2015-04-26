@@ -21,7 +21,7 @@ var wireSpec = {
   viewModel: {
     module: viewModel,
     afterFulfilling: {
-      "bookResource.query": "bookResource.getEntity | books",
+      "bookResource.query": "bookResource.getEntity | setBooks",
       "bookResource.save": [
         "bookResource.getEntity | addOrUpdateBook",
         "clearForm",

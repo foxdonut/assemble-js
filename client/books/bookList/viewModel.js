@@ -1,5 +1,4 @@
 var ko = require("knockout");
-require("knockout-mapping");
 
 var _ = require("lodash");
 
@@ -7,6 +6,18 @@ var viewModel = function() {
   var obj = {};
 
   obj.books = ko.observableArray();
+
+  obj.observableBook = function(book) {
+    return {
+      id: book.id,
+      author: ko.observable(book.author),
+      title: ko.observable(book.title)
+    };
+  };
+
+  obj.setBooks = function(books) {
+    obj.books(_.map(books, obj.observableBook));
+  };
 
   obj.onEdit = function(book) {
     return book;
@@ -16,13 +27,14 @@ var viewModel = function() {
   };
 
   obj.addOrUpdateBook = function(book) {
-    var existingBook = _.where(obj.books, {id: book.id});
+    var existingBook = _.findWhere(obj.books(), {id: book.id});
 
     if (existingBook) {
-      ko.mapping.fromJS(book, {}, existingBook);
+      existingBook.author(book.author);
+      existingBook.title(book.title);
     }
     else {
-      obj.books.push(book);
+      obj.books.push(obj.observableBook(book));
     }
   };
 

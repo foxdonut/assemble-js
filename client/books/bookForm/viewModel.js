@@ -1,5 +1,4 @@
 var ko = require("knockout");
-require("knockout-mapping");
 
 var viewModel = function() {
 
@@ -27,17 +26,22 @@ var viewModel = function() {
   };
 
   obj.book = {
+    id: null,
     author: ko.observable(),
     title: ko.observable()
   };
 
   obj.editBook = function(book) {
-    ko.mapping.fromJS(book, {}, obj.book);
+    obj.book.id = book.id;
+    obj.book.author(book.author());
+    obj.book.title(book.title());
     obj.showForm();
   };
 
   obj.clearForm = function() {
-    ko.mapping.fromJS({author: "", title: ""}, {}, obj.book);
+    obj.book.id = null;
+    obj.book.author("");
+    obj.book.title("");
   };
 
   return obj;
