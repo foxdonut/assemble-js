@@ -1,4 +1,4 @@
-var test = require("tessed");
+var tessed = require("tessed");
 require("tape-catch");
 
 var sinon = require("sinon");
@@ -6,14 +6,13 @@ var sinon = require("sinon");
 var $ = require("jquery");
 
 var template = require("./template.html");
-var viewModel = require("./viewModel");
+var viewModel = require("./viewModel")();
 
 var componentUtil = require("../../test/util/component-util");
 
 var editButton = "button[data-action='edit']";
 var deleteButton = "button[data-action='delete']";
 
-var booksField = "[data-field='books']";
 var bookField = "[data-field='book']";
 var authorField = "[data-field='author']";
 var titleField = "[data-field='title']";
@@ -22,36 +21,53 @@ var bookList = [
   { author: "Test1", title: "One" },
   { author: "Test2", title: "Two" }
 ];
-/*
+
 var bookListTest = tessed("books/bookList/bookList-test");
 
-bookListTest.beforeEach(componentUtil.setup(viewModel(), template));
+bookListTest.beforeEach(componentUtil.setup(viewModel, template));
 bookListTest.afterEach(componentUtil.cleanup);
 
 bookListTest.test("book list", function(tt, context) {
+  tt.plan(1 + (2 * bookList.length));
 
-  var viewModel = {
-    onEdit: sinon.spy(),
-    onDelete: sinon.spy()
-  };
+  var div = context.div;
 
-  tt.plan(3 + bookList.length);
+  viewModel.books(bookList);
+  var books = div.find(bookField);
 
-  var items = div.find("li");
-  tt.equal(items.size(), bookList.length, "number of books rendered");
+  tt.equal(books.size(), bookList.length, "number of books rendered");
 
   for (var i = 0, t = bookList.length; i < t; i++) {
-    tt.equal($(items.get(i)).find("span").html(), bookList[i].title, "book title");
+    var book = $(books.get(i));
+    tt.equal(book.find(authorField).html(), bookList[i].title, "book author");
+    tt.equal(book.find(titleFIeld).html(), bookList[i].title, "book title");
   }
 });
 
 bookListTest.test("edit book", function(tt, context) {
-  $(items.get(0)).find(editButton).trigger("click");
+  tt.plan(1);
+
+  var viewModel = context.viewModel;
+  var div = context.div;
+
+  sinon.spy(viewModel, "onEdit");
+
+  div.find(editButton).trigger("click");
   tt.ok(viewModel.onEdit.calledOnce, "edit button");
+
+  viewModel.onEdit.restore();
 });
 
 bookListTest.test("delete book", function(tt, context) {
-  $(items.get(0)).find(deleteButton).trigger("click");
+  tt.plan(1);
+
+  var viewModel = context.viewModel;
+  var div = context.div;
+
+  sinon.spy(viewModel, "onDelete");
+
+  div.find(deleteButton).trigger("click");
   tt.ok(viewModel.onDelete.calledOnce, "delete button");
+
+  viewModel.onDelete.restore();
 });
-*/

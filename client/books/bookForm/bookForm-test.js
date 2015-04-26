@@ -4,7 +4,7 @@ require("tape-catch");
 var sinon = require("sinon");
 
 var template = require("./template.html");
-var viewModel = require("./viewModel");
+var viewModel = require("./viewModel")();
 
 var componentUtil = require("../../test/util/component-util");
 
@@ -19,7 +19,7 @@ var book = { author: "Test1", title: "One" };
 
 var bookFormTest = tessed("books/bookForm/bookForm-test");
 
-bookFormTest.beforeEach(componentUtil.setup(viewModel(), template));
+bookFormTest.beforeEach(componentUtil.setup(viewModel, template));
 bookFormTest.afterEach(componentUtil.cleanup);
 
 bookFormTest.test("initial", function(tt, context) {
