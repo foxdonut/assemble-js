@@ -4,7 +4,7 @@ componentRegistry.register("book-list", require("./books/bookList/template.html"
 componentRegistry.register("book-form", require("./books/bookForm/template.html"));
 
 var ko = require("knockout");
-var viewModel = require("./viewModel");
+var viewModel = require("./viewModel")();
 ko.applyBindings({ bookList: viewModel, bookForm: viewModel });
 
 var wireSpec = {
@@ -22,11 +22,16 @@ var wireSpec = {
     module: viewModel,
     afterFulfilling: {
       "bookResource.query": "bookResource.getEntity | books",
-      "bookResource.save": "bookResource.getEntity | addBook"
+      "bookResource.save": [
+        "bookResource.getEntity | addOrUpdateBook",
+        "clearForm",
+        "hideForm"
+      ]
     },
     afterReturning: {
-      deleteBook: "bookResource.delete",
-      onSave: "getBook | bookResource.save"
+      onEdit: "editBook",
+      onDelete: "bookResource.delete",
+      onSave: "bookResource.save"
     }
   }
 };

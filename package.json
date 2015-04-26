@@ -16,7 +16,6 @@
     "test": "npm run test:raw | tap-spec",
     "watch": "watch 'npm run build' ./client",
     "watch:test": "watch 'npm run test:generate' ./client",
-    "livereload": "livereload ./public --port 9099",
     "server": "nodemon server/main --watch server",
     "preserver:test": "npm run test:generate",
     "server:test": "parallelshell 'node server/main' 'npm run watch:test'",
@@ -55,7 +54,6 @@
   "devDependencies": {
     "browserify": "^9.0.3",
     "faucet": "0.0.1",
-    "livereload": "^0.3.7",
     "nodemon": "^1.3.7",
     "parallelshell": "^1.1.1",
     "phantomjs": "^1.9.16",

@@ -10,10 +10,11 @@ var viewModel = function() {
   };
 
   obj.onSave = function() {
+    return ko.toJS(obj.book);
   };
 
   obj.onCancel = function() {
-    obj.clear();
+    obj.clearForm();
     obj.hideForm();
   };
 
@@ -30,16 +31,12 @@ var viewModel = function() {
     title: ko.observable()
   };
 
-  obj.getBook = function() {
-    return ko.toJS(obj.book);
-  };
-
   obj.editBook = function(book) {
-    obj.showForm();
     ko.mapping.fromJS(book, {}, obj.book);
+    obj.showForm();
   };
 
-  obj.clear = function() {
+  obj.clearForm = function() {
     ko.mapping.fromJS({author: "", title: ""}, {}, obj.book);
   };
 
