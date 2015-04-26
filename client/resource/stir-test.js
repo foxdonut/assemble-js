@@ -1,6 +1,8 @@
 require("../test/util/function-bind")();
 
 var test = require("tape");
+require("tape-catch");
+
 var sinon = require("sinon");
 var client = sinon.spy();
 var baseUrl = "/test";

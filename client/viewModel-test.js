@@ -1,4 +1,5 @@
 var test = require("tape");
+require("tape-catch");
 
 var viewModel = require("./viewModel")();
 

@@ -1,4 +1,6 @@
 var test = require("tessed");
+require("tape-catch");
+
 var sinon = require("sinon");
 
 var $ = require("jquery");

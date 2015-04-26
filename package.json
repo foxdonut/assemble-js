@@ -8,22 +8,18 @@
   },
   "scripts": {
     "build": "browserify ./client/main.js -o $npm_package_config_generatedApp",
-
     "pretest": "npm run build",
-		"test:build": "browserify $(find client -name '*-test.js')",
+    "test:build": "browserify $(find client -name '*-test.js')",
     "test:raw": "npm run test:build | tail -n +5 | tape-run",
     "test:generate": "browserify $(find client -name '*-test.js') -o ./public/generated-test.js",
     "test:faucet": "npm run test:raw 2>/dev/null | faucet",
     "test": "npm run test:raw | tap-spec",
-
     "watch": "watch 'npm run build' ./client",
     "watch:test": "watch 'npm run test:generate' ./client",
-		"livereload": "livereload ./public --port 9099",
-
+    "livereload": "livereload ./public --port 9099",
     "server": "nodemon server/main --watch server",
     "preserver:test": "npm run test:generate",
     "server:test": "parallelshell 'node server/main' 'npm run watch:test'",
-
     "prestart": "npm run build",
     "start": "parallelshell 'npm run watch' 'npm run server'"
   },
@@ -69,6 +65,7 @@
     "tape": "^3.5.0",
     "tape-run": "^1.0.0",
     "tessed": "^1.0.1",
-    "watch": "^0.16.0"
+    "watch": "^0.16.0",
+    "tape-catch": "^1.0.4"
   }
 }
