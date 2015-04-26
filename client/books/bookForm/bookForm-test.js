@@ -1,7 +1,8 @@
 var tessed = require("tessed");
 require("tape-catch");
-
 var sinon = require("sinon");
+
+var ko = require("knockout");
 
 var template = require("./template.html");
 var viewModel = require("./viewModel")();
@@ -15,7 +16,7 @@ var cancelButton = "[data-action='cancel']";
 var authorField = "[data-field='author']";
 var titleField = "[data-field='title']";
 
-var book = { author: "Test1", title: "One" };
+var book = { author: ko.observable("Test1"), title: ko.observable("One") };
 
 var bookFormTest = tessed("books/bookForm/bookForm-test");
 
@@ -53,8 +54,8 @@ bookFormTest.test("edit book", function(tt, context) {
   tt.equal(form.size(), 1, "renders a form");
   tt.notEqual(form.css("display"), "none", "form is visible");
 
-  tt.equal(div.find(authorField).val(), book.author, "populates author input");
-  tt.equal(div.find(titleField).val(), book.title, "populates title input");
+  tt.equal(div.find(authorField).val(), book.author(), "populates author input");
+  tt.equal(div.find(titleField).val(), book.title(), "populates title input");
 });
 
 bookFormTest.test("save book", function(tt, context) {
@@ -63,12 +64,12 @@ bookFormTest.test("save book", function(tt, context) {
   var div = context.div;
   var viewModel = context.viewModel;
 
-  div.find(authorField).val(book.author);
-  div.find(titleField).val(book.title);
+  div.find(authorField).val(book.author());
+  div.find(titleField).val(book.title());
 
   sinon.spy(viewModel, "onSave");
   div.find(saveButton).trigger("click");
-  tt.ok(viewModel.onSave.calledOnce);
+  tt.ok(viewModel.onSave.calledOnce, "save book");
 
   viewModel.onSave.restore();
 });

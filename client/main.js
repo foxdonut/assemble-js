@@ -4,8 +4,9 @@ componentRegistry.register("book-list", require("./books/bookList/template.html"
 componentRegistry.register("book-form", require("./books/bookForm/template.html"));
 
 var ko = require("knockout");
-var viewModel = require("./viewModel")();
-ko.applyBindings({ bookList: viewModel, bookForm: viewModel });
+var bookFormViewModel = require("./books/bookForm/viewModel")();
+var bookListViewModel = require("./books/bookList/viewModel")();
+ko.applyBindings({ bookForm: bookFormViewModel, bookList: bookListViewModel });
 
 var wireSpec = {
   $plugins: [
@@ -18,19 +19,27 @@ var wireSpec = {
     ready: "query"
   },
 
-  viewModel: {
-    module: viewModel,
+  bookListViewModel: {
+    module: bookListViewModel,
     afterFulfilling: {
       "bookResource.query": "bookResource.getEntity | setBooks",
+      "bookResource.save": "bookResource.getEntity | addOrUpdateBook"
+    },
+    afterReturning: {
+      onDelete: "bookResource.delete"
+    }
+  },
+
+  bookFormViewModel: {
+    module: bookFormViewModel,
+    afterFulfilling: {
       "bookResource.save": [
-        "bookResource.getEntity | addOrUpdateBook",
         "clearForm",
         "hideForm"
       ]
     },
     afterReturning: {
-      onEdit: "editBook",
-      onDelete: "bookResource.delete",
+      "bookListViewModel.onEdit": "editBook",
       onSave: "bookResource.save"
     }
   }
