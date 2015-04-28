@@ -6,7 +6,7 @@ componentRegistry.register("book-form", require("./books/bookForm/template.html"
 var ko = require("knockout");
 var bookFormViewModel = require("./books/bookForm/viewModel")();
 var bookListViewModel = require("./books/bookList/viewModel")();
-ko.applyBindings({ bookForm: bookFormViewModel, bookList: bookListViewModel });
+ko.applyBindings({ bookFormViewModel: bookFormViewModel, bookListViewModel: bookListViewModel });
 
 var wireSpec = {
   $plugins: [
