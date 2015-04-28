@@ -24,14 +24,18 @@ Currently, master is using, on the client:
 * [wire.js](https://github.com/cujojs/wire)
 * [rest.js](https://github.com/cujojs/rest)
 * [KnockoutJS](http://knockoutjs.com)
+* [jQuery](http://jquery.com)
+* [lodash](http://lodash.com)
 
 For testing:
 
 * [tape](https://github.com/substack/tape)
 * [tessed](https://github.com/scottcorgan/tessed)
 * [tape-run](https://github.com/juliangruber/tape-run)
+* [tape-catch](https://github.com/michaelrhodes/tape-catch)
 * [tap-spec](https://github.com/scottcorgan/tap-spec)
 * [PhantomJS](http://phantomjs.org)
+* [Karma](http://karma-runner.github.io)
 
 On the server:
 
