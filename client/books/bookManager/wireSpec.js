@@ -1,41 +1,41 @@
-var viewModel = require("./viewModel")();
+var wireSpec = function(viewModel) {
+  return {
+    $plugins: [
+      require("wire/aop")
+    ],
 
-var wireSpec = {
-  $plugins: [
-    require("wire/aop")
-  ],
+    viewModel: viewModel,
 
-  viewModel: viewModel,
-
-  bookResource: {
-    module: require("../resource"),
-    ready: "query"
-  },
-
-  bookListViewModel: {
-    module: viewModel.bookListViewModel,
-    afterFulfilling: {
-      "bookResource.query": "bookResource.getEntity | setBooks",
-      "bookResource.save": "bookResource.getEntity | addOrUpdateBook"
+    bookResource: {
+      module: require("../resource"),
+      ready: "query"
     },
-    afterReturning: {
-      onDelete: "bookResource.delete"
-    }
-  },
 
-  bookFormViewModel: {
-    module: viewModel.bookFormViewModel,
-    afterFulfilling: {
-      "bookResource.save": [
-        "clearForm",
-        "hideForm"
-      ]
+    bookListViewModel: {
+      module: viewModel.bookListViewModel,
+      afterFulfilling: {
+        "bookResource.query": "bookResource.getEntity | setBooks",
+        "bookResource.save": "bookResource.getEntity | addOrUpdateBook"
+      },
+      afterReturning: {
+        onDelete: "bookResource.delete"
+      }
     },
-    afterReturning: {
-      "bookListViewModel.onEdit": "editBook",
-      onSave: "bookResource.save"
+
+    bookFormViewModel: {
+      module: viewModel.bookFormViewModel,
+      afterFulfilling: {
+        "bookResource.save": [
+          "clearForm",
+          "hideForm"
+        ]
+      },
+      afterReturning: {
+        "bookListViewModel.onEdit": "editBook",
+        onSave: "bookResource.save"
+      }
     }
-  }
+  };
 };
 
 module.exports = wireSpec;

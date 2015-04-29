@@ -4,8 +4,8 @@ var sinon = require("sinon");
 
 var $ = require("jquery");
 
-var template = require("./template.html");
-var viewModel = require("./viewModel")();
+var component = require("./component")();
+var viewModel = component.viewModel;
 
 var componentUtil = require("../../test/util/component-util");
 
@@ -23,7 +23,7 @@ var bookList = [
 
 var bookListTest = tessed("books/bookList/bookList-test");
 
-bookListTest.beforeEach(componentUtil.setup(viewModel, template));
+bookListTest.beforeEach(componentUtil.setup(component));
 bookListTest.afterEach(componentUtil.cleanup);
 
 bookListTest.test("book list", function(tt, context) {

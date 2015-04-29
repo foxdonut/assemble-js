@@ -2,17 +2,17 @@ var ko = require("knockout");
 var $ = require("jquery");
 
 module.exports = {
-  setup: function(viewModel, template) {
+  setup: function(component) {
     return function(tt, context) {
       var div = $("<div/>");
-      div.append(template);
-      ko.applyBindings(viewModel, div[0]);
+      div.append(component.template);
+      ko.applyBindings(component.viewModel, div[0]);
 
       context.div = div;
-      context.viewModel = viewModel;
+      context.viewModel = component.viewModel;
 
       tt.end();
-    }
+    };
   },
 
   cleanup: function(tt, context) {

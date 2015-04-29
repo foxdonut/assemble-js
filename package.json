@@ -14,7 +14,7 @@
     "test:build": "browserify $(find client -name '*-test.js') -o ./public/generated-test.js",
     "test:faucet": "npm run test:raw | faucet",
     "test": "npm run test:raw | tap-spec",
-    "watch": "watch 'npm run compile' ./client",
+    "watch": "watch 'npm run build' ./client",
     "watch:test": "watch 'npm run test:generate' ./client",
     "nodemon": "nodemon server/main --watch server",
     "test:server": "parallelshell 'node server/main' 'npm run watch:test'",

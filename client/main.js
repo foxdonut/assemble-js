@@ -1,10 +1,8 @@
-var wire = require("wire");
-var ko = require("knockout");
+var bookManagerComponent = require("./books/bookManager/component")();
 
 var componentRegistry = require("./component/registry");
-componentRegistry.register("book-manager", require("./books/bookManager/template.html"));
+componentRegistry.register("book-manager", bookManagerComponent);
 
-var wireSpec = require("./books/bookManager/wireSpec");
-wire(wireSpec);
-ko.applyBindings({ viewModel: wireSpec.viewModel });
+var ko = require("knockout");
+ko.applyBindings({ viewModel: bookManagerComponent.viewModel });
 
