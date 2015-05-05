@@ -1,16 +1,16 @@
 <div>
-  <button data-action="new" data-bind="click: onNew">New Book</button>
+  <button data-action="new" on-click="onNew()">New Book</button>
 </div>
 
-<form data-bind="visible: formVisible, submit: onSave">
+<form on-submit="onSave(event, book)" style="display: {{formVisible}}">
   <div>Author:</div>
-  <div><input type="text" data-field="author" data-bind="value: book.author"/></div>
+  <div><input type="text" data-field="author" value="{{book.author}}"/></div>
 
   <div>Title:</div>
-  <div><input type="text" data-field="title" data-bind="value: book.title"/></div>
+  <div><input type="text" data-field="title" value="{{book.title}}"/></div>
 
   <div>
     <input data-action="save" type="submit" value="Save"/>
-    <button data-action="cancel" data-bind="click: onCancel">Cancel</button>
+    <button data-action="cancel" on-click="onCancel()">Cancel</button>
   </div>
 </form>

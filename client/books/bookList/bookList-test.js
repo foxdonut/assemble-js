@@ -43,6 +43,7 @@ bookListTest.test("book list", function(tt, context) {
   }
 });
 
+/*
 bookListTest.test("edit book", function(tt, context) {
   tt.plan(1);
 
@@ -74,3 +75,4 @@ bookListTest.test("delete book", function(tt, context) {
 
   component.onDelete.restore();
 });
+*/

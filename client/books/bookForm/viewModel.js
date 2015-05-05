@@ -1,15 +1,19 @@
-var ko = require("knockout");
-
 var viewModel = function() {
 
-  var obj = {};
+  var obj = {
+    data: {
+      formVisible: "none",
+      book: null
+    }
+  };
 
   obj.onNew = function() {
     obj.showForm();
   };
 
-  obj.onSave = function() {
-    return ko.toJS(obj.book);
+  obj.onSave = function(event, book) {
+    event.original.preventDefault();
+    return book;
   };
 
   obj.onCancel = function() {
@@ -17,31 +21,20 @@ var viewModel = function() {
     obj.hideForm();
   };
 
-  obj.formVisible = ko.observable(false);
   obj.showForm = function() {
-    obj.formVisible(true);
+    obj.data.formVisible = "";
   };
   obj.hideForm = function() {
-    obj.formVisible(false);
-  };
-
-  obj.book = {
-    id: null,
-    author: ko.observable(),
-    title: ko.observable()
+    obj.data.formVisible = "none";
   };
 
   obj.editBook = function(book) {
-    obj.book.id = book.id;
-    obj.book.author(book.author());
-    obj.book.title(book.title());
+    obj.data.book = book;
     obj.showForm();
   };
 
   obj.clearForm = function() {
-    obj.book.id = null;
-    obj.book.author("");
-    obj.book.title("");
+    obj.data.book = null;
   };
 
   return obj;

@@ -11,13 +11,7 @@ var viewModel = require("./viewModel");
 
 var create = function(extendedViewModel) {
   var mergedViewModel = _.extend({}, viewModel(), (extendedViewModel || {}));
-  var component = new Component(mergedViewModel);
-  /*
-  _.each(mergedViewModel.events, function(handler, event) {
-    component.on(event, handler);
-  });
-  */
-  return component;
+  return new Component(mergedViewModel);
 };
 
 module.exports = {

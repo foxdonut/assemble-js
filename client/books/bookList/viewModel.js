@@ -2,19 +2,23 @@ var _ = require("lodash");
 
 var viewModel = function() {
   var obj = {
-    data: {}
+    data: {
+      books: []
+    }
   };
 
-  obj.data.books = [];
+  var findBookIndex = function(book) {
+    return _.findIndex(obj.data.books, {id: book.id});
+  };
 
   obj.setBooks = function(books) {
     obj.data.books = books;
   };
 
   obj.addOrUpdateBook = function(book) {
-    var existingBookIndex = _.findIndex(obj.data.books, {id: book.id});
+    var existingBookIndex = findBookIndex(book);
 
-    if (existingBookIndex) {
+    if (parseInt(existingBookIndex, 10) >= 0) {
       obj.data.books[existingBookIndex] = book;
     }
     else {
@@ -23,10 +27,13 @@ var viewModel = function() {
   };
 
   obj.onEdit = function(book) {
+    event.original.preventDefault();
     return book;
   };
   obj.onDelete = function(book) {
-    //return obj.books.remove(book)[0];
+    event.original.preventDefault();
+    obj.data.books.splice(findBookIndex(book), 1);
+    return book;
   };
 
   return obj;
