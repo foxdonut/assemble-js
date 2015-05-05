@@ -1,9 +1,11 @@
 <div>Book list:</div>
-<ul data-bind="foreach: books">
+<ul>
+  {{#books}}
   <li data-field="book">
-    <button data-action="edit" data-bind="click: $parent.onEdit">Edit</button>
-    <button data-action="delete" data-bind="click: $parent.onDelete">Delete</button>
-     <span data-field="title" data-bind="text: title"></span>
-    (<span data-field="author" data-bind="text: author"></span>)
+    <button data-action="edit" on-click="onEdit">Edit</button>
+    <button data-action="delete" on-click="onDelete">Delete</button>
+     <span data-field="title">{{title}}</span>
+    (<span data-field="author">{{author}}</span>)
   </li>
+  {{/books}}
 </ul>
