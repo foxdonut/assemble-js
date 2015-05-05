@@ -2,8 +2,8 @@
 <ul>
   {{#books}}
   <li data-field="book">
-    <button data-action="edit" on-click="onEdit">Edit</button>
-    <button data-action="delete" on-click="onDelete">Delete</button>
+    <button data-action="edit" on-click="onEdit(this)">Edit</button>
+    <button data-action="delete" on-click="onDelete(this)">Delete</button>
      <span data-field="title">{{title}}</span>
     (<span data-field="author">{{author}}</span>)
   </li>

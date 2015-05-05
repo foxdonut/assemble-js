@@ -1,15 +1,14 @@
-var ko = require("knockout");
+var _ = require("lodash");
 var $ = require("jquery");
 
 module.exports = {
-  setup: function(component) {
+  setup: function(Component, viewModel) {
     return function(tt, context) {
       var div = $("<div/>");
-      div.append(component.template);
-      ko.applyBindings(component.viewModel, div[0]);
+      var component = Component.create(_.extend({el: div}, viewModel));
 
       context.div = div;
-      context.viewModel = component.viewModel;
+      context.component = component;
 
       tt.end();
     };
@@ -18,7 +17,6 @@ module.exports = {
   cleanup: function(tt, context) {
     var div = context.div;
 
-    ko.cleanNode(div[0]);
     div.remove();
 
     tt.end();

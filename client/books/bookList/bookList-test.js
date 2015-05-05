@@ -4,8 +4,7 @@ var sinon = require("sinon");
 
 var $ = require("jquery");
 
-var component = require("./component")();
-var viewModel = component.viewModel;
+var BookListComponent = require("./component");
 
 var componentUtil = require("../../test/util/component-util");
 
@@ -23,15 +22,16 @@ var bookList = [
 
 var bookListTest = tessed("books/bookList/bookList-test");
 
-bookListTest.beforeEach(componentUtil.setup(component));
+bookListTest.beforeEach(componentUtil.setup(BookListComponent));
 bookListTest.afterEach(componentUtil.cleanup);
 
 bookListTest.test("book list", function(tt, context) {
   tt.plan(1 + (2 * bookList.length));
 
   var div = context.div;
+  var component = context.component;
 
-  viewModel.books(bookList);
+  component.setBooks(bookList);
   var books = div.find(bookField);
 
   tt.equal(books.size(), bookList.length, "number of books rendered");
@@ -46,31 +46,31 @@ bookListTest.test("book list", function(tt, context) {
 bookListTest.test("edit book", function(tt, context) {
   tt.plan(1);
 
-  var viewModel = context.viewModel;
+  var component = context.component;
   var div = context.div;
 
-  viewModel.books([bookList[0]]);
+  component.setBooks([bookList[0]]);
 
-  sinon.spy(viewModel, "onEdit");
+  sinon.spy(component, "onEdit");
 
   div.find(editButton).trigger("click");
-  tt.ok(viewModel.onEdit.calledOnce, "edit button");
+  tt.ok(component.onEdit.calledOnce, "edit button");
 
-  viewModel.onEdit.restore();
+  component.onEdit.restore();
 });
 
 bookListTest.test("delete book", function(tt, context) {
   tt.plan(1);
 
-  var viewModel = context.viewModel;
+  var component = context.component;
   var div = context.div;
 
-  viewModel.books([bookList[0]]);
+  component.setBooks([bookList[0]]);
 
-  sinon.spy(viewModel, "onDelete");
+  sinon.spy(component, "onDelete");
 
   div.find(deleteButton).trigger("click");
-  tt.ok(viewModel.onDelete.calledOnce, "delete button");
+  tt.ok(component.onDelete.calledOnce, "delete button");
 
-  viewModel.onDelete.restore();
+  component.onDelete.restore();
 });

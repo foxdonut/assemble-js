@@ -1,14 +1,7 @@
-var ko = require("knockout");
+var Ractive = require("ractive");
 
 module.exports = {
-  register: function(componentName, component) {
-    ko.components.register(componentName, {
-      viewModel: {
-        createViewModel: function(params) {
-          return params.viewModel;
-        }
-      },
-      template: component.template
-    });
+  register: function(componentName, Component) {
+    Ractive.components[componentName] = Component;
   }
 };

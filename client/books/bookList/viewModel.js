@@ -1,41 +1,32 @@
-var ko = require("knockout");
-
 var _ = require("lodash");
 
 var viewModel = function() {
-  var obj = {};
-
-  obj.books = ko.observableArray();
-
-  obj.observableBook = function(book) {
-    return {
-      id: book.id,
-      author: ko.observable(book.author),
-      title: ko.observable(book.title)
-    };
+  var obj = {
+    data: {}
   };
 
+  obj.data.books = [];
+
   obj.setBooks = function(books) {
-    obj.books(_.map(books, obj.observableBook));
+    obj.data.books = books;
+  };
+
+  obj.addOrUpdateBook = function(book) {
+    var existingBookIndex = _.findIndex(obj.data.books, {id: book.id});
+
+    if (existingBookIndex) {
+      obj.data.books[existingBookIndex] = book;
+    }
+    else {
+      obj.data.books.push(book);
+    }
   };
 
   obj.onEdit = function(book) {
     return book;
   };
   obj.onDelete = function(book) {
-    return obj.books.remove(book)[0];
-  };
-
-  obj.addOrUpdateBook = function(book) {
-    var existingBook = _.findWhere(obj.books(), {id: book.id});
-
-    if (existingBook) {
-      existingBook.author(book.author);
-      existingBook.title(book.title);
-    }
-    else {
-      obj.books.push(obj.observableBook(book));
-    }
+    //return obj.books.remove(book)[0];
   };
 
   return obj;
