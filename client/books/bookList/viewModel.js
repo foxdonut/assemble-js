@@ -1,42 +1,45 @@
 var _ = require("lodash");
 
-var viewModel = function() {
-  var obj = {
-    data: {
-      books: []
-    }
-  };
-
+var init = function(ractive) {
   var findBookIndex = function(book) {
-    return _.findIndex(obj.data.books, {id: book.id});
+    return _.findIndex(ractive.get("books"), {id: book.id});
   };
 
-  obj.setBooks = function(books) {
-    obj.data.books = books;
+  ractive.setBooks = function(books) {
+    ractive.set("books", books);
   };
 
-  obj.addOrUpdateBook = function(book) {
+  ractive.addOrUpdateBook = function(book) {
     var existingBookIndex = findBookIndex(book);
 
     if (parseInt(existingBookIndex, 10) >= 0) {
-      obj.data.books[existingBookIndex] = book;
+      ractive.set("books[" + existingBookIndex + "]", book);
     }
     else {
-      obj.data.books.push(book);
+      ractive.get("books").push(book);
     }
   };
 
-  obj.onEdit = function(book) {
+  ractive.onEdit = function(event, book) {
     event.original.preventDefault();
     return book;
   };
-  obj.onDelete = function(book) {
+  ractive.onDelete = function(event, book) {
     event.original.preventDefault();
-    obj.data.books.splice(findBookIndex(book), 1);
+    ractive.get("books").splice(findBookIndex(book), 1);
     return book;
   };
 
-  return obj;
+  return ractive;
+};
+
+var viewModel = {
+  data: {
+    books: []
+  },
+  oninit: function() {
+    init(this);
+  }
 };
 
 module.exports = viewModel;
