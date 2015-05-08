@@ -1,43 +1,47 @@
-var viewModel = function() {
-
-  var obj = {
-    data: {
-      formVisible: "none",
-      book: null
-    }
+var init = function(ractive) {
+  ractive.onNew = function(event) {
+    event.original.preventDefault();
+    ractive.showForm();
   };
 
-  obj.onNew = function() {
-    obj.showForm();
-  };
-
-  obj.onSave = function(event, book) {
+  ractive.onSave = function(event, book) {
     event.original.preventDefault();
     return book;
   };
 
-  obj.onCancel = function() {
-    obj.clearForm();
-    obj.hideForm();
+  ractive.onCancel = function(event) {
+    event.original.preventDefault();
+    ractive.clearForm();
+    ractive.hideForm();
   };
 
-  obj.showForm = function() {
-    obj.data.formVisible = "";
+  ractive.showForm = function() {
+    ractive.set("formVisible", "");
   };
-  obj.hideForm = function() {
-    obj.data.formVisible = "none";
-  };
-
-  obj.editBook = function(book) {
-    obj.data.book = book;
-    obj.showForm();
+  ractive.hideForm = function() {
+    ractive.set("formVisible", "none");
   };
 
-  obj.clearForm = function() {
-    obj.data.book = null;
+  ractive.editBook = function(book) {
+    ractive.set("book", book);
+    ractive.showForm();
   };
 
-  return obj;
+  ractive.clearForm = function() {
+    ractive.set("book", null);
+  };
+
+  return ractive;
+};
+
+var viewModel = {
+  data: {
+    formVisible: "none",
+    book: null
+  },
+  oninit: function() {
+    init(this);
+  }
 };
 
 module.exports = viewModel;

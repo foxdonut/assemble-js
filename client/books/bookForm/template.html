@@ -1,5 +1,5 @@
 <div>
-  <button data-action="new" on-click="onNew()">New Book</button>
+  <button data-action="new" on-click="onNew(event)">New Book</button>
 </div>
 
 <form on-submit="onSave(event, book)" style="display: {{formVisible}}">
@@ -11,6 +11,6 @@
 
   <div>
     <input data-action="save" type="submit" value="Save"/>
-    <button data-action="cancel" on-click="onCancel()">Cancel</button>
+    <button data-action="cancel" on-click="onCancel(event)">Cancel</button>
   </div>
 </form>
