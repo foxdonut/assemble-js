@@ -21,6 +21,11 @@ var complete = function(ractive) {
 
 var Component = Ractive.extend({
   template: template,
+  data: function() {
+    return {
+      books: [],
+    }
+  },
   oninit: function() {
     init(this);
   },
@@ -34,4 +39,3 @@ var Component = Ractive.extend({
 });
 
 module.exports = Component;
-
