@@ -1,12 +1,11 @@
-var viewModel = require("./viewModel");
+var createComponent = require("../../component/create");
 var template = require("./template.html");
 
-var componentRegistry = require("../../component/registry");
 var wire = require("wire");
 var wireSpec = require("./wireSpec");
 
-var bookFormComponent = require("../bookForm/component")();
-var bookListComponent = require("../bookList/component")();
+var bookFormComponent = require("../bookForm/component")({el: ".bookForm"});
+var bookListComponent = require("../bookList/component")({el: ".bookList"});
 
 var component = function() {
   var vm = viewModel(bookFormComponent.viewModel, bookListComponent.viewModel);
@@ -22,5 +21,5 @@ var component = function() {
   };
 };
 
-module.exports = component;
+module.exports = createComponent(viewModel, template);
 

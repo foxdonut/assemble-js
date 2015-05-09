@@ -48,3 +48,4 @@ var viewModel = {
 };
 
 module.exports = createComponent(viewModel, template);
+
