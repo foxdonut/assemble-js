@@ -11,11 +11,14 @@ var init = function(ractive) {
   ractive.setBooks = function(books) {
     ractive.set("books", books);
   };
-  };
+
+  wire(wireSpec(ractive));
+
+  return ractive;
+};
 
 var Component = Ractive.extend({
   template: template,
-  append: true,
   oninit: function() {
     init(this);
   },
@@ -25,10 +28,5 @@ var Component = Ractive.extend({
   }
 });
 
-var create = function(params) {
-  var component = new Component(params);
-  wire(wireSpec(component))
-  return component;
-};
+module.exports = Component;
 
-module.exports = create;

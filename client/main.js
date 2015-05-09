@@ -1,5 +1,10 @@
-var bookManagerComponent = require("./books/bookManager/component");
+var Ractive = require("ractive");
+var BookManagerComponent = require("./books/bookManager/component");
 
-bookManagerComponent({
-  el: "#bookManager"
+new Ractive({
+  el: "body",
+  append: true,
+  components: {
+    "book-manager": BookManagerComponent
+  }
 });
