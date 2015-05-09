@@ -12,15 +12,20 @@ var init = function(ractive) {
     ractive.set("books", books);
   };
 
-  wire(wireSpec(ractive));
-
   return ractive;
+};
+
+var complete = function(ractive) {
+  wire(wireSpec(ractive));
 };
 
 var Component = Ractive.extend({
   template: template,
   oninit: function() {
     init(this);
+  },
+  oncomplete: function() {
+    complete(this);
   },
   components: {
     "book-form": BookFormComponent,
