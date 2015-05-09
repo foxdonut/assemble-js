@@ -1,8 +1,13 @@
-var bookManagerComponent = require("./books/bookManager/component")();
+var React = require("React");
+var Hello = React.createClass({
+  render: function() {
+    return (
+      <div>Hello, {this.props.name}</div>
+    );
+  }
+})
 
-var componentRegistry = require("./component/registry");
-componentRegistry.register("book-manager", bookManagerComponent);
-
-var ko = require("knockout");
-ko.applyBindings({ viewModel: bookManagerComponent.viewModel });
+React.render(
+  <Hello name="React"/>, document.getElementById("app")
+);
 
