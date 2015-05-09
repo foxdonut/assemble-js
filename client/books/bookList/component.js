@@ -37,8 +37,10 @@ var init = function(ractive) {
 
 var Component = Ractive.extend({
   template: template,
-  data: {
-    books: []
+  data: function() {
+    return {
+      books: []
+    };
   },
   oninit: function() {
     init(this);

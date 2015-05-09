@@ -39,9 +39,11 @@ var init = function(ractive) {
 
 var Component = Ractive.extend({
   template: template,
-  data: {
-    formVisible: "none",
-    book: null
+  data: function() {
+    return {
+      formVisible: "none",
+      book: null
+    };
   },
   oninit: function() {
     init(this);
