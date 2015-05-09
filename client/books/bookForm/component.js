@@ -1,20 +1,50 @@
-var Ractive = require("ractive");
+var createComponent = require("../../component/create");
 var template = require("./template.html");
 
-var Component = Ractive.extend({
-  template: template
-});
+var init = function(ractive) {
+  ractive.onNew = function(event) {
+    event.original.preventDefault();
+    ractive.showForm();
+  };
 
-var _ = require("lodash");
-var viewModel = require("./viewModel");
+  ractive.onSave = function(event, book) {
+    event.original.preventDefault();
+    return book;
+  };
 
-var create = function(extendedViewModel) {
-  var mergedViewModel = _.extend({}, viewModel, (extendedViewModel || {}));
-  return new Component(mergedViewModel);
+  ractive.onCancel = function(event) {
+    event.original.preventDefault();
+    ractive.clearForm();
+    ractive.hideForm();
+  };
+
+  ractive.showForm = function() {
+    ractive.set("formVisible", "");
+  };
+  ractive.hideForm = function() {
+    ractive.set("formVisible", "none");
+  };
+
+  ractive.editBook = function(book) {
+    ractive.set("book", book);
+    ractive.showForm();
+  };
+
+  ractive.clearForm = function() {
+    ractive.set("book", null);
+  };
+
+  return ractive;
 };
 
-module.exports = {
-  Component: Component,
-  create: create
+var viewModel = {
+  data: {
+    formVisible: "none",
+    book: null
+  },
+  oninit: function() {
+    init(this);
+  }
 };
 
+module.exports = createComponent(viewModel, template);

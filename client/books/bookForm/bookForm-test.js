@@ -2,7 +2,7 @@ var tessed = require("tessed");
 require("tape-catch");
 var sinon = require("sinon");
 
-var BookFormComponent = require("./component");
+var bookFormComponent = require("./component");
 
 var componentUtil = require("../../test/util/component-util");
 
@@ -17,7 +17,7 @@ var book = { author: "Test1", title: "One" };
 
 var bookFormTest = tessed("books/bookForm/bookForm-test");
 
-bookFormTest.beforeEach(componentUtil.setup(BookFormComponent));
+bookFormTest.beforeEach(componentUtil.setup(bookFormComponent));
 bookFormTest.afterEach(componentUtil.cleanup);
 
 bookFormTest.test("initial", function(tt, context) {
