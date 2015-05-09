@@ -4,7 +4,7 @@ var sinon = require("sinon");
 
 var $ = require("jquery");
 
-var bookListComponent = require("./component");
+var BookListComponent = require("./component");
 
 var componentUtil = require("../../test/util/component-util");
 
@@ -22,7 +22,7 @@ var bookList = [
 
 var bookListTest = tessed("books/bookList/bookList-test");
 
-bookListTest.beforeEach(componentUtil.setup(bookListComponent));
+bookListTest.beforeEach(componentUtil.setup(BookListComponent));
 bookListTest.afterEach(componentUtil.cleanup);
 
 bookListTest.test("book list", function(tt, context) {

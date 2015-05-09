@@ -2,10 +2,10 @@ var _ = require("lodash");
 var $ = require("jquery");
 
 module.exports = {
-  setup: function(componentFn, viewModel) {
+  setup: function(Component, viewModel) {
     return function(tt, context) {
       var div = $("<div/>");
-      var component = componentFn(_.extend({el: div}, viewModel));
+      var component = new Component(_.extend({el: div}, viewModel));
 
       context.div = div;
       context.component = component;

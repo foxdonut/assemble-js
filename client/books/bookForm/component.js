@@ -1,4 +1,4 @@
-var createComponent = require("../../component/create");
+var Ractive = require("ractive");
 var template = require("./template.html");
 
 var init = function(ractive) {
@@ -37,7 +37,8 @@ var init = function(ractive) {
   return ractive;
 };
 
-var viewModel = {
+var Component = Ractive.extend({
+  template: template,
   data: {
     formVisible: "none",
     book: null
@@ -45,7 +46,6 @@ var viewModel = {
   oninit: function() {
     init(this);
   }
-};
+});
 
-module.exports = createComponent(viewModel, template);
-
+module.exports = Component;

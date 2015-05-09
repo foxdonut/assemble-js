@@ -1,4 +1,4 @@
-var createComponent = require("../../component/create");
+var Ractive = require("ractive");
 var template = require("./template.html");
 var _ = require("lodash");
 
@@ -35,13 +35,14 @@ var init = function(ractive) {
   return ractive;
 };
 
-var viewModel = {
+var Component = Ractive.extend({
+  template: template,
   data: {
     books: []
   },
   oninit: function() {
     init(this);
   }
-};
+});
 
-module.exports = createComponent(viewModel, template);
+module.exports = Component;
