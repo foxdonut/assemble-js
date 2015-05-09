@@ -1,4 +1,4 @@
-var wireSpec = function(viewModel) {
+var wireSpec = function(bookManager) {
   return {
     $plugins: [
       require("wire/aop")
@@ -39,4 +39,3 @@ var wireSpec = function(viewModel) {
 };
 
 module.exports = wireSpec;
-

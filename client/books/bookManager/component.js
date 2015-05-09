@@ -1,25 +1,27 @@
-var createComponent = require("../../component/create");
+var Ractive = require("ractive");
 var template = require("./template.html");
+
+var BookFormComponent = require("../bookForm/component");
+var BookListComponent = require("../bookList/component");
 
 var wire = require("wire");
 var wireSpec = require("./wireSpec");
 
-var bookFormComponent = require("../bookForm/component")({el: ".bookForm"});
-var bookListComponent = require("../bookList/component")({el: ".bookList"});
+var init = function(ractive) {
 
-var component = function() {
-  var vm = viewModel(bookFormComponent.viewModel, bookListComponent.viewModel);
-
-  wire(wireSpec(vm));
-
-  componentRegistry.register("book-form", bookFormComponent);
-  componentRegistry.register("book-list", bookListComponent);
-
-  return {
-    viewModel: vm,
-    template: template
-  };
 };
 
-module.exports = createComponent(viewModel, template);
+//wire(wireSpec(vm));
 
+var Component = Ractive.extend({
+  template: template,
+  oninit: function() {
+    init(this);
+  },
+  components: {
+    "book-form": BookFormComponent,
+    "book-list": BookListComponent
+  }
+});
+
+module.exports = Component;
