@@ -1,18 +1,16 @@
-var wireSpec = function(bookManager) {
+var wireSpec = function(bookManagerComponent) {
   return {
     $plugins: [
       require("wire/aop")
     ],
-
-    viewModel: viewModel,
 
     bookResource: {
       module: require("../resource"),
       ready: "query"
     },
 
-    bookListViewModel: {
-      module: viewModel.bookListViewModel,
+    bookManagerComponent: {
+      module: bookManagerComponent,
       afterFulfilling: {
         "bookResource.query": "bookResource.getEntity | setBooks",
         "bookResource.save": "bookResource.getEntity | addOrUpdateBook"
@@ -20,7 +18,7 @@ var wireSpec = function(bookManager) {
       afterReturning: {
         onDelete: "bookResource.delete"
       }
-    },
+    }/*,
 
     bookFormViewModel: {
       module: viewModel.bookFormViewModel,
@@ -34,7 +32,7 @@ var wireSpec = function(bookManager) {
         "bookListViewModel.onEdit": "editBook",
         onSave: "bookResource.save"
       }
-    }
+    }*/
   };
 };
 
