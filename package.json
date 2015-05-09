@@ -26,7 +26,7 @@
   "browserify": {
     "transform": [
       "stringify",
-			"reactify"
+      "reactify"
     ]
   },
   "repository": {
