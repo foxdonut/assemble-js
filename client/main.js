@@ -13,10 +13,19 @@ var Recipe = React.createClass({
       ingredient: "Hummus"
     };
   },
+  footerGenerator: function(alternative) {
+    if (alternative) {
+      return (<div>-- this one had an alternative --</div>);
+    }
+  },
   render: function() {
     return (
       <div>
-      We need {this.state.ingredient}
+        <h2>{this.props.title}</h2>
+        <p>{this.props.instructions}</p>
+        <p>Alternative: {this.props.alternative}</p>
+        <p>We need {this.state.ingredient}</p>
+        {this.footerGenerator(this.props.alternative)}
       </div>
     );
   }
@@ -26,7 +35,9 @@ var RecipeList = React.createClass({
   render: function() {
     return (
       <div>
-      RecipeList component text
+        RecipeList component text
+        <Recipe title="Hot pepper and mushroom pizza" instructions="Combine and serve on warm Naan bread." alternative="Nutritional yeast."/>
+        <Recipe title="Bagel special" instructions="Spread spicy hummus and garnish with pickles."/>
       </div>
     );
   }
