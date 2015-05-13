@@ -1,4 +1,5 @@
 var React = require("react");
+
 var Hello = React.createClass({
   render: function() {
     return (
@@ -66,11 +67,19 @@ var RecipeBook = React.createClass({
   }
 });
 
+var BookList = require("./books/bookList/component");
+
+var books = [
+  {id: 1, author: "Daoud", title: "Stripes"},
+  {id: 2, author: "Moffitt, Daoud", title: "Seven Web Frameworks"}
+];
+
 React.render(
   <div>
     <div><Hello name="React"/></div>
     <div><Recipe/></div>
     <div><RecipeBook/></div>
+    <div><BookList books={books}/></div>
   </div>,
   document.getElementById("app")
 );
