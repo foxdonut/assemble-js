@@ -7,10 +7,6 @@ var init = function(ractive) {
     return _.findIndex(ractive.get("books"), {id: book.id});
   };
 
-  ractive.setBooks = function(books) {
-    ractive.set("books", books);
-  };
-
   ractive.addOrUpdateBook = function(book) {
     var existingBookIndex = findBookIndex(book);
 

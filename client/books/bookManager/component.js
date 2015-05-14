@@ -1,22 +1,17 @@
 var Ractive = require("ractive");
+var radio = require("radio");
+
 var template = require("./template.html");
 
 var BookFormComponent = require("../bookForm/component");
 var BookListComponent = require("../bookList/component");
 
-var wire = require("wire");
-var wireSpec = require("./wireSpec");
-
 var init = function(ractive) {
-  ractive.setBooks = function(books) {
+  radio("EVT_BOOKS_AVAILABLE").subscribe(function(books) {
     ractive.set("books", books);
-  };
+  });
 
   return ractive;
-};
-
-var complete = function(ractive) {
-  wire(wireSpec(ractive));
 };
 
 var Component = Ractive.extend({
@@ -28,9 +23,6 @@ var Component = Ractive.extend({
   },
   oninit: function() {
     init(this);
-  },
-  oncomplete: function() {
-    complete(this);
   },
   components: {
     "book-form": BookFormComponent,
