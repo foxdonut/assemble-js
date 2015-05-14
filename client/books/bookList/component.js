@@ -12,13 +12,20 @@ var Component = React.createClass({
   onDelete: function() {
     this.setState({formVisible: false});
   },
+  onOver: function() {
+    this.setState({hoverText: "click to delete"});
+  },
+  onOut: function() {
+    this.setState({hoverText: null});
+  },
   render: function() {
     var books = this.props.books;
     var formVisible = this.state.formVisible;
     var deleteButton = formVisible ?
-      <button data-action="delete" onClick={this.onDelete}>Delete</button>
+      <button data-action="delete" onClick={this.onDelete} onMouseOver={this.onOver} onMouseOut={this.onOut}>Delete</button>
       : null;
     var onEdit = this.onEdit;
+    var state = this.state;
 
     return (
       <div>
@@ -32,6 +39,7 @@ var Component = React.createClass({
                 {deleteButton}
                  <span data-field="title">{book.title}</span>
                 (<span data-field="author">{book.author}</span>)
+                {state.hoverText}
               </li>
             );
           })
