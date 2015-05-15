@@ -1,6 +1,25 @@
 var React = require("react");
 var BookEvents = require("../events");
 
+var BookItem = React.createClass({
+  onDelete: function() {
+    this.props.radio(BookEvents.DELETE).broadcast(this.props.book.id);
+  },
+
+  render: function() {
+    var book = this.props.book;
+
+    return (
+      <li data-field="book" key={book.id}>
+        <button data-action="edit">Edit</button>
+        <button data-action="delete" onClick={this.onDelete}>Delete</button>
+         <span data-field="title">{book.title}</span>
+        (<span data-field="author">{book.author}</span>)
+      </li>
+    );
+  }
+});
+
 var BookList = React.createClass({
   getInitialState: function() {
     return {
@@ -19,17 +38,9 @@ var BookList = React.createClass({
     this.setState({bookList: bookList});
   },
 
-  onDelete: function(bookId) {
-    var radio = this.props.radio;
-
-    return function() {
-      radio(BookEvents.DELETE).broadcast(bookId);
-    };
-  },
-
   render: function() {
+    var radio = this.props.radio;
     var bookList = this.state.bookList;
-    var onDelete = this.onDelete;
 
     return (
       <div>
@@ -37,14 +48,7 @@ var BookList = React.createClass({
         <ul>
         {
           bookList.map(function(book) {
-            return (
-              <li data-field="book" key={book.id}>
-                <button data-action="edit">Edit</button>
-                <button data-action="delete" onClick={onDelete(book.id)}>Delete</button>
-                 <span data-field="title">{book.title}</span>
-                (<span data-field="author">{book.author}</span>)
-              </li>
-            );
+            return <BookItem key={book.id} radio={radio} book={book}/>;
           })
         }
         </ul>
