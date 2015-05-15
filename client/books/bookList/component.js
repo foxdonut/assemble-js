@@ -1,4 +1,5 @@
 var React = require("react");
+var BookEvents = require("../events");
 
 var BookList = React.createClass({
   getInitialState: function() {
@@ -7,12 +8,13 @@ var BookList = React.createClass({
     };
   },
   componentDidMount: function() {
-    this.props.bookStore.addChangeListener(this.onChange);
+    this.props.radio(BookEvents.CHANGE).subscribe(this.onChange);
+    this.props.radio(BookEvents.READY).broadcast();
+  },
+  componentWillUnmount: function() {
+    this.props.radio(BookEvents.CHANGE).unsubscribe(this.onChange);
   },
 
-  componentWillUnmount: function() {
-    this.props.bookStore.removeChangeListener(this.onChange);
-  },
   onChange: function(bookList) {
     this.setState({bookList: bookList});
   },
