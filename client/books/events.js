@@ -1,5 +1,7 @@
 module.exports = {
   CHANGE: "change",
   DELETE: "delete",
-  READY: "ready"
+  EDIT: "edit",
+  READY: "ready",
+  SAVE: "save"
 };

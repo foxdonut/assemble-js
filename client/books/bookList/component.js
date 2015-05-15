@@ -2,6 +2,9 @@ var React = require("react");
 var BookEvents = require("../events");
 
 var BookItem = React.createClass({
+  onEdit: function() {
+    this.props.radio(BookEvents.EDIT).broadcast(this.props.book);
+  },
   onDelete: function() {
     this.props.radio(BookEvents.DELETE).broadcast(this.props.book);
   },
@@ -11,7 +14,7 @@ var BookItem = React.createClass({
 
     return (
       <li data-field="book" key={book.id}>
-        <button data-action="edit">Edit</button>
+        <button data-action="edit" onClick={this.onEdit}>Edit</button>
         <button data-action="delete" onClick={this.onDelete}>Delete</button>
          <span data-field="title">{book.title}</span>
         (<span data-field="author">{book.author}</span>)
