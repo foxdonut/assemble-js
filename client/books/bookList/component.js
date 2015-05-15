@@ -3,7 +3,7 @@ var BookEvents = require("../events");
 
 var BookItem = React.createClass({
   onDelete: function() {
-    this.props.radio(BookEvents.DELETE).broadcast(this.props.book.id);
+    this.props.radio(BookEvents.DELETE).broadcast(this.props.book);
   },
 
   render: function() {
