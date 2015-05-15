@@ -19,8 +19,17 @@ var BookList = React.createClass({
     this.setState({bookList: bookList});
   },
 
+  onDelete: function(bookId) {
+    var radio = this.props.radio;
+
+    return function() {
+      radio(BookEvents.DELETE).broadcast(bookId);
+    };
+  },
+
   render: function() {
     var bookList = this.state.bookList;
+    var onDelete = this.onDelete;
 
     return (
       <div>
@@ -31,7 +40,7 @@ var BookList = React.createClass({
             return (
               <li data-field="book" key={book.id}>
                 <button data-action="edit">Edit</button>
-                <button data-action="delete">Delete</button>
+                <button data-action="delete" onClick={onDelete(book.id)}>Delete</button>
                  <span data-field="title">{book.title}</span>
                 (<span data-field="author">{book.author}</span>)
               </li>
