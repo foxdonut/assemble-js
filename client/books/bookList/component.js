@@ -1,45 +1,37 @@
 var React = require("react");
 
-var Component = React.createClass({
+var BookList = React.createClass({
   getInitialState: function() {
     return {
-      formVisible: true
+      bookList: []
     };
   },
-  onEdit: function() {
-    this.setState({formVisible: true});
+  componentDidMount: function() {
+    this.props.bookStore.addChangeListener(this.onChange);
   },
-  onDelete: function() {
-    this.setState({formVisible: false});
+
+  componentWillUnmount: function() {
+    this.props.bookStore.removeChangeListener(this.onChange);
   },
-  onOver: function() {
-    this.setState({hoverText: "click to delete"});
+  onChange: function(bookList) {
+    this.setState({bookList: bookList});
   },
-  onOut: function() {
-    this.setState({hoverText: null});
-  },
+
   render: function() {
-    var books = this.props.books;
-    var formVisible = this.state.formVisible;
-    var deleteButton = formVisible ?
-      <button data-action="delete" onClick={this.onDelete} onMouseOver={this.onOver} onMouseOut={this.onOut}>Delete</button>
-      : null;
-    var onEdit = this.onEdit;
-    var state = this.state;
+    var bookList = this.state.bookList;
 
     return (
       <div>
         <div>Book list:</div>
         <ul>
         {
-          books.map(function(book) {
+          bookList.map(function(book) {
             return (
               <li data-field="book" key={book.id}>
-                <button data-action="edit" onClick={onEdit}>Edit</button>
-                {deleteButton}
+                <button data-action="edit">Edit</button>
+                <button data-action="delete">Delete</button>
                  <span data-field="title">{book.title}</span>
                 (<span data-field="author">{book.author}</span>)
-                {state.hoverText}
               </li>
             );
           })
@@ -50,4 +42,4 @@ var Component = React.createClass({
   }
 });
 
-module.exports = Component;
+module.exports = BookList;
