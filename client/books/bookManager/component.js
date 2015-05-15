@@ -1,33 +1,37 @@
 var Ractive = require("ractive");
-var radio = require("radio");
 
+var BookEvents = require("../events");
 var template = require("./template.html");
 
 var BookFormComponent = require("../bookForm/component");
 var BookListComponent = require("../bookList/component");
 
-var init = function(ractive) {
-  radio("EVT_BOOKS_AVAILABLE").subscribe(function(books) {
+var init = function(ractive, radio) {
+  radio(BookEvents.CHANGE).subscribe(function(books) {
     ractive.set("books", books);
   });
+
+  radio(BookEvents.READY).broadcast();
 
   return ractive;
 };
 
-var Component = Ractive.extend({
-  template: template,
-  data: function() {
-    return {
-      books: [],
+module.exports = function(radio) {
+  var Component = Ractive.extend({
+    template: template,
+    data: function() {
+      return {
+        books: []
+      };
+    },
+    oninit: function() {
+      init(this, radio);
+    },
+    components: {
+      "book-form": BookFormComponent,
+      "book-list": BookListComponent
     }
-  },
-  oninit: function() {
-    init(this);
-  },
-  components: {
-    "book-form": BookFormComponent,
-    "book-list": BookListComponent
-  }
-});
+  });
 
-module.exports = Component;
+  return Component;
+};
