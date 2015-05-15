@@ -4,13 +4,10 @@ var radio = require("radio");
 var bookResource = require("./books/resource");
 require("./books/store")(radio, bookResource);
 
-//var BookManager = require("./books/bookManager/component");
-var BookList = require("./books/bookList/component");
+var BookManager = require("./books/bookManager/component");
 
 React.render(
-  <div>
-    <BookList radio={radio}/>
-  </div>,
+  <BookManager radio={radio}/>,
   document.getElementById("app")
 );
 
