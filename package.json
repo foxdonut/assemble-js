@@ -7,7 +7,7 @@
     "generatedApp": "./public/generated-app.js"
   },
   "scripts": {
-    "build": "browserify ./client/main.js -o $npm_package_config_generatedApp && echo 'Done.'",
+    "build": "browserify ./client/main.js -o $npm_package_config_generatedApp && echo 'Ready.'",
     "pretest": "npm run build",
     "test:compile": "browserify $(find client -name '*-test.js')",
     "test:raw": "npm -s run test:compile | tape-run",
