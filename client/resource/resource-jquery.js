@@ -6,13 +6,15 @@ module.exports = function(baseUrl) {
       return $.ajax({
         method: "GET",
         url: baseUrl,
-        data: params
+        data: params,
+        dataType: "json"
       });
     },
     get: function(id) {
       return $.ajax({
         method: "GET",
-        url: baseUrl + "/" + id
+        url: baseUrl + "/" + id,
+        dataType: "json"
       });
     },
     save: function(model) {
@@ -26,6 +28,7 @@ module.exports = function(baseUrl) {
         };
 
         request.data = model;
+        request.dataType = "json";
 
         return $.ajax(request);
       }
