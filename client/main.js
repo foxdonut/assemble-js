@@ -1,7 +1,7 @@
 var React = require("react");
 var pubsub = require("./pubsub/pubsub-radio");
 
-var bookResource = require("./books/resource");
+var bookResource = require("./resource/resource-rest")("/books");
 require("./books/store")(pubsub, bookResource);
 
 var BookManager = require("./books/bookManager/component");

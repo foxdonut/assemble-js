@@ -14,7 +14,7 @@ var store = function(pubsub, bookResource) {
 
   var onReady = function() {
     bookResource.query().then(function(response) {
-      bookList = response.entity;
+      bookList = response;
       publishChange();
     });
   };
@@ -34,7 +34,7 @@ var store = function(pubsub, bookResource) {
 
   var onSave = function(book) {
     bookResource.save(book).then(function(response) {
-      var updatedBook = response.entity;
+      var updatedBook = response;
       var index = findBookIndex(updatedBook);
 
       if (index >= 0) {

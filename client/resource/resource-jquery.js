@@ -1,4 +1,4 @@
-var when = require("when");
+var $ = require("jquery");
 
 module.exports = function(client) {
   return function(baseUrl) {
