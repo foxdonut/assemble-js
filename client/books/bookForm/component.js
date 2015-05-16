@@ -1,7 +1,9 @@
 var Ractive = require("ractive");
+
+var BookEvents = require("../events");
 var template = require("./template.html");
 
-var init = function(ractive) {
+var init = function(ractive, radio) {
   ractive.onNew = function(event) {
     event.original.preventDefault();
     ractive.showForm();
@@ -9,12 +11,12 @@ var init = function(ractive) {
 
   ractive.onSave = function(event, book) {
     event.original.preventDefault();
-    return book;
+    radio(BookEvents.SAVE).broadcast(book);
+    ractive.hideForm();
   };
 
   ractive.onCancel = function(event) {
     event.original.preventDefault();
-    ractive.clearForm();
     ractive.hideForm();
   };
 
@@ -23,31 +25,31 @@ var init = function(ractive) {
   };
   ractive.hideForm = function() {
     ractive.set("formVisible", "none");
+    ractive.set("book", {});
   };
 
-  ractive.editBook = function(book) {
+  var onEdit = function(book) {
     ractive.set("book", book);
     ractive.showForm();
   };
-
-  ractive.clearForm = function() {
-    ractive.set("book", null);
-  };
+  radio(BookEvents.EDIT).subscribe(onEdit);
 
   return ractive;
 };
 
-var Component = Ractive.extend({
-  template: template,
-  data: function() {
-    return {
-      formVisible: "none",
-      book: null
-    };
-  },
-  oninit: function() {
-    init(this);
-  }
-});
+module.exports = function(radio) {
+  var Component = Ractive.extend({
+    template: template,
+    data: function() {
+      return {
+        formVisible: "none",
+        book: {}
+      };
+    },
+    oninit: function() {
+      init(this, radio);
+    }
+  });
 
-module.exports = Component;
+  return Component;
+};

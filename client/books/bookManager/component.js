@@ -3,9 +3,6 @@ var Ractive = require("ractive");
 var BookEvents = require("../events");
 var template = require("./template.html");
 
-var BookFormComponent = require("../bookForm/component");
-var BookListComponent = require("../bookList/component");
-
 var init = function(ractive, radio) {
   radio(BookEvents.CHANGE).subscribe(function(books) {
     ractive.set("books", books);
@@ -17,6 +14,9 @@ var init = function(ractive, radio) {
 };
 
 module.exports = function(radio) {
+  var BookFormComponent = require("../bookForm/component")(radio);
+  var BookListComponent = require("../bookList/component")(radio);
+
   var Component = Ractive.extend({
     template: template,
     data: function() {
