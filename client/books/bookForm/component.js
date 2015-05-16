@@ -42,7 +42,6 @@ var BookForm = React.createClass({
   },
 
   render: function() {
-    var pubsub = this.props.pubsub;
     var book = this.state.book;
 
     var form = null;
