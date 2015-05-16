@@ -1,43 +1,42 @@
 var $ = require("jquery");
 
-module.exports = function(client) {
-  return function(baseUrl) {
-    return {
-      query: function(params) {
-        return client({
-          method: "GET",
-          path: baseUrl,
-          params: params
-        });
-      },
-      get: function(id) {
-        return client({
-          method: "GET",
-          path: baseUrl + "/" + id
-        });
-      },
-      save: function(model) {
-        if (model) {
-          var request = (model.id) ? {
-            method: "PUT",
-            path: baseUrl + "/" + model.id
-          } : {
-            method: "POST",
-            path: baseUrl
-          };
+module.exports = function(baseUrl) {
+  return {
+    query: function(params) {
+      return $.ajax({
+        method: "GET",
+        url: baseUrl,
+        data: params
+      });
+    },
+    get: function(id) {
+      return $.ajax({
+        method: "GET",
+        url: baseUrl + "/" + id
+      });
+    },
+    save: function(model) {
+      if (model) {
+        var request = (model.id) ? {
+          method: "PUT",
+          url: baseUrl + "/" + model.id
+        } : {
+          method: "POST",
+          url: baseUrl
+        };
 
-          request.entity = model;
+        request.data = model;
 
-          return client(request);
-        }
-        return when.reject();
-      },
-      "delete": function(model) {
-        return client({
-          method: "DELETE",
-          path: baseUrl + "/" + model.id
-        });
+        return $.ajax(request);
       }
-    };
+      return when.reject();
+    },
+    "delete": function(model) {
+      return $.ajax({
+        method: "DELETE",
+        path: baseUrl + "/" + model.id
+      });
+    }
   };
 };
+
