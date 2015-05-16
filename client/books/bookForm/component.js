@@ -9,10 +9,10 @@ var BookForm = React.createClass({
     };
   },
   componentDidMount: function() {
-    this.props.radio(BookEvents.EDIT).subscribe(this.onEdit);
+    this.props.pubsub.subscribe(BookEvents.EDIT, this.onEdit);
   },
   componentWillUnmount: function() {
-    this.props.radio(BookEvents.EDIT).unsubscribe(this.onEdit);
+    this.props.pubsub.unsubscribe(BookEvents.EDIT, this.onEdit);
   },
 
   onEdit: function(book) {
@@ -24,7 +24,7 @@ var BookForm = React.createClass({
   },
 
   onSave: function() {
-    this.props.radio(BookEvents.SAVE).broadcast(this.state.book);
+    this.props.pubsub.publish(BookEvents.SAVE, this.state.book);
     this.setState({editing: false, book: {}});
   },
   onCancel: function() {
@@ -42,7 +42,7 @@ var BookForm = React.createClass({
   },
 
   render: function() {
-    var radio = this.props.radio;
+    var pubsub = this.props.pubsub;
     var book = this.state.book;
 
     var form = null;

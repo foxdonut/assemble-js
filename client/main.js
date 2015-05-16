@@ -1,13 +1,13 @@
 var React = require("react");
-var radio = require("radio");
+var pubsub = require("./pubsub/pubsub-radio");
 
 var bookResource = require("./books/resource");
-require("./books/store")(radio, bookResource);
+require("./books/store")(pubsub, bookResource);
 
 var BookManager = require("./books/bookManager/component");
 
 React.render(
-  <BookManager radio={radio}/>,
+  <BookManager pubsub={pubsub}/>,
   document.getElementById("app")
 );
 

@@ -1,11 +1,11 @@
 var _ = require("lodash");
 var BookEvents = require("./events");
 
-var store = function(radio, bookResource) {
+var store = function(pubsub, bookResource) {
   var bookList = [];
 
-  var broadcastChange = function() {
-    radio(BookEvents.CHANGE).broadcast(bookList);
+  var publishChange = function() {
+    pubsub.publish(BookEvents.CHANGE, bookList);
   };
 
   var findBookIndex = function(book) {
@@ -15,10 +15,10 @@ var store = function(radio, bookResource) {
   var onReady = function() {
     bookResource.query().then(function(response) {
       bookList = response.entity;
-      broadcastChange();
+      publishChange();
     });
   };
-  radio(BookEvents.READY).subscribe(onReady);
+  pubsub.subscribe(BookEvents.READY, onReady);
 
   var onDelete = function(book) {
     bookResource.delete(book).then(function() {
@@ -26,11 +26,11 @@ var store = function(radio, bookResource) {
 
       if (index >= 0 && index < bookList.length) {
         bookList.splice(index, 1);
-        broadcastChange();
+        publishChange();
       }
     });
   };
-  radio(BookEvents.DELETE).subscribe(onDelete);
+  pubsub.subscribe(BookEvents.DELETE, onDelete);
 
   var onSave = function(book) {
     bookResource.save(book).then(function(response) {
@@ -43,10 +43,10 @@ var store = function(radio, bookResource) {
       else {
         bookList.push(updatedBook);
       }
-      broadcastChange();
+      publishChange();
     });
   };
-  radio(BookEvents.SAVE).subscribe(onSave);
+  pubsub.subscribe(BookEvents.SAVE, onSave);
 };
 
 module.exports = store;

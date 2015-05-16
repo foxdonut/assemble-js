@@ -3,10 +3,10 @@ var BookEvents = require("../events");
 
 var BookItem = React.createClass({
   onEdit: function() {
-    this.props.radio(BookEvents.EDIT).broadcast(this.props.book);
+    this.props.pubsub.publish(BookEvents.EDIT, this.props.book);
   },
   onDelete: function() {
-    this.props.radio(BookEvents.DELETE).broadcast(this.props.book);
+    this.props.pubsub.publish(BookEvents.DELETE, this.props.book);
   },
 
   render: function() {
@@ -30,11 +30,10 @@ var BookList = React.createClass({
     };
   },
   componentDidMount: function() {
-    this.props.radio(BookEvents.CHANGE).subscribe(this.onChange);
-    this.props.radio(BookEvents.READY).broadcast();
+    this.props.pubsub.subscribe(BookEvents.CHANGE, this.onChange);
   },
   componentWillUnmount: function() {
-    this.props.radio(BookEvents.CHANGE).unsubscribe(this.onChange);
+    this.props.pubsub.unsubscribe(BookEvents.CHANGE, this.onChange);
   },
 
   onChange: function(bookList) {
@@ -42,7 +41,7 @@ var BookList = React.createClass({
   },
 
   render: function() {
-    var radio = this.props.radio;
+    var pubsub = this.props.pubsub;
     var bookList = this.state.bookList;
 
     return (
@@ -51,7 +50,7 @@ var BookList = React.createClass({
         <ul>
         {
           bookList.map(function(book) {
-            return <BookItem key={book.id} radio={radio} book={book}/>;
+            return <BookItem key={book.id} pubsub={pubsub} book={book}/>;
           })
         }
         </ul>

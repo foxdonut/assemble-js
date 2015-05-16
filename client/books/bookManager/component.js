@@ -5,13 +5,13 @@ var BookList = require("../bookList/component");
 
 var BookManager = React.createClass({
   componentDidMount: function() {
-    this.props.radio(BookEvents.READY).broadcast();
+    this.props.pubsub.publish(BookEvents.READY);
   },
   render: function() {
     return (
       <div>
-        <BookForm radio={this.props.radio}/>
-        <BookList radio={this.props.radio}/>
+        <BookForm pubsub={this.props.pubsub}/>
+        <BookList pubsub={this.props.pubsub}/>
       </div>
     );
   }
