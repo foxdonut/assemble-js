@@ -29,7 +29,9 @@ module.exports = function(baseUrl) {
 
         return $.ajax(request);
       }
-      return when.reject();
+      var dfd = $.Deferred();
+      dfd.reject();
+      return dfd.promise();
     },
     "delete": function(model) {
       return $.ajax({
