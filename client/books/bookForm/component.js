@@ -9,7 +9,6 @@ var BookForm = React.createClass({
     };
   },
   componentDidMount: function() {
-    console.log("this.onEdit:", this.onEdit);
     this.props.pubsub.subscribe(BookEvents.EDIT, this.onEdit);
   },
   componentWillUnmount: function() {
@@ -26,7 +25,6 @@ var BookForm = React.createClass({
 
   onSave: function(event) {
     event.preventDefault();
-    console.log("this.state.book:", this.state.book);
     this.props.pubsub.publish(BookEvents.SAVE, this.state.book);
     this.setState({editing: false, book: {}});
   },

@@ -30,7 +30,6 @@ var BookList = React.createClass({
     };
   },
   componentDidMount: function() {
-    console.log("this.onChange:", this.onDataChange);
     this.props.pubsub.subscribe(BookEvents.DATA, this.onDataChange);
   },
   componentWillUnmount: function() {
@@ -38,7 +37,6 @@ var BookList = React.createClass({
   },
 
   onDataChange: function(bookList) {
-    console.log("received:", bookList);
     this.setState({bookList: bookList});
   },
 

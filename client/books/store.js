@@ -5,7 +5,6 @@ var store = function(pubsub, bookResource) {
   var bookList = [];
 
   var publishData = function() {
-    console.log("publish:", bookList);
     pubsub.publish(BookEvents.DATA, bookList);
   };
 
@@ -34,7 +33,6 @@ var store = function(pubsub, bookResource) {
   pubsub.subscribe(BookEvents.DELETE, onDelete);
 
   var onSave = function(book) {
-    console.log("onSave:", book);
     bookResource.save(book).then(function(response) {
       var updatedBook = response;
       var index = findBookIndex(updatedBook);
