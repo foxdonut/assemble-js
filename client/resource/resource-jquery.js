@@ -27,8 +27,10 @@ module.exports = function(baseUrl) {
           url: baseUrl
         };
 
-        request.data = model;
+        request.contentType = "application/json";
+        request.data = JSON.stringify(model);
         request.dataType = "json";
+        request.processData = false;
 
         return $.ajax(request);
       }
