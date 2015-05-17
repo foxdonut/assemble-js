@@ -8,7 +8,12 @@ var pubsub = {
 
     if (!callbackFn) {
       callbackFn = function(event, data) {
-        callback(data.data);
+        if (data) {
+          callback(data.data);
+        }
+        else {
+          callback();
+        }
       };
       callbacks[callback] = callbackFn;
     }
@@ -18,7 +23,7 @@ var pubsub = {
     $obj.off(topic, callbacks[callback]);
   },
   publish: function(topic, data) {
-    $obj.trigger(topic, {data:data});
+    $obj.trigger(topic, {data: data});
   }
 };
 
