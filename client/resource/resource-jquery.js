@@ -41,7 +41,7 @@ module.exports = function(baseUrl) {
     "delete": function(model) {
       return $.ajax({
         method: "DELETE",
-        path: baseUrl + "/" + model.id
+        url: baseUrl + "/" + model.id
       });
     }
   };
