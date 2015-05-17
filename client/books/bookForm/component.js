@@ -9,6 +9,7 @@ var BookForm = React.createClass({
     };
   },
   componentDidMount: function() {
+    console.log("this.onEdit:", this.onEdit);
     this.props.pubsub.subscribe(BookEvents.EDIT, this.onEdit);
   },
   componentWillUnmount: function() {
@@ -25,6 +26,7 @@ var BookForm = React.createClass({
 
   onSave: function(event) {
     event.preventDefault();
+    console.log("this.state.book:", this.state.book);
     this.props.pubsub.publish(BookEvents.SAVE, this.state.book);
     this.setState({editing: false, book: {}});
   },
@@ -33,7 +35,7 @@ var BookForm = React.createClass({
     this.setState({editing: false, book: {}});
   },
 
-  onChange: function(field) {
+  onChangeText: function(field) {
     var self = this;
 
     return function(event) {
@@ -51,10 +53,10 @@ var BookForm = React.createClass({
       form = (
         <form onSubmit={this.onSave}>
           <div>Author:</div>
-          <div><input type="text" data-field="author" value={this.state.book.author} onChange={this.onChange("author")}/></div>
+          <div><input type="text" data-field="author" value={this.state.book.author} onChange={this.onChangeText("author")}/></div>
 
           <div>Title:</div>
-          <div><input type="text" data-field="title" value={this.state.book.title} onChange={this.onChange("title")}/></div>
+          <div><input type="text" data-field="title" value={this.state.book.title} onChange={this.onChangeText("title")}/></div>
 
           <div>
             <input data-action="save" type="submit" value="Save"/>

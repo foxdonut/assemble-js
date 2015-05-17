@@ -4,8 +4,9 @@ var BookEvents = require("./events");
 var store = function(pubsub, bookResource) {
   var bookList = [];
 
-  var publishChange = function() {
-    pubsub.publish(BookEvents.CHANGE, bookList);
+  var publishData = function() {
+    console.log("publish:", bookList);
+    pubsub.publish(BookEvents.DATA, bookList);
   };
 
   var findBookIndex = function(book) {
@@ -15,7 +16,7 @@ var store = function(pubsub, bookResource) {
   var onReady = function() {
     bookResource.query().then(function(response) {
       bookList = response;
-      publishChange();
+      publishData();
     });
   };
   pubsub.subscribe(BookEvents.READY, onReady);
@@ -26,13 +27,14 @@ var store = function(pubsub, bookResource) {
 
       if (index >= 0 && index < bookList.length) {
         bookList.splice(index, 1);
-        publishChange();
+        publishData();
       }
     });
   };
   pubsub.subscribe(BookEvents.DELETE, onDelete);
 
   var onSave = function(book) {
+    console.log("onSave:", book);
     bookResource.save(book).then(function(response) {
       var updatedBook = response;
       var index = findBookIndex(updatedBook);
@@ -43,7 +45,7 @@ var store = function(pubsub, bookResource) {
       else {
         bookList.push(updatedBook);
       }
-      publishChange();
+      publishData();
     });
   };
   pubsub.subscribe(BookEvents.SAVE, onSave);

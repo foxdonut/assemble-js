@@ -30,17 +30,15 @@ var BookList = React.createClass({
     };
   },
   componentDidMount: function() {
-    var self = this;
-    var onChange = function(bookList) {
-      self.onChange(bookList);
-    };
-    this.props.pubsub.subscribe(BookEvents.CHANGE, onChange);
+    console.log("this.onChange:", this.onDataChange);
+    this.props.pubsub.subscribe(BookEvents.DATA, this.onDataChange);
   },
   componentWillUnmount: function() {
-    this.props.pubsub.unsubscribe(BookEvents.CHANGE, this.onChange);
+    this.props.pubsub.unsubscribe(BookEvents.DATA, this.onDataChange);
   },
 
-  onChange: function(bookList) {
+  onDataChange: function(bookList) {
+    console.log("received:", bookList);
     this.setState({bookList: bookList});
   },
 
