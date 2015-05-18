@@ -3,19 +3,19 @@ var Ractive = require("ractive");
 var BookEvents = require("../events");
 var template = require("./template.html");
 
-var init = function(ractive, radio) {
-  radio(BookEvents.CHANGE).subscribe(function(books) {
+var init = function(ractive, pubsub) {
+  pubsub.subscribe(BookEvents.DATA, function(books) {
     ractive.set("books", books);
   });
 
-  radio(BookEvents.READY).broadcast();
+  pubsub.publish(BookEvents.READY);
 
   return ractive;
 };
 
-module.exports = function(radio) {
-  var BookFormComponent = require("../bookForm/component")(radio);
-  var BookListComponent = require("../bookList/component")(radio);
+module.exports = function(pubsub) {
+  var BookFormComponent = require("../bookForm/component")(pubsub);
+  var BookListComponent = require("../bookList/component")(pubsub);
 
   var Component = Ractive.extend({
     template: template,
@@ -25,7 +25,7 @@ module.exports = function(radio) {
       };
     },
     oninit: function() {
-      init(this, radio);
+      init(this, pubsub);
     },
     components: {
       "book-form": BookFormComponent,

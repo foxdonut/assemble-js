@@ -37,9 +37,6 @@ module.exports = function(client) {
           method: "DELETE",
           path: baseUrl + "/" + model.id
         });
-      },
-      getEntity: function(response) {
-        return response.entity;
       }
     };
   };

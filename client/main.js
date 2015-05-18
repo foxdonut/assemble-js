@@ -1,10 +1,12 @@
 var Ractive = require("ractive");
-var radio = require("radio");
+//var pubsub = require("./pubsub/pubsub-radio");
+var pubsub = require("./pubsub/pubsub-jquery");
 
-var bookResource = require("./books/resource");
-require("./books/store")(radio, bookResource);
+//var bookResource = require("./resource/resource-rest")("/books");
+var bookResource = require("./resource/resource-jquery")("/books");
+require("./books/store")(pubsub, bookResource);
 
-var BookManagerComponent = require("./books/bookManager/component")(radio);
+var BookManagerComponent = require("./books/bookManager/component")(pubsub);
 var template = require("./template.html");
 
 new Ractive({

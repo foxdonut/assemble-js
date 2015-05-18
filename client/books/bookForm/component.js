@@ -3,7 +3,7 @@ var Ractive = require("ractive");
 var BookEvents = require("../events");
 var template = require("./template.html");
 
-var init = function(ractive, radio) {
+var init = function(ractive, pubsub) {
   ractive.onNew = function(event) {
     event.original.preventDefault();
     ractive.showForm();
@@ -11,7 +11,7 @@ var init = function(ractive, radio) {
 
   ractive.onSave = function(event, book) {
     event.original.preventDefault();
-    radio(BookEvents.SAVE).broadcast(book);
+    pubsub.publish(BookEvents.SAVE, book);
     ractive.hideForm();
   };
 
@@ -32,12 +32,12 @@ var init = function(ractive, radio) {
     ractive.set("book", book);
     ractive.showForm();
   };
-  radio(BookEvents.EDIT).subscribe(onEdit);
+  pubsub.subscribe(BookEvents.EDIT, onEdit);
 
   return ractive;
 };
 
-module.exports = function(radio) {
+module.exports = function(pubsub) {
   var Component = Ractive.extend({
     template: template,
     data: function() {
@@ -47,7 +47,7 @@ module.exports = function(radio) {
       };
     },
     oninit: function() {
-      init(this, radio);
+      init(this, pubsub);
     }
   });
 
