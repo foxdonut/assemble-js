@@ -28,7 +28,7 @@ bookFormTest.test("initial", function(tt, context) {
   var div = context.div;
 
   tt.equal(div.find(newButton).size(), 1, "renders a New button");
-  tt.equal(div.find("form:hidden").size(), 1, "renders a hidden form");
+  tt.equal(div.find("form:visible").size(), 0, "does not initially render a form");
 });
 
 bookFormTest.test("new book", function(tt, context) {
