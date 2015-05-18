@@ -2,12 +2,11 @@ var tessed = require("tessed");
 require("tape-catch");
 var sinon = require("sinon");
 
-var ko = require("knockout");
-
-var component = require("./component")();
-var viewModel = component.viewModel;
-
+var BookEvents = require("../events");
+var component = require("./component");
 var componentUtil = require("../../test/util/component-util");
+
+var pubsub = require("../../pubsub/pubsub-jquery");
 
 var newButton = "[data-action='new']";
 var saveButton = "[data-action='save']";
@@ -16,11 +15,11 @@ var cancelButton = "[data-action='cancel']";
 var authorField = "[data-field='author']";
 var titleField = "[data-field='title']";
 
-var book = { author: ko.observable("Test1"), title: ko.observable("One") };
+var book = { author: "Test1", title: "One" };
 
 var bookFormTest = tessed("books/bookForm/bookForm-test");
 
-bookFormTest.beforeEach(componentUtil.setup(component));
+bookFormTest.beforeEach(componentUtil.setup(component, pubsub));
 bookFormTest.afterEach(componentUtil.cleanup);
 
 bookFormTest.test("initial", function(tt, context) {
@@ -47,8 +46,7 @@ bookFormTest.test("edit book", function(tt, context) {
   tt.plan(4);
 
   var div = context.div;
-
-  context.viewModel.editBook(book);
+  pubsub.publish(BookEvents.EDIT, book);
 
   var form = div.find("form");
   tt.equal(form.size(), 1, "renders a form");
@@ -62,23 +60,24 @@ bookFormTest.test("save book", function(tt, context) {
   tt.plan(1);
 
   var div = context.div;
-  var viewModel = context.viewModel;
 
-  div.find(authorField).val(book.author());
-  div.find(titleField).val(book.title());
+  div.find(authorField).val(book.author);
+  div.find(titleField).val(book.title);
 
-  sinon.spy(viewModel, "onSave");
+  var onSave = sinon.spy();
+  pubsub.subscribe(BookEvents.SAVE, onSave);
+
   div.find(saveButton).trigger("click");
-  tt.ok(viewModel.onSave.calledOnce, "save book");
+  tt.ok(onSave.calledOnce, "save book");
 
-  viewModel.onSave.restore();
+  pubsub.unsubscribe(BookEvents.SAVE, onSave);
 });
 
 bookFormTest.test("cancel", function(tt, context) {
   tt.plan(3);
 
   var div = context.div;
-  context.viewModel.editBook(book);
+  pubsub.publish(BookEvents.EDIT, book);
 
   div.find(cancelButton).trigger("click");
 

@@ -4,10 +4,11 @@ var sinon = require("sinon");
 
 var $ = require("jquery");
 
-var component = require("./component")();
-var viewModel = component.viewModel;
-
+var BookEvents = require("../events");
+var component = require("./component");
 var componentUtil = require("../../test/util/component-util");
+
+var pubsub = require("../../pubsub/pubsub-jquery");
 
 var editButton = "[data-action='edit']";
 var deleteButton = "[data-action='delete']";
@@ -23,7 +24,7 @@ var bookList = [
 
 var bookListTest = tessed("books/bookList/bookList-test");
 
-bookListTest.beforeEach(componentUtil.setup(component));
+bookListTest.beforeEach(componentUtil.setup(component, pubsub));
 bookListTest.afterEach(componentUtil.cleanup);
 
 bookListTest.test("book list", function(tt, context) {
@@ -31,7 +32,7 @@ bookListTest.test("book list", function(tt, context) {
 
   var div = context.div;
 
-  viewModel.books(bookList);
+  pubsub.publish(BookEvents.DATA, bookList);
   var books = div.find(bookField);
 
   tt.equal(books.size(), bookList.length, "number of books rendered");
@@ -46,31 +47,31 @@ bookListTest.test("book list", function(tt, context) {
 bookListTest.test("edit book", function(tt, context) {
   tt.plan(1);
 
-  var viewModel = context.viewModel;
   var div = context.div;
 
-  viewModel.books([bookList[0]]);
+  pubsub.publish(BookEvents.DATA, [bookList[0]]);
 
-  sinon.spy(viewModel, "onEdit");
+  var onEdit = sinon.spy();
+  pubsub.subscribe(BookEvents.EDIT, onEdit);
 
   div.find(editButton).trigger("click");
-  tt.ok(viewModel.onEdit.calledOnce, "edit button");
+  tt.ok(onEdit.calledOnce, "edit button");
 
-  viewModel.onEdit.restore();
+  pubsub.unsubscribe(BookEvents.EDIT, onEdit);
 });
 
 bookListTest.test("delete book", function(tt, context) {
   tt.plan(1);
 
-  var viewModel = context.viewModel;
   var div = context.div;
 
-  viewModel.books([bookList[0]]);
+  pubsub.publish(BookEvents.DATA, [bookList[0]]);
 
-  sinon.spy(viewModel, "onDelete");
+  var onDelete = sinon.spy();
+  pubsub.subscribe(BookEvents.DELETE, onDelete);
 
   div.find(deleteButton).trigger("click");
-  tt.ok(viewModel.onDelete.calledOnce, "delete button");
+  tt.ok(onDelete.calledOnce, "delete button");
 
-  viewModel.onDelete.restore();
+  pubsub.unsubscribe(BookEvents.DELETE, onDelete);
 });

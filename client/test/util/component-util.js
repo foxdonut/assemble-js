@@ -1,15 +1,14 @@
-var ko = require("knockout");
+var React = require("react");
 var $ = require("jquery");
 
 module.exports = {
-  setup: function(component) {
+  setup: function(component, pubsub) {
     return function(tt, context) {
       var div = $("<div/>");
-      div.append(component.template);
-      ko.applyBindings(component.viewModel, div[0]);
+      var TestComponent = component;
+      React.render(<TestComponent pubsub={pubsub}/>, div[0]);
 
       context.div = div;
-      context.viewModel = component.viewModel;
 
       tt.end();
     };
@@ -17,10 +16,7 @@ module.exports = {
 
   cleanup: function(tt, context) {
     var div = context.div;
-
-    ko.cleanNode(div[0]);
     div.remove();
-
     tt.end();
   }
 };
