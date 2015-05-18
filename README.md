@@ -17,15 +17,17 @@ Find interesting combinations that help writing JavaScript web applications that
 
 Different git branches are used for different combinations.
 
-Currently, master is using, on the client:
+Currently, the libraries being explored include, on the client:
 
-* [Browserify](http://browserify.org)
-* [stringify](http://johnpostlethwait.github.io/stringify)
-* [wire.js](https://github.com/cujojs/wire)
-* [rest.js](https://github.com/cujojs/rest)
+* [React](https://facebook.github.io/react)
+* [Ractive](http://ractivejs.org)
 * [KnockoutJS](http://knockoutjs.com)
 * [jQuery](http://jquery.com)
 * [lodash](http://lodash.com)
+* [cujoJS](http://cujojs.com):
+    * [wire.js](https://github.com/cujojs/wire)
+    * [rest.js](https://github.com/cujojs/rest)
+    * [when.js](https://github.com/cujojs/when)
 
 For testing:
 
@@ -34,6 +36,7 @@ For testing:
 * [tape-run](https://github.com/juliangruber/tape-run)
 * [tape-catch](https://github.com/michaelrhodes/tape-catch)
 * [tap-spec](https://github.com/scottcorgan/tap-spec)
+* [Sinon.JS](http://sinonjs.org)
 * [PhantomJS](http://phantomjs.org)
 * [Karma](http://karma-runner.github.io)
 
@@ -45,6 +48,9 @@ On the server:
 For building:
 
 * [npm](https://www.npmjs.com/)
+* [Browserify](http://browserify.org)
+* [stringify](http://johnpostlethwait.github.io/stringify)
+* [reactify](https://github.com/andreypopp/reactify)
 
-Of particular interest to me is [CujoJS](http://cujojs.com) and its [wire.js](https://github.com/cujojs/wire) and [rest.js](https://github.com/cujojs/rest) libraries. From there stems the motivation of assembling a JavaScript web application stack composed of small, focused libraries instead of large frameworks.
+This exploration of JavaScript libraries is as much about the journey as it is about the motivation of assembling a JavaScript web application stack composed of small, focused libraries instead of large frameworks.
 
