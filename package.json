@@ -8,15 +8,9 @@
   },
   "scripts": {
     "build": "browserify ./client/main.js -o $npm_package_config_generatedApp && echo 'Ready.'",
-    "test:compile": "browserify $(find client -name '*-test.js')",
-    "test:build": "browserify $(find client -name '*-test.js') -o ./public/generated-test.js",
-    "karma:start": "karma start karma.conf.js",
-    "karma:single-run": "karma start karma.conf.js --single-run",
     "test": "jest",
     "watch": "watch 'npm run build' ./client",
-    "watch:test": "watch 'npm run test:generate' ./client",
     "nodemon": "nodemon server/main --watch server",
-    "test:server": "parallelshell 'node server/main' 'npm run watch:test'",
     "start": "parallelshell 'npm run watch' 'npm run nodemon'"
   },
   "browserify": {
@@ -27,7 +21,7 @@
   },
   "jest": {
     "rootDir": "client",
-    "scriptPreprocessor": "<rootDir>/preprocessor.js",
+    "scriptPreprocessor": "../jest-preprocessor.js",
     "unmockedModulePathPatterns": ["react"]
   },
   "repository": {
@@ -54,13 +48,8 @@
   "devDependencies": {
     "browserify": "^9.0.3",
     "jest-cli": "^0.4.5",
-    "karma": "^0.12.31",
-    "karma-browserify": "^4.1.2",
-    "karma-cli": "0.0.4",
-    "karma-phantomjs-launcher": "^0.1.4",
     "nodemon": "^1.3.7",
     "parallelshell": "^1.1.1",
-    "phantomjs": "^1.9.16",
     "reactify": "^1.1.0",
     "sinon": "^1.14.1",
     "stringify": "^3.1.0",
