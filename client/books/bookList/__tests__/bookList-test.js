@@ -1,32 +1,34 @@
-var tessed = require("tessed");
-require("tape-catch");
-var sinon = require("sinon");
+jest.dontMock("../component");
+jest.dontMock("../../events");
+jest.dontMock("jquery");
+jest.dontMock("../../../pubsub/pubsub-jquery");
 
-var $ = require("jquery");
+var React = require("react/addons");
+var TestUtils = React.addons.TestUtils;
 
-var BookEvents = require("../events");
-var component = require("./component");
-var componentUtil = require("../../test/util/component-util");
-
-var pubsub = require("../../pubsub/pubsub-jquery");
-
-var editButton = "[data-action='edit']";
-var deleteButton = "[data-action='delete']";
-
-var bookField = "[data-field='book']";
-var authorField = "[data-field='author']";
-var titleField = "[data-field='title']";
+var BookList = require("../component");
+var BookEvents = require("../../events");
+var pubsub = require("../../../pubsub/pubsub-jquery");
 
 var bookList = [
   { author: "Test1", title: "One" },
   { author: "Test2", title: "Two" }
 ];
 
-var bookListTest = tessed("books/bookList/bookList-test");
+describe("BookList component", function() {
+  describe("book list", function() {
+    var bookList = TestUtils.renderIntoDocument(
+      <BookList pubsub={pubsub}/>
+    );
 
-bookListTest.beforeEach(componentUtil.setup(component, pubsub));
-bookListTest.afterEach(componentUtil.cleanup);
+    it("displays an initially empty list", function() {
+      var ul = TestUtils.findRenderedDOMComponentWithTag(bookList, "ul");
+      expect(ul).toBeDefined();
+    });
+  });
+});
 
+/*
 bookListTest.test("book list", function(tt, context) {
   tt.plan(1 + (2 * bookList.length));
 
@@ -75,3 +77,5 @@ bookListTest.test("delete book", function(tt, context) {
 
   pubsub.unsubscribe(BookEvents.DELETE, onDelete);
 });
+*/
+
