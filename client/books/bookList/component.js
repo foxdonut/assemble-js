@@ -46,8 +46,8 @@ var BookList = React.createClass({
 
     return (
       <div>
-        <div>Book list:</div>
-        <ul>
+        <div data-element="heading">Book list:</div>
+        <ul data-element="bookList">
         {
           bookList.map(function(book) {
             return <BookItem key={book.id} pubsub={pubsub} book={book}/>;

@@ -2,9 +2,12 @@ jest.dontMock("../component");
 jest.dontMock("../../events");
 jest.dontMock("jquery");
 jest.dontMock("../../../pubsub/pubsub-jquery");
+jest.dontMock("../../../test/component-test-utils");
 
 var React = require("react/addons");
 var TestUtils = React.addons.TestUtils;
+
+var componentTestUtils = require("../../../test/component-test-utils");
 
 var BookList = require("../component");
 var BookEvents = require("../../events");
@@ -17,13 +20,14 @@ var bookList = [
 
 describe("BookList component", function() {
   describe("book list", function() {
-    var bookList = TestUtils.renderIntoDocument(
-      <BookList pubsub={pubsub}/>
-    );
+    var context = {};
+
+    beforeEach(componentTestUtils.setup(BookList, pubsub, context));
+    afterEach(componentTestUtils.cleanup);
 
     it("displays an initially empty list", function() {
-      var ul = TestUtils.findRenderedDOMComponentWithTag(bookList, "ul");
-      expect(ul).toBeDefined();
+      var bookList = componentTestUtils.findByAttribute(context.testComponent, "data-element", "bookList");
+      expect(bookList).toBeDefined();
     });
   });
 });
