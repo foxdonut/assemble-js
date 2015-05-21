@@ -1,8 +1,4 @@
 jest.dontMock("../component");
-jest.dontMock("../../events");
-jest.dontMock("jquery");
-jest.dontMock("../../../pubsub/pubsub-jquery");
-jest.dontMock("../../../test/component-test-utils");
 
 var React = require("react/addons");
 var TestUtils = React.addons.TestUtils;

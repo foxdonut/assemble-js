@@ -22,7 +22,13 @@
   "jest": {
     "rootDir": "client",
     "scriptPreprocessor": "../jest-preprocessor.js",
-    "unmockedModulePathPatterns": ["react"]
+    "unmockedModulePathPatterns": [
+      "component-test-utils",
+      "events",
+      "jquery",
+      "pubsub-jquery",
+      "react"
+    ]
   },
   "repository": {
     "type": "git",
