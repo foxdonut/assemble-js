@@ -13,7 +13,7 @@ var BookItem = React.createClass({
     var book = this.props.book;
 
     return (
-      <li data-element="book" key={book.id}>
+      <li data-element="book">
         <button data-action="edit" onClick={this.onEdit}>Edit</button>
         <button data-action="delete" onClick={this.onDelete}>Delete</button>
          <span data-element="title">{book.title}</span>
@@ -48,11 +48,9 @@ var BookList = React.createClass({
       <div>
         <div data-element="heading">Book list:</div>
         <ul data-element="bookList">
-        {
-          bookList.map(function(book) {
+          {bookList.map(function(book) {
             return <BookItem key={book.id} pubsub={pubsub} book={book}/>;
-          })
-        }
+          })}
         </ul>
       </div>
     );
