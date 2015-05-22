@@ -16,10 +16,14 @@ module.exports = {
   cleanup: function() {
   },
 
-  findByAttribute: function(component, attribute, value) {
-    var matches = TestUtils.findAllInRenderedTree(component, function(candidate) {
+  findAllByAttribute: function(component, attribute, value) {
+    return TestUtils.findAllInRenderedTree(component, function(candidate) {
       return candidate.props[attribute] == value;
     });
+  },
+
+  findByAttribute: function(component, attribute, value) {
+    var matches = this.findAllByAttribute(component, attribute, value);
 
     if (matches.length === 0) {
       return null;
@@ -27,6 +31,6 @@ module.exports = {
     if (matches.length === 1) {
       return matches[0];
     }
-    throw "Found " + matches.length + " components matching " + attribute + " = " + value;
+    throw "Expecting 0 or 1 but found " + matches.length + " components matching " + attribute + " = " + value;
   }
 };

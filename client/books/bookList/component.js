@@ -13,11 +13,11 @@ var BookItem = React.createClass({
     var book = this.props.book;
 
     return (
-      <li data-field="book" key={book.id}>
+      <li data-element="book" key={book.id}>
         <button data-action="edit" onClick={this.onEdit}>Edit</button>
         <button data-action="delete" onClick={this.onDelete}>Delete</button>
-         <span data-field="title">{book.title}</span>
-        (<span data-field="author">{book.author}</span>)
+         <span data-element="title">{book.title}</span>
+        (<span data-element="author">{book.author}</span>)
       </li>
     );
   }

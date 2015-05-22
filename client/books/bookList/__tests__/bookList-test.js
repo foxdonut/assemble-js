@@ -22,8 +22,14 @@ describe("BookList component", function() {
     afterEach(componentTestUtils.cleanup);
 
     it("displays an initially empty list", function() {
-      var bookList = componentTestUtils.findByAttribute(context.testComponent, "data-element", "bookList");
-      expect(bookList).toBeDefined();
+      var bookListElement = componentTestUtils.findByAttribute(context.testComponent, "data-element", "bookList");
+      expect(bookListElement).toBeDefined();
+    });
+
+    it("displays a list of books", function() {
+      pubsub.publish(BookEvents.DATA, bookList);
+      var bookListElements = componentTestUtils.findAllByAttribute(context.testComponent, "data-element", "book");
+      expect(bookListElements.length).toEqual(bookList.length);
     });
   });
 });
