@@ -26,11 +26,8 @@ module.exports = {
     var matches = this.findAllByAttribute(component, attribute, value);
 
     if (matches.length === 0) {
-      return null;
+      throw "Cannot find component with attribute " + attribute + " = " + value;
     }
-    if (matches.length === 1) {
-      return matches[0];
-    }
-    throw "Expecting 0 or 1 but found " + matches.length + " components matching " + attribute + " = " + value;
+    return matches[0];
   }
 };

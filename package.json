@@ -9,6 +9,7 @@
   "scripts": {
     "build": "browserify ./client/main.js -o $npm_package_config_generatedApp && echo 'Ready.'",
     "test": "jest",
+    "test:watch": "watch 'npm test' ./client",
     "watch": "watch 'npm run build' ./client",
     "nodemon": "nodemon server/main --watch server",
     "start": "parallelshell 'npm run watch' 'npm run nodemon'"

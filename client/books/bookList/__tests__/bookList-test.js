@@ -15,12 +15,12 @@ var bookList = [
 ];
 
 describe("BookList component", function() {
+  var context = {};
+
+  beforeEach(componentTestUtils.setup(BookList, pubsub, context));
+  afterEach(componentTestUtils.cleanup);
+
   describe("book list", function() {
-    var context = {};
-
-    beforeEach(componentTestUtils.setup(BookList, pubsub, context));
-    afterEach(componentTestUtils.cleanup);
-
     it("displays an initially empty list", function() {
       var bookListElement = componentTestUtils.findByAttribute(context.testComponent, "data-element", "bookList");
       expect(bookListElement).toBeDefined();
@@ -30,58 +30,41 @@ describe("BookList component", function() {
       pubsub.publish(BookEvents.DATA, bookList);
       var bookListElements = componentTestUtils.findAllByAttribute(context.testComponent, "data-element", "book");
       expect(bookListElements.length).toEqual(bookList.length);
+
+      for (var i = 0, t = bookList.length; i < t; i++) {
+        var bookListElement = bookListElements[i];
+
+        var titleElement = componentTestUtils.findByAttribute(bookListElement, "data-element", "title");
+        expect(titleElement.getDOMNode().textContent).toEqual(bookList[i].title);
+
+        var authorElement = componentTestUtils.findByAttribute(bookListElement, "data-element", "author");
+        expect(authorElement.getDOMNode().textContent).toEqual(bookList[i].author);
+      }
+    });
+  });
+
+  describe("book functions", function() {
+    it("emits an event to edit a book", function() {
+      var onEditSpy = jasmine.createSpy("onEdit");
+      pubsub.subscribe(BookEvents.EDIT, onEditSpy);
+      
+      pubsub.publish(BookEvents.DATA, bookList);
+      var bookListElement = componentTestUtils.findByAttribute(context.testComponent, "data-element", "book");
+      var editButton = componentTestUtils.findByAttribute(bookListElement, "data-action", "edit");
+      TestUtils.Simulate.click(editButton);
+      expect(onEditSpy).toHaveBeenCalledWith(bookList[0]);
+    });
+
+    it("emits an event to delete a book", function() {
+      var onDeleteSpy = jasmine.createSpy("onDelete");
+      pubsub.subscribe(BookEvents.DELETE, onDeleteSpy);
+      
+      pubsub.publish(BookEvents.DATA, bookList);
+      var bookListElement = componentTestUtils.findByAttribute(context.testComponent, "data-element", "book");
+      var deleteButton = componentTestUtils.findByAttribute(bookListElement, "data-action", "delete");
+      TestUtils.Simulate.click(deleteButton);
+      expect(onDeleteSpy).toHaveBeenCalledWith(bookList[0]);
     });
   });
 });
-
-/*
-bookListTest.test("book list", function(tt, context) {
-  tt.plan(1 + (2 * bookList.length));
-
-  var div = context.div;
-
-  pubsub.publish(BookEvents.DATA, bookList);
-  var books = div.find(bookField);
-
-  tt.equal(books.size(), bookList.length, "number of books rendered");
-
-  for (var i = 0, t = bookList.length; i < t; i++) {
-    var book = $(books.get(i));
-    tt.equal(book.find(authorField).html(), bookList[i].author, "book author");
-    tt.equal(book.find(titleField).html(), bookList[i].title, "book title");
-  }
-});
-
-bookListTest.test("edit book", function(tt, context) {
-  tt.plan(1);
-
-  var div = context.div;
-
-  pubsub.publish(BookEvents.DATA, [bookList[0]]);
-
-  var onEdit = sinon.spy();
-  pubsub.subscribe(BookEvents.EDIT, onEdit);
-
-  div.find(editButton).trigger("click");
-  tt.ok(onEdit.calledOnce, "edit button");
-
-  pubsub.unsubscribe(BookEvents.EDIT, onEdit);
-});
-
-bookListTest.test("delete book", function(tt, context) {
-  tt.plan(1);
-
-  var div = context.div;
-
-  pubsub.publish(BookEvents.DATA, [bookList[0]]);
-
-  var onDelete = sinon.spy();
-  pubsub.subscribe(BookEvents.DELETE, onDelete);
-
-  div.find(deleteButton).trigger("click");
-  tt.ok(onDelete.calledOnce, "delete button");
-
-  pubsub.unsubscribe(BookEvents.DELETE, onDelete);
-});
-*/
 
