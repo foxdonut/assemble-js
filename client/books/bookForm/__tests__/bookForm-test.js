@@ -17,26 +17,15 @@ describe("BookForm component", function() {
   beforeEach(componentTestUtils.setup(BookForm, pubsub, context));
   afterEach(componentTestUtils.cleanup);
 
-  xdescribe("initial", function() {
+  describe("initial", function() {
     it("renders a New button", function() {
-      var bookListElement = componentTestUtils.findByAttribute(context.testComponent, "data-element", "bookList");
-      expect(bookListElement).toBeDefined();
+      var newButton = componentTestUtils.findByAttribute(context.testComponent, "data-action", "new");
+      expect(newButton).toBeDefined();
     });
 
     it("does not render the form", function() {
-      pubsub.publish(BookEvents.DATA, bookList);
-      var bookListElements = componentTestUtils.findAllByAttribute(context.testComponent, "data-element", "book");
-      expect(bookListElements.length).toEqual(bookList.length);
-
-      for (var i = 0, t = bookList.length; i < t; i++) {
-        var bookListElement = bookListElements[i];
-
-        var titleElement = componentTestUtils.findByAttribute(bookListElement, "data-element", "title");
-        expect(titleElement.getDOMNode().textContent).toEqual(bookList[i].title);
-
-        var authorElement = componentTestUtils.findByAttribute(bookListElement, "data-element", "author");
-        expect(authorElement.getDOMNode().textContent).toEqual(bookList[i].author);
-      }
+      var bookForm = componentTestUtils.findByAttribute(context.testComponent, "data-element", "bookForm");
+			expect(bookForm).toBeNull();
     });
   });
 
@@ -66,15 +55,6 @@ describe("BookForm component", function() {
 });
 
 /*
-bookFormTest.test("initial", function(tt, context) {
-  tt.plan(2);
-
-  var div = context.div;
-
-  tt.equal(div.find(newButton).size(), 1, "renders a New button");
-  tt.equal(div.find("form:visible").size(), 0, "does not initially render a form");
-});
-
 bookFormTest.test("new book", function(tt, context) {
   tt.plan(2);
 
