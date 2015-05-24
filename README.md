@@ -39,6 +39,7 @@ For testing:
 * [Sinon.JS](http://sinonjs.org)
 * [PhantomJS](http://phantomjs.org)
 * [Karma](http://karma-runner.github.io)
+* [Jest](https://facebook.github.io/jest)
 
 On the server:
 
