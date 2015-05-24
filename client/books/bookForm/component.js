@@ -49,7 +49,7 @@ var BookForm = React.createClass({
     var form = null;
     if (this.state.editing) {
       form = (
-        <form onSubmit={this.onSave}>
+        <form data-element="bookForm" onSubmit={this.onSave}>
           <div>Author:</div>
           <div><input type="text" data-field="author" value={this.state.book.author} onChange={this.onChangeText("author")}/></div>
 
