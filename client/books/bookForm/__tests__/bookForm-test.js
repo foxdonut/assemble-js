@@ -27,88 +27,59 @@ describe("BookForm component", function() {
       var bookForm = componentTestUtils.findByAttribute(context.testComponent, "data-element", "bookForm");
 			expect(bookForm).toBeNull();
     });
+		
+		it("renders the form after pressing the New button", function() {
+			var newButton = componentTestUtils.findByAttribute(context.testComponent, "data-action", "new");
+			TestUtils.Simulate.click(newButton);
+			var bookForm = componentTestUtils.findByAttribute(context.testComponent, "data-element", "bookForm");
+			expect(bookForm).not.toBeNull();
+		});
   });
 
-  xdescribe("book functions", function() {
-    it("emits an event to edit a book", function() {
-      var onEditSpy = jasmine.createSpy("onEdit");
-      pubsub.subscribe(BookEvents.EDIT, onEditSpy);
+  describe("book functions", function() {
+    it("edits a book", function() {
+			pubsub.publish(BookEvents.EDIT, book);
 
-      pubsub.publish(BookEvents.DATA, bookList);
-      var bookListElement = componentTestUtils.findByAttribute(context.testComponent, "data-element", "book");
-      var editButton = componentTestUtils.findByAttribute(bookListElement, "data-action", "edit");
-      TestUtils.Simulate.click(editButton);
-      expect(onEditSpy).toHaveBeenCalledWith(bookList[0]);
+			var bookForm = componentTestUtils.findByAttribute(context.testComponent, "data-element", "bookForm");
+			expect(bookForm).not.toBeNull();
+
+      var authorField = componentTestUtils.findByAttribute(bookForm, "data-field", "author");
+			expect(authorField.getDOMNode().value).toEqual(book.author);
+			
+      var titleField = componentTestUtils.findByAttribute(bookForm, "data-field", "title");
+			expect(titleField.getDOMNode().value).toEqual(book.title);
     });
 
-    it("emits an event to delete a book", function() {
-      var onDeleteSpy = jasmine.createSpy("onDelete");
-      pubsub.subscribe(BookEvents.DELETE, onDeleteSpy);
+    it("saves a book", function() {
+			var onSave = jasmine.createSpy("onSave");
+			pubsub.subscribe(BookEvents.SAVE, onSave);
 
-      pubsub.publish(BookEvents.DATA, bookList);
-      var bookListElement = componentTestUtils.findByAttribute(context.testComponent, "data-element", "book");
-      var deleteButton = componentTestUtils.findByAttribute(bookListElement, "data-action", "delete");
-      TestUtils.Simulate.click(deleteButton);
-      expect(onDeleteSpy).toHaveBeenCalledWith(bookList[0]);
+			pubsub.publish(BookEvents.EDIT, book);
+			var bookForm = componentTestUtils.findByAttribute(context.testComponent, "data-element", "bookForm");
+			TestUtils.Simulate.submit(bookForm);
+			
+			expect(onSave).toHaveBeenCalledWith(book);
     });
+
+    it("cancels editing", function() {
+			pubsub.publish(BookEvents.EDIT, book);
+			
+			var cancelButton = componentTestUtils.findByAttribute(context.testComponent, "data-action", "cancel");
+			TestUtils.Simulate.click(cancelButton);
+			
+      var bookForm = componentTestUtils.findByAttribute(context.testComponent, "data-element", "bookForm");
+			expect(bookForm).toBeNull();
+			
+			var newButton = componentTestUtils.findByAttribute(context.testComponent, "data-action", "new");
+			TestUtils.Simulate.click(newButton);
+			bookForm = componentTestUtils.findByAttribute(context.testComponent, "data-element", "bookForm");
+			expect(bookForm).not.toBeNull();
+
+      var authorField = componentTestUtils.findByAttribute(bookForm, "data-field", "author");
+			expect(authorField.getDOMNode().value).toBeNull();
+			
+      var titleField = componentTestUtils.findByAttribute(bookForm, "data-field", "title");
+			expect(titleField.getDOMNode().value).toBeNull();
+		});
   });
 });
-
-/*
-bookFormTest.test("new book", function(tt, context) {
-  tt.plan(2);
-
-  var div = context.div;
-  div.find(newButton).trigger("click");
-
-  var form = div.find("form");
-  tt.equal(form.size(), 1, "renders a form");
-  tt.notEqual(form.css("display"), "none", "form is visible");
-});
-
-bookFormTest.test("edit book", function(tt, context) {
-  tt.plan(4);
-
-  var div = context.div;
-  pubsub.publish(BookEvents.EDIT, book);
-
-  var form = div.find("form");
-  tt.equal(form.size(), 1, "renders a form");
-  tt.notEqual(form.css("display"), "none", "form is visible");
-
-  tt.equal(div.find(authorField).val(), book.author(), "populates author input");
-  tt.equal(div.find(titleField).val(), book.title(), "populates title input");
-});
-
-bookFormTest.test("save book", function(tt, context) {
-  tt.plan(1);
-
-  var div = context.div;
-
-  div.find(authorField).val(book.author);
-  div.find(titleField).val(book.title);
-
-  var onSave = sinon.spy();
-  pubsub.subscribe(BookEvents.SAVE, onSave);
-
-  div.find(saveButton).trigger("click");
-  tt.ok(onSave.calledOnce, "save book");
-
-  pubsub.unsubscribe(BookEvents.SAVE, onSave);
-});
-
-bookFormTest.test("cancel", function(tt, context) {
-  tt.plan(3);
-
-  var div = context.div;
-  pubsub.publish(BookEvents.EDIT, book);
-
-  div.find(cancelButton).trigger("click");
-
-  var form = div.find("form");
-  tt.equal(form.css("display"), "none", "form is hidden");
-
-  tt.equal(div.find(authorField).val(), "", "clears author input");
-  tt.equal(div.find(titleField).val(), "", "clears title input");
-});
-*/
