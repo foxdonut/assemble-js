@@ -1,4 +1,4 @@
-require("../test/util/function-bind")();
+require("../test/function-bind")();
 
 var test = require("tape");
 require("tape-catch");
