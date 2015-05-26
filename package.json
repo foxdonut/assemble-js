@@ -15,7 +15,8 @@
     "jesttest": "jest",
     "test": "mocha --compilers .:client/test/compiler.js `find client -name '*-test.js'`",
     "test:watch": "mocha -w --compilers .:client/test/compiler.js `find client -name '*-test.js'`",
-    "watch": "watch 'npm run build' ./client",
+    "xwatch": "watch 'npm run build' ./client",
+    "watch": "watchify ./client/main.js -o $npm_package_config_generatedApp --debug --verbose",
     "nodemon": "nodemon server/main --watch server",
     "start": "parallelshell 'npm run watch' 'npm run nodemon'"
   },
