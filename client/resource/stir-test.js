@@ -1,18 +1,13 @@
-require("../test/function-bind")();
-
-var test = require("tape");
-require("tape-catch");
-
+var expect = require("chai").expect;
 var sinon = require("sinon");
 var client = sinon.spy();
 var baseUrl = "/test";
 var stir = require("./stir")(client)(baseUrl);
 
-test("resource/stir-test", function(tt) {
-  tt.plan(1);
-
-  var id = 42;
-  stir.get(id);
-
-  tt.ok(client.calledWith({method: "GET", path: baseUrl + "/" + id}), "issues a GET request for get");
+describe("resource/stir-test", function() {
+  it("issues a GET request", function() {
+    var id = 42;
+    stir.get(id);
+    expect(client.calledWith({method: "GET", path: baseUrl + "/" + id})).to.equal(true);
+  });
 });

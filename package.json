@@ -9,17 +9,13 @@
   "scripts": {
     "build": "browserify ./client/main.js -o $npm_package_config_generatedApp && echo 'Ready.'",
     "test:compile": "browserify $(find client -name '*-test.js')",
-    "test:raw": "npm -s run test:compile | tape-run",
     "test:build": "browserify $(find client -name '*-test.js') -o ./public/generated-test.js",
     "karma:start": "karma start karma.conf.js",
     "karma:single-run": "karma start karma.conf.js --single-run",
-    "xtest": "jest",
-    "test": "mocha --compilers .:client/test/compiler.js client/books/bookList/bookList-test.js",
-    "test:watch": "watch 'npm test' ./client",
+    "jesttest": "jest",
+    "test": "mocha -w --compilers .:client/test/compiler.js `find client -name '*-test.js'`",
     "watch": "watch 'npm run build' ./client",
-    "watch:test": "watch 'npm run test:generate' ./client",
     "nodemon": "nodemon server/main --watch server",
-    "test:server": "parallelshell 'node server/main' 'npm run watch:test'",
     "start": "parallelshell 'npm run watch' 'npm run nodemon'"
   },
   "browserify": {
@@ -73,8 +69,6 @@
     "karma-cli": "0.0.4",
     "karma-mocha": "^0.1.10",
     "karma-phantomjs-launcher": "^0.1.4",
-    "karma-tap": "^1.0.3",
-    "karma-tape-reporter": "^1.0.3",
     "mocha": "^2.2.5",
     "mochify": "^2.8.1",
     "nodemon": "^1.3.7",
@@ -83,11 +77,6 @@
     "reactify": "^1.1.0",
     "sinon": "^1.14.1",
     "stringify": "^3.1.0",
-    "tap-spec": "^3.0.0",
-    "tape": "^3.5.0",
-    "tape-catch": "^1.0.4",
-    "tape-run": "^1.0.0",
-    "tessed": "^1.0.1",
     "watch": "^0.16.0"
   }
 }

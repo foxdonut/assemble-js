@@ -50,7 +50,7 @@ describe("BookList component", function() {
     it("emits an event to edit a book", function() {
       var onEditSpy = sinon.spy();
       pubsub.subscribe(BookEvents.EDIT, onEditSpy);
-      
+
       pubsub.publish(BookEvents.DATA, bookList);
       var bookListElement = componentTestUtils.findByAttribute(context.testComponent, "data-element", "book");
       var editButton = componentTestUtils.findByAttribute(bookListElement, "data-action", "edit");
@@ -61,7 +61,7 @@ describe("BookList component", function() {
     it("emits an event to delete a book", function() {
       var onDeleteSpy = sinon.spy();
       pubsub.subscribe(BookEvents.DELETE, onDeleteSpy);
-      
+
       pubsub.publish(BookEvents.DATA, bookList);
       var bookListElement = componentTestUtils.findByAttribute(context.testComponent, "data-element", "book");
       var deleteButton = componentTestUtils.findByAttribute(bookListElement, "data-action", "delete");

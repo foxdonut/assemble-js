@@ -31,6 +31,8 @@ Currently, the libraries being explored include, on the client:
 
 For testing:
 
+* [Mocha] (http://mochajs.org)
+* [Chai] (http://chaijs.com/api/bdd)
 * [tape](https://github.com/substack/tape)
 * [tessed](https://github.com/scottcorgan/tessed)
 * [tape-run](https://github.com/juliangruber/tape-run)
@@ -40,6 +42,7 @@ For testing:
 * [PhantomJS](http://phantomjs.org)
 * [Karma](http://karma-runner.github.io)
 * [Jest](https://facebook.github.io/jest)
+    * [Jasmine] (http://jasmine.github.io)
 
 On the server:
 
