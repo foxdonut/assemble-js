@@ -33,6 +33,7 @@ module.exports = function(config) {
 
     browserify: {
       debug: true,
+      noParse: [require.resolve('jsdom')],
       transform: ['reactify']
     },
 
