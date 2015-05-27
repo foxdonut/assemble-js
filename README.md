@@ -55,6 +55,16 @@ For building:
 * [Browserify](http://browserify.org)
 * [stringify](http://johnpostlethwait.github.io/stringify)
 * [reactify](https://github.com/andreypopp/reactify)
+* [webpack](http://webpack.github.io)
+* [Babel](https://babeljs.io)
+
+For developing:
+
+* [nodemon](http://nodemon.io)
+* [watchify](https://github.com/substack/watchify)
+* [webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html)
+* [React Hot Loader](http://gaearon.github.io/react-hot-loader)
+* [watch](https://github.com/mikeal/watch)
 
 This exploration of JavaScript libraries is as much about the journey as it is about the motivation of assembling a JavaScript web application stack composed of small, focused libraries instead of large frameworks.
 
