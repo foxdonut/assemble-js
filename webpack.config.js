@@ -4,14 +4,13 @@ var webpack = require("webpack");
 module.exports = {
   devtool: "eval",
   entry: [
-    "webpack-dev-server/client?http://localhost:3000",
+    "webpack-dev-server/client?http://localhost:3013",
     "webpack/hot/only-dev-server",
     "./client/main"
   ],
   output: {
     path: path.join(__dirname, "public"),
-    filename: "generated-app.js",
-    publicPath: "/public/"
+    filename: "generated-app.js"
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
