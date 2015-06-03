@@ -16,7 +16,7 @@ var BookItem = React.createClass({
       <li data-element="book">
         <button data-action="edit" onClick={this.onEdit}>Edit</button>
         <button data-action="delete" onClick={this.onDelete}>Delete</button>
-         <span data-element="title">{book.title}</span>
+         <span data-element="title">{book.title}</span><span> </span>
         (<span data-element="author">{book.author}</span>)
       </li>
     );
