@@ -10,7 +10,7 @@ var _ = require("lodash");
 
 var componentTestUtils = require("../../test/component-test-utils");
 
-var BookForm = require("./component");
+var BookForm = require("./component.jsx");
 var BookEvents = require("../events");
 var pubsub = require("../../pubsub/pubsub-jquery");
 

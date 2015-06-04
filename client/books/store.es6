@@ -1,28 +1,28 @@
-var _ = require("lodash");
-var BookEvents = require("./events");
+let _ = require("lodash");
+let BookEvents = require("./events");
 
-var store = function(pubsub, bookResource) {
-  var bookList = [];
+let store = (pubsub, bookResource) => {
+  let bookList = [];
 
-  var publishData = function() {
+  let publishData = () => {
     pubsub.publish(BookEvents.DATA, bookList);
   };
 
-  var findBookIndex = function(book) {
+  let findBookIndex = (book) => {
     return _.findIndex(bookList, {id: book.id});
   };
 
-  var onReady = function() {
-    bookResource.query().then(function(response) {
+  let onReady = () => {
+    bookResource.query().then((response) => {
       bookList = response;
       publishData();
     });
   };
   pubsub.subscribe(BookEvents.READY, onReady);
 
-  var onDelete = function(book) {
-    bookResource.delete(book).then(function() {
-      var index = findBookIndex(book);
+  let onDelete = (book) => {
+    bookResource.delete(book).then(() => {
+      let index = findBookIndex(book);
 
       if (index >= 0 && index < bookList.length) {
         bookList.splice(index, 1);
@@ -32,10 +32,10 @@ var store = function(pubsub, bookResource) {
   };
   pubsub.subscribe(BookEvents.DELETE, onDelete);
 
-  var onSave = function(book) {
-    bookResource.save(book).then(function(response) {
-      var updatedBook = response;
-      var index = findBookIndex(updatedBook);
+  let onSave = (book) => {
+    bookResource.save(book).then((response) => {
+      let updatedBook = response;
+      let index = findBookIndex(updatedBook);
 
       if (index >= 0) {
         bookList[index] = updatedBook;

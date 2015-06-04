@@ -1,7 +1,7 @@
 var React = require("react");
 var BookEvents = require("../events");
-var BookForm = require("../bookForm/component");
-var BookList = require("../bookList/component");
+var BookForm = require("../bookForm/component.jsx");
+var BookList = require("../bookList/component.jsx");
 
 var BookManager = React.createClass({
   componentDidMount: function() {

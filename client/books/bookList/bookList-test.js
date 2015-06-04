@@ -8,7 +8,7 @@ var TestUtils = React.addons.TestUtils;
 
 var componentTestUtils = require("../../test/component-test-utils");
 
-var BookList = require("./component");
+var BookList = require("./component.jsx");
 var BookEvents = require("../events");
 var pubsub = require("../../pubsub/pubsub-jquery");
 
