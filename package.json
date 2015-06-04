@@ -8,14 +8,10 @@
   },
   "scripts": {
     "build": "browserify ./client/main.js -o $npm_package_config_generatedApp && echo 'Ready.'",
-    "test:compile": "browserify $(find client -name '*-test.js')",
-    "test:build": "browserify $(find client -name '*-test.js') -o ./public/generated-test.js",
     "karma": "karma start karma.conf.js",
     "karma:watch": "karma start karma.conf.js --single-run=false",
-    "jesttest": "jest",
     "test": "mocha --compilers .:client/test/compiler.js `find client -name '*-test.js'`",
     "test:watch": "mocha -w --compilers .:client/test/compiler.js `find client -name '*-test.js'`",
-    "xwatch": "watch 'npm run build' ./client",
     "watch": "watchify ./client/main.js -o $npm_package_config_generatedApp --debug --verbose",
     "nodemon": "nodemon server/main --watch server",
     "start": "parallelshell 'npm run watch' 'npm run nodemon'",
@@ -25,17 +21,6 @@
     "transform": [
       "stringify",
       "reactify"
-    ]
-  },
-  "jest": {
-    "rootDir": "client",
-    "scriptPreprocessor": "../jest-preprocessor.js",
-    "unmockedModulePathPatterns": [
-      "component-test-utils",
-      "events",
-      "jquery",
-      "pubsub-jquery",
-      "react"
     ]
   },
   "repository": {
@@ -66,7 +51,6 @@
     "babel-loader": "^5.1.3",
     "browserify": "^9.0.3",
     "chai": "^2.3.0",
-    "jest-cli": "^0.4.5",
     "jsdom": "^3.1.2",
     "karma": "^0.12.31",
     "karma-browserify": "^4.1.2",
@@ -84,7 +68,6 @@
     "reactify": "^1.1.0",
     "sinon": "^1.14.1",
     "stringify": "^3.1.0",
-    "watch": "^0.16.0",
     "watchify": "^3.2.1",
     "webpack": "^1.9.10",
     "webpack-dev-server": "^1.9.0"
