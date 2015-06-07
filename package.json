@@ -8,8 +8,8 @@
   },
   "scripts": {
     "build": "browserify ./client/main.jsx -o $npm_package_config_generatedApp && echo 'Ready.'",
-    "test": "mocha --compilers .:client/test/compiler.js `find client -name '*-test.js'`",
-    "test:watch": "mocha -w --compilers .:client/test/compiler.js `find client -name '*-test.js'`",
+    "test": "mocha --compilers js:babel/register `find client -name '*-test.js'`",
+    "test:watch": "mocha -w --compilers js:babel/register `find client -name '*-test.js'`",
     "watch": "watchify ./client/main.jsx -o $npm_package_config_generatedApp --debug --verbose",
     "nodemon": "nodemon server/main --watch server",
     "start": "parallelshell 'npm run watch' 'npm run nodemon'",
