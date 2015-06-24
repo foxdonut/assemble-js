@@ -1,5 +1,18 @@
 var React = require("react");
 
+var Radio = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <label>
+          <input type="radio" value={this.props.value} checked={this.props.selectedItem === this.props.value} onClick={this.props.onChangeRadio}/>
+          {this.props.label}
+        </label>
+      </div>
+    );
+  }
+});
+
 var RadioGroup = React.createClass({
   getInitialState: function() {
     return {
@@ -32,24 +45,9 @@ var RadioGroup = React.createClass({
     return (
       <div>
         <div>How did you hear about this book?</div>
-        <div>
-          <label>
-            <input type="radio" value="library" checked={this.state.selectedItem === "library"} onClick={this.onChangeRadio}/>
-            At the Library
-          </label>
-        </div>
-        <div>
-          <label>
-            <input type="radio" value="bookstore" checked={this.state.selectedItem === "bookstore"} onClick={this.onChangeRadio}/>
-            At the Bookstore
-          </label>
-        </div>
-        <div>
-          <label>
-            <input type="radio" value="internet" checked={this.state.selectedItem === "internet"} onClick={this.onChangeRadio}/>
-            On the Internet
-          </label>
-        </div>
+        <Radio value="library" label="At the Library" onChangeRadio={this.onChangeRadio} selectedItem={this.state.selectedItem}/>
+        <Radio value="bookstore" label="At the Bookstore" onChangeRadio={this.onChangeRadio} selectedItem={this.state.selectedItem}/>
+        <Radio value="internet" label="On the Internet" onChangeRadio={this.onChangeRadio} selectedItem={this.state.selectedItem}/>
         <div>
           <label>
             <input type="radio" value="other" checked={this.state.selectedItem === "other"} onClick={this.onChangeRadio}/>
