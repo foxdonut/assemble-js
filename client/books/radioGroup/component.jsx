@@ -17,8 +17,8 @@ var Radio = React.createClass({
 var RadioGroup = React.createClass({
   getInitialState: function() {
     return {
-      selectedItem: null,
-      otherText: null
+      selectedItem: "",
+      otherText: ""
     };
   },
 
@@ -27,7 +27,7 @@ var RadioGroup = React.createClass({
   },
 
   onChangeText: function(event) {
-    self.setState({otherText: event.target.value});
+    this.setState({otherText: event.target.value});
   },
 
   render: function() {

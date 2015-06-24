@@ -34,12 +34,10 @@ var BookForm = React.createClass({
   },
 
   onChangeText: function(field) {
-    var self = this;
-
-    return function(event) {
-      var book = self.state.book;
+    return (event) => {
+      var book = this.state.book;
       book[field] = event.target.value;
-      self.setState({book: book});
+      this.setState({book: book});
     };
   },
 
