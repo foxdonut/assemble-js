@@ -8,6 +8,7 @@ var Radio = React.createClass({
           <input type="radio" value={this.props.value} checked={this.props.selectedItem === this.props.value} onClick={this.props.onChangeRadio}/>
           {this.props.label}
         </label>
+        {this.props.extraContent}
       </div>
     );
   }
@@ -48,13 +49,7 @@ var RadioGroup = React.createClass({
         <Radio value="library" label="At the Library" onChangeRadio={this.onChangeRadio} selectedItem={this.state.selectedItem}/>
         <Radio value="bookstore" label="At the Bookstore" onChangeRadio={this.onChangeRadio} selectedItem={this.state.selectedItem}/>
         <Radio value="internet" label="On the Internet" onChangeRadio={this.onChangeRadio} selectedItem={this.state.selectedItem}/>
-        <div>
-          <label>
-            <input type="radio" value="other" checked={this.state.selectedItem === "other"} onClick={this.onChangeRadio}/>
-            Other
-          </label>
-          {specifyLabel}
-        </div>
+        <Radio value="other" label="Other" extraContent={specifyLabel} onChangeRadio={this.onChangeRadio} selectedItem={this.state.selectedItem}/>
         <div>
           <span>Selected item: {this.state.selectedItem}</span>
         </div>
