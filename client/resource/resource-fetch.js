@@ -1,46 +1,34 @@
-var fetch = require("whatwg-fetch");
+require("whatwg-fetch");
 
 module.exports = function(baseUrl) {
+  var toJson = function(response) {
+    return response.json();
+  };
   return {
     query: function(params) {
-      return fetch(baseUrl, {
-        data: params,
-        dataType: "json"
-      });
+      return fetch(baseUrl, {body: params}).then(toJson);
     },
     get: function(id) {
-      return $.ajax({
-        method: "GET",
-        url: baseUrl + "/" + id,
-        dataType: "json"
-      });
+      return fetch(baseUrl + "/" + id).then(toJson);
     },
     save: function(model) {
       if (model) {
-        var request = (model.id) ? {
-          method: "PUT",
-          url: baseUrl + "/" + model.id
-        } : {
-          method: "POST",
-          url: baseUrl
+        var url = baseUrl + (model.id ? ("/" + model.id) : "");
+        var method = model.id ? "PUT" : "POST";
+        var request = {
+          method: method,
+          headers: {
+           "Accept": "application/json",
+           "Content-Type": "application/json"
+          },
+          body: JSON.stringify(model)
         };
 
-        request.contentType = "application/json";
-        request.data = JSON.stringify(model);
-        request.dataType = "json";
-        request.processData = false;
-
-        return $.ajax(request);
+        return fetch(url, request);
       }
-      var dfd = $.Deferred();
-      dfd.reject();
-      return dfd.promise();
     },
     "delete": function(model) {
-      return $.ajax({
-        method: "DELETE",
-        url: baseUrl + "/" + model.id
-      });
+      return fetch(baseUrl + "/" + model.id, {method: "DELETE"});
     }
   };
 };
