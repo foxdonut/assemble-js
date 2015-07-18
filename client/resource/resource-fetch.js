@@ -24,7 +24,7 @@ module.exports = function(baseUrl) {
           body: JSON.stringify(model)
         };
 
-        return fetch(url, request);
+        return fetch(url, request).then(toJson);
       }
     },
     "delete": function(model) {
