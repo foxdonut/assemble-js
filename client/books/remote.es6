@@ -14,7 +14,7 @@ let remote = (bookResource, dispatcher) => {
   };
 
   let onSave = (book) => {
-    bookResource.save(book).then((response) => {
+    bookResource.save(book).then(() => {
       fetchBookList();
     });
   };

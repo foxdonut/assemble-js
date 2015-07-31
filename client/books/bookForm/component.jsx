@@ -26,7 +26,7 @@ var BookForm = React.createClass({
 
   onSave: function(event) {
     event.preventDefault();
-//this.props.pubsub.publish(BookEvents.SAVE, this.state.book);
+    this.props.bookActions.saveBook(this.state.book);
     this.setState({editing: false, book: {}});
   },
   onCancel: function(event) {
