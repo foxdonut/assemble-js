@@ -6,14 +6,14 @@ var RadioGroup = require("../radioGroup/component.jsx");
 
 var BookManager = React.createClass({
   componentDidMount: function() {
-    this.props.pubsub.publish(BookEvents.READY);
+    this.props.bookActions.initialize();
   },
   render: function() {
     return (
       <div>
-        <BookForm pubsub={this.props.pubsub}/>
-        <RadioGroup/>
-        <BookList pubsub={this.props.pubsub}/>
+        <BookForm {...this.props}/>
+        {/*<RadioGroup/>*/}
+        <BookList {...this.props}/>
       </div>
     );
   }

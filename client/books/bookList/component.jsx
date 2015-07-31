@@ -1,12 +1,11 @@
 var React = require("react");
-var BookEvents = require("../events");
 
 var BookItem = React.createClass({
   onEdit: function() {
-    this.props.pubsub.publish(BookEvents.EDIT, this.props.book);
+//this.props.pubsub.publish(BookEvents.EDIT, this.props.book);
   },
   onDelete: function() {
-    this.props.pubsub.publish(BookEvents.DELETE, this.props.book);
+//this.props.pubsub.publish(BookEvents.DELETE, this.props.book);
   },
 
   render: function() {
@@ -30,18 +29,17 @@ var BookList = React.createClass({
     };
   },
   componentDidMount: function() {
-    this.props.pubsub.subscribe(BookEvents.DATA, this.onDataChange);
+    this.props.store.addChangeListener(this.onDataChange);
   },
   componentWillUnmount: function() {
-    this.props.pubsub.unsubscribe(BookEvents.DATA, this.onDataChange);
+    this.props.store.removeChangeListener(this.onDataChange);
   },
 
-  onDataChange: function(bookList) {
-    this.setState({bookList: bookList});
+  onDataChange: function(state) {
+    this.setState(state);
   },
 
   render: function() {
-    var pubsub = this.props.pubsub;
     var bookList = this.state.bookList;
 
     return (
@@ -49,7 +47,7 @@ var BookList = React.createClass({
         <div data-element="heading">Book list:</div>
         <ul data-element="bookList">
           {bookList.map(function(book) {
-            return <BookItem key={book.id} pubsub={pubsub} book={book}/>;
+            return <BookItem key={book.id} book={book}/>;
           })}
         </ul>
       </div>

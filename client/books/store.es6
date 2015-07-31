@@ -21,56 +21,26 @@
 // - calls getState() or other getter methods on Stores
 // - calls setState() on itself to update the view.
 
-let _ = require("lodash");
 let BookEvents = require("./events");
+let _ = require("lodash");
 
-let store = (pubsub, bookResource) => {
-  let bookList = [];
+let storeFactory = (storeHelper, dispatcher) => {
+  let store = _.extend({}, storeHelper);
 
-  let publishData = () => {
-    pubsub.publish(BookEvents.DATA, bookList);
+  store.state = {
+    bookList: []
   };
 
-  let findBookIndex = (book) => {
-    return _.findIndex(bookList, {id: book.id});
+  store.onData = (bookList) => {
+    store.state.bookList = bookList;
+    store.emitChange(store.state);
   };
 
-  let onReady = () => {
-    bookResource.query().then((response) => {
-      bookList = response;
-      publishData();
-    });
-  };
-  pubsub.subscribe(BookEvents.READY, onReady);
+  let dataEvent = BookEvents.DATA;
+  dispatcher.register({ dataEvent: store.onData });
 
-  let onDelete = (book) => {
-    bookResource.delete(book).then(() => {
-      let index = findBookIndex(book);
-
-      if (index >= 0 && index < bookList.length) {
-        bookList.splice(index, 1);
-        publishData();
-      }
-    });
-  };
-  pubsub.subscribe(BookEvents.DELETE, onDelete);
-
-  let onSave = (book) => {
-    bookResource.save(book).then((response) => {
-      let updatedBook = response;
-      let index = findBookIndex(updatedBook);
-
-      if (index >= 0) {
-        bookList[index] = updatedBook;
-      }
-      else {
-        bookList.push(updatedBook);
-      }
-      publishData();
-    });
-  };
-  pubsub.subscribe(BookEvents.SAVE, onSave);
+  return store;
 };
 
-module.exports = store;
+module.exports = storeFactory;
 

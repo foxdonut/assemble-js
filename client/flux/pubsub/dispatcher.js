@@ -1,8 +1,8 @@
 var _ = require("lodash-fp");
 
-var dispatcherHelper = function(pubsub) {
+var dispatcher = function(pubsub) {
   var invokePubsub = function(method, listeners) {
-    _.each(function(eventName, callback) {
+    _.each(function(callback, eventName) {
       pubsub[method](eventName, callback);
     })(listeners);
   };
@@ -20,5 +20,5 @@ var dispatcherHelper = function(pubsub) {
   };
 };
 
-module.exports = dispatcherHelper;
+module.exports = dispatcher;
 

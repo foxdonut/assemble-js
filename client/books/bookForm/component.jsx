@@ -1,4 +1,5 @@
 var React = require("react");
+
 var BookEvents = require("../events");
 
 var BookForm = React.createClass({
@@ -9,10 +10,10 @@ var BookForm = React.createClass({
     };
   },
   componentDidMount: function() {
-    this.props.pubsub.subscribe(BookEvents.EDIT, this.onEdit);
+//this.props.pubsub.subscribe(BookEvents.EDIT, this.onEdit);
   },
   componentWillUnmount: function() {
-    this.props.pubsub.unsubscribe(BookEvents.EDIT, this.onEdit);
+//this.props.pubsub.unsubscribe(BookEvents.EDIT, this.onEdit);
   },
 
   onEdit: function(book) {
@@ -25,7 +26,7 @@ var BookForm = React.createClass({
 
   onSave: function(event) {
     event.preventDefault();
-    this.props.pubsub.publish(BookEvents.SAVE, this.state.book);
+//this.props.pubsub.publish(BookEvents.SAVE, this.state.book);
     this.setState({editing: false, book: {}});
   },
   onCancel: function(event) {
