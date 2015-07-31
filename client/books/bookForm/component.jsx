@@ -10,35 +10,33 @@ var BookForm = React.createClass({
     };
   },
   componentDidMount: function() {
-//this.props.pubsub.subscribe(BookEvents.EDIT, this.onEdit);
+    this.props.formStore.addChangeListener(this.onDataChange);
   },
   componentWillUnmount: function() {
-//this.props.pubsub.unsubscribe(BookEvents.EDIT, this.onEdit);
+    this.props.formStore.removeChangeListener(this.onDataChange);
   },
-
-  onEdit: function(book) {
-    this.setState({editing: true, book: book});
+  onDataChange: function(state) {
+    this.setState(state);
   },
 
   onNew: function() {
-    this.setState({editing: true});
+    this.props.bookActions.newBook();
   },
 
   onSave: function(event) {
     event.preventDefault();
     this.props.bookActions.saveBook(this.state.book);
-    this.setState({editing: false, book: {}});
   },
   onCancel: function(event) {
     event.preventDefault();
-    this.setState({editing: false, book: {}});
+    this.props.bookActions.cancelBook();
   },
 
   onChangeText: function(field) {
     return (event) => {
       var book = this.state.book;
       book[field] = event.target.value;
-      this.setState({book: book});
+      this.props.bookActions.editBook(book);
     };
   },
 

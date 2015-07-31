@@ -2,7 +2,7 @@ var React = require("react");
 
 var BookItem = React.createClass({
   onEdit: function() {
-//this.props.pubsub.publish(BookEvents.EDIT, this.props.book);
+    this.props.bookActions.editBook(this.props.book);
   },
   onDelete: function() {
     this.props.bookActions.deleteBook(this.props.book);
@@ -34,7 +34,6 @@ var BookList = React.createClass({
   componentWillUnmount: function() {
     this.props.store.removeChangeListener(this.onDataChange);
   },
-
   onDataChange: function(state) {
     this.setState(state);
   },

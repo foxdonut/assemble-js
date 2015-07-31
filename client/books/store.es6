@@ -21,8 +21,8 @@
 // - calls getState() or other getter methods on Stores
 // - calls setState() on itself to update the view.
 
-let BookEvents = require("./events");
 let _ = require("lodash");
+let BookEvents = require("./events");
 
 let storeFactory = (storeHelper, dispatcher) => {
   let store = _.extend({}, storeHelper);
