@@ -19,15 +19,11 @@ let remote = (bookResource, dispatcher) => {
     });
   };
 
-  let readyEvent = BookEvents.READY;
-  let deleteEvent =  BookEvents.DELETE;
-  let saveEvent = BookEvents.SAVE;
-
-  dispatcher.register({
-    readyEvent: fetchBookList,
-    deleteEvent: onDelete,
-    saveEvent: onSave
-  });
+  dispatcher.register([
+    {eventType: BookEvents.READY, handler: fetchBookList},
+    {eventType: BookEvents.DELETE, handler: onDelete},
+    {eventType: BookEvents.SAVE, handler: onSave}
+  ]);
 };
 
 module.exports = remote;

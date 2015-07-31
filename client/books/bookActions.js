@@ -3,7 +3,7 @@ var BookEvents = require("./events");
 var bookActions = function(dispatcher) {
   return {
     initialize: function() {
-      dispatcher.dispatch(BookEvents.READY);
+      dispatcher.dispatch(BookEvents.READY, {});
     }
   };
 };

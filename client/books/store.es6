@@ -36,8 +36,7 @@ let storeFactory = (storeHelper, dispatcher) => {
     store.emitChange(store.state);
   };
 
-  let dataEvent = BookEvents.DATA;
-  dispatcher.register({ dataEvent: store.onData });
+  dispatcher.register([{ eventType: BookEvents.DATA, handler: store.onData }]);
 
   return store;
 };

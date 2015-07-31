@@ -1,6 +1,6 @@
 var React = require("react");
 
-var pubsub = require("./pubsub/pubsub-radio");
+var pubsub = require("./pubsub/pubsub-jquery");
 var dispatcher = require("./flux/pubsub/dispatcher")(pubsub);
 var storeHelper = require("./flux/pubsub/storeHelper")(pubsub);
 

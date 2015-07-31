@@ -2,8 +2,8 @@ var _ = require("lodash-fp");
 
 var dispatcher = function(pubsub) {
   var invokePubsub = function(method, listeners) {
-    _.each(function(callback, eventName) {
-      pubsub[method](eventName, callback);
+    _.each(function(listener) {
+      pubsub[method](listener.eventType, listener.handler);
     })(listeners);
   };
 
@@ -14,8 +14,8 @@ var dispatcher = function(pubsub) {
     unregister: function(listeners) {
       invokePubsub("unsubscribe", listeners);
     },
-    dispatch: function(eventName, data) {
-      pubsub.publish(eventName, data);
+    dispatch: function(eventType, data) {
+      pubsub.publish(eventType, data);
     }
   };
 };
