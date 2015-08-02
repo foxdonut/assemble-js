@@ -1,8 +1,12 @@
 var React = require("react");
 
 var pubsub = require("./pubsub/pubsub-jquery");
-var dispatcher = require("./flux/pubsub/dispatcher")(pubsub);
-var storeHelper = require("./flux/pubsub/storeHelper")(pubsub);
+
+//var dispatcher = require("./flux/pubsub/dispatcher")(pubsub);
+//var storeHelper = require("./flux/pubsub/storeHelper")(pubsub);
+
+var dispatcher = require("./flux/fb/dispatcher")();
+var storeHelper = require("./flux/fb/storeHelper")(pubsub);
 
 var bookResource = require("./resource/resource-fetch")("/books");
 var store = require("./books/store.es6")(storeHelper, dispatcher);

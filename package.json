@@ -35,8 +35,10 @@
   },
   "homepage": "https://github.com/foxdonut/assemble-js",
   "dependencies": {
+    "alt": "^0.17.1",
     "body-parser": "^1.12.2",
     "express": "^4.12.3",
+    "flux": "^2.0.3",
     "jquery": "^2.1.4",
     "lodash": "^3.6.0",
     "lodash-fp": "^0.10.1",
