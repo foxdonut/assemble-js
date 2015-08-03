@@ -24,7 +24,7 @@ var storeFactory = function(alt, storeHelper, bookActions) {
     }
   };
 
-  var store = alt.createStore(storeHelper(storeConfig, bookActions));
+  var store = alt.createStore(storeHelper(storeConfig, bookActions), "FormStore");
 
   return store;
 };

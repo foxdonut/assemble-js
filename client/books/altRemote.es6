@@ -1,6 +1,8 @@
 let storeFactory = (alt, storeHelper, bookActions, bookResource) => {
   let fetchBookList = () => {
+    console.log("fetchBookList");
     bookResource.query().then((bookList) => {
+      console.log("received:", bookList);
       bookActions.data(bookList);
     });
   };
@@ -19,7 +21,7 @@ let storeFactory = (alt, storeHelper, bookActions, bookResource) => {
     bindActions: bookActions
   };
 
-  let store = alt.createStore(storeHelper(storeConfig));
+  let store = alt.createStore(storeHelper(storeConfig), "RemoteStore");
 
   return store;
 };

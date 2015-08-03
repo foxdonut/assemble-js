@@ -28,11 +28,12 @@ let storeFactory = (alt, storeHelper, bookActions) => {
     },
 
     onData: (bookList) => {
+      console.log("onData:", bookList);
       this.setState({bookList: bookList});
     }
   };
 
-  let store = alt.createStore(storeHelper(storeConfig, bookActions));
+  let store = alt.createStore(storeHelper(storeConfig, bookActions), "BookStore");
 
   return store;
 };

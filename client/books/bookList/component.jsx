@@ -44,7 +44,7 @@ var BookList = React.createClass({
   },
 
   render: function() {
-    var bookList = this.state.bookList;
+    var bookList = this.state.bookList || [];
     var props = this.props;
 
     return (
