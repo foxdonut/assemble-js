@@ -24,9 +24,12 @@ var BookItem = React.createClass({
 
 var BookList = React.createClass({
   getInitialState: function() {
+/*
     return {
       bookList: []
     };
+*/
+    return this.props.store.getState();
   },
   componentDidMount: function() {
 //this.props.store.addChangeListener(this.onDataChange);

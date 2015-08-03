@@ -4,10 +4,13 @@ var BookEvents = require("../events");
 
 var BookForm = React.createClass({
   getInitialState: function() {
+/*
     return {
       book: {},
       editing: false
     };
+*/
+    return this.props.store.getState();
   },
   componentDidMount: function() {
 //this.props.formStore.addChangeListener(this.onDataChange);
