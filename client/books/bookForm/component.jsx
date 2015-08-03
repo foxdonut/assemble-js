@@ -10,10 +10,12 @@ var BookForm = React.createClass({
     };
   },
   componentDidMount: function() {
-    this.props.formStore.addChangeListener(this.onDataChange);
+//this.props.formStore.addChangeListener(this.onDataChange);
+    this.props.formStore.listen(this.onDataChange);
   },
   componentWillUnmount: function() {
-    this.props.formStore.removeChangeListener(this.onDataChange);
+//   this.props.formStore.removeChangeListener(this.onDataChange);
+    this.props.formStore.unlisten(this.onDataChange);
   },
   onDataChange: function(state) {
     this.setState(state);

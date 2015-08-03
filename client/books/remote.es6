@@ -8,15 +8,11 @@ let remote = (bookResource, dispatcher) => {
   };
 
   let onDelete = (book) => {
-    bookResource.delete(book).then(() => {
-      fetchBookList();
-    });
+    bookResource.delete(book).then(fetchBookList);
   };
 
   let onSave = (book) => {
-    bookResource.save(book).then(() => {
-      fetchBookList();
-    });
+    bookResource.save(book).then(fetchBookList);
   };
 
   dispatcher.register([
