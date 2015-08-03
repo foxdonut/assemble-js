@@ -5,28 +5,28 @@ var storeFactory = function(alt, storeHelper, bookActions) {
     state: {
       book: {},
       editing: false
-    },
-
-    onNewBook: function() {
-      this.setState({book: {}, editing: true});
-    },
-
-    onEditBook: function(book) {
-      this.setState({book: _.extend({}, book), editing: true});
-    },
-
-    onSaveBook: function() {
-      this.setState({book: {}, editing: false});
-    },
-
-    onCancelBook: function() {
-      this.setState({book: {}, editing: false});
     }
   };
 
-  var store = alt.createStore(storeHelper(storeConfig, bookActions), "FormStore");
+  var Store = storeHelper(storeConfig, bookActions);
 
-  return store;
+  Store.prototype.onNewBook = function() {
+    this.setState({book: {}, editing: true});
+  };
+
+  Store.prototype.onEditBook = function(book) {
+    this.setState({book: _.extend({}, book), editing: true});
+  };
+
+  Store.prototype.onSaveBook = function() {
+    this.setState({book: {}, editing: false});
+  };
+
+  Store.prototype.onCancelBook = function() {
+    this.setState({book: {}, editing: false});
+  };
+
+  return alt.createStore(Store, "FormStore");
 };
 
 module.exports = storeFactory;
