@@ -2,11 +2,11 @@ var React = require("react/addons");
 var TestUtils = React.addons.TestUtils;
 
 module.exports = {
-  setup: function(component, pubsub, context) {
+  setup: function(component, props, context) {
     return function() {
       var TestComponent = component;
       var testComponent = TestUtils.renderIntoDocument(
-        <TestComponent pubsub={pubsub}/>
+        <TestComponent {...props}/>
       );
       context.testComponent = testComponent;
       return testComponent;

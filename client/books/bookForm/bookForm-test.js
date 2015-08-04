@@ -11,15 +11,21 @@ var _ = require("lodash");
 var componentTestUtils = require("../../test/component-test-utils");
 
 var BookForm = require("./component.jsx");
-var BookEvents = require("../events");
-var pubsub = require("../../pubsub/pubsub-jquery");
+
+var alt = require("../../flux/alt/alt");
+var bookActions = require("../altBookActions")(alt);
+var formStore = require("../altFormStore")(alt, bookActions);
 
 var book = { author: "Test1", title: "One" };
 
 describe("BookForm component", function() {
   var context = {};
+  var props = {
+    formStore: formStore,
+    bookActions: bookActions
+  };
 
-  beforeEach(componentTestUtils.setup(BookForm, pubsub, context));
+  beforeEach(componentTestUtils.setup(BookForm, props, context));
   afterEach(componentTestUtils.cleanup);
 
   describe("initial", function() {
@@ -43,7 +49,7 @@ describe("BookForm component", function() {
 
   describe("book functions", function() {
     it("edits a book", function() {
-      pubsub.publish(BookEvents.EDIT, book);
+      bookActions.editBook(book);
 
       var bookForm = componentTestUtils.findByAttribute(context.testComponent, "data-element", "bookForm");
       expect(bookForm).to.exist;
@@ -56,18 +62,18 @@ describe("BookForm component", function() {
     });
 
     it("saves a book", function() {
-      var onSave = sinon.spy();
-      pubsub.subscribe(BookEvents.SAVE, onSave);
+      var onSaveSpy = sinon.spy();
+      alt.createStore({bindListeners: {onSave: bookActions.saveBook}, onSave: onSaveSpy}, "TestStoreEdit");
 
-      pubsub.publish(BookEvents.EDIT, book);
+      bookActions.editBook(book);
       var bookForm = componentTestUtils.findByAttribute(context.testComponent, "data-element", "bookForm");
       TestUtils.Simulate.submit(bookForm);
 
-      expect(onSave.calledWith(book)).to.equal(true);
+      expect(onSaveSpy.calledWith(book)).to.equal(true);
     });
 
     it("cancels editing", function() {
-      pubsub.publish(BookEvents.EDIT, book);
+      bookActions.editBook(book);
 
       var cancelButton = componentTestUtils.findByAttribute(context.testComponent, "data-action", "cancel");
       TestUtils.Simulate.click(cancelButton);

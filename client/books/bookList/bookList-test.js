@@ -8,9 +8,11 @@ var TestUtils = React.addons.TestUtils;
 
 var componentTestUtils = require("../../test/component-test-utils");
 
+var alt = require("../../flux/alt/alt");
+var bookActions = require("../altBookActions")(alt);
+var store = require("../altStore")(alt, bookActions);
+
 var BookList = require("./component.jsx");
-var BookEvents = require("../events");
-var pubsub = require("../../pubsub/pubsub-jquery");
 
 var bookList = [
   { author: "Test1", title: "One" },
@@ -19,8 +21,12 @@ var bookList = [
 
 describe("BookList component", function() {
   var context = {};
+  var props = {
+    store: store,
+    bookActions: bookActions
+  };
 
-  beforeEach(componentTestUtils.setup(BookList, pubsub, context));
+  beforeEach(componentTestUtils.setup(BookList, props, context));
   afterEach(componentTestUtils.cleanup);
 
   describe("book list", function() {
@@ -30,7 +36,7 @@ describe("BookList component", function() {
     });
 
     it("displays a list of books", function() {
-      pubsub.publish(BookEvents.DATA, bookList);
+      bookActions.data(bookList);
       var bookListElements = componentTestUtils.findAllByAttribute(context.testComponent, "data-element", "book");
       expect(bookListElements.length).to.equal(bookList.length);
 
@@ -49,9 +55,9 @@ describe("BookList component", function() {
   describe("book functions", function() {
     it("emits an event to edit a book", function() {
       var onEditSpy = sinon.spy();
-      pubsub.subscribe(BookEvents.EDIT, onEditSpy);
+      alt.createStore({bindListeners: {onEdit: bookActions.editBook}, onEdit: onEditSpy}, "TestStoreEdit");
 
-      pubsub.publish(BookEvents.DATA, bookList);
+      bookActions.data(bookList);
       var bookListElement = componentTestUtils.findByAttribute(context.testComponent, "data-element", "book");
       var editButton = componentTestUtils.findByAttribute(bookListElement, "data-action", "edit");
       TestUtils.Simulate.click(editButton);
@@ -60,9 +66,9 @@ describe("BookList component", function() {
 
     it("emits an event to delete a book", function() {
       var onDeleteSpy = sinon.spy();
-      pubsub.subscribe(BookEvents.DELETE, onDeleteSpy);
+      alt.createStore({bindListeners: {onDelete: bookActions.deleteBook}, onDelete: onDeleteSpy}, "TestStoreDelete");
 
-      pubsub.publish(BookEvents.DATA, bookList);
+      bookActions.data(bookList);
       var bookListElement = componentTestUtils.findByAttribute(context.testComponent, "data-element", "book");
       var deleteButton = componentTestUtils.findByAttribute(bookListElement, "data-action", "delete");
       TestUtils.Simulate.click(deleteButton);
