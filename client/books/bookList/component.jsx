@@ -1,7 +1,7 @@
 var React = require("react");
 var _ = require("lodash");
 
-var config = require("../altComponentConfig")();
+var componentConfig = require("../altComponentConfig");
 
 var BookItem = React.createClass({
   onEdit: function() {
@@ -25,7 +25,7 @@ var BookItem = React.createClass({
   }
 });
 
-var BookList = React.createClass(_.extend(config, {
+var BookList = React.createClass(_.extend({
   render: function() {
     var bookList = this.state.bookList || [];
     var props = this.props;
@@ -41,6 +41,6 @@ var BookList = React.createClass(_.extend(config, {
       </div>
     );
   }
-}));
+}, componentConfig("store")));
 
 module.exports = BookList;

@@ -1,18 +1,17 @@
-var _ = require("lodash");
-
-module.exports = function() {
-  return _.extend({}, {
+module.exports = function(storeProperty) {
+  return {
     getInitialState: function() {
-      return this.props.store.getState();
+      return this.props[storeProperty].getState();
     },
     componentDidMount: function() {
-      this.props.formStore.listen(this.onDataChange);
+      this.props[storeProperty].listen(this.onDataChange);
     },
     componentWillUnmount: function() {
-      this.props.formStore.unlisten(this.onDataChange);
+      this.props[storeProperty].unlisten(this.onDataChange);
     },
     onDataChange: function(state) {
       this.setState(state);
     },
-  });
+  }
 };
+

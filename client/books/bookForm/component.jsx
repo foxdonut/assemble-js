@@ -1,9 +1,9 @@
 var React = require("react");
 var _ = require("lodash");
 
-var config = require("../altComponentConfig")();
+var componentConfig = require("../altComponentConfig");
 
-var BookForm = React.createClass(_.extend(config, {
+var BookForm = React.createClass(_.extend({
   onNew: function() {
     this.props.bookActions.newBook();
   },
@@ -54,6 +54,6 @@ var BookForm = React.createClass(_.extend(config, {
       </div>
     );
   }
-}));
+}, componentConfig("formStore")));
 
 module.exports = BookForm;
