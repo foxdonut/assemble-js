@@ -1,33 +1,12 @@
 var React = require("react");
+var _ = require("lodash");
 
-var BookEvents = require("../events");
+var config = require("../altComponentConfig")();
 
-var BookForm = React.createClass({
-  getInitialState: function() {
-/*
-    return {
-      book: {},
-      editing: false
-    };
-*/
-    return this.props.store.getState();
-  },
-  componentDidMount: function() {
-//  this.props.formStore.addChangeListener(this.onDataChange);
-    this.props.formStore.listen(this.onDataChange);
-  },
-  componentWillUnmount: function() {
-//  this.props.formStore.removeChangeListener(this.onDataChange);
-    this.props.formStore.unlisten(this.onDataChange);
-  },
-  onDataChange: function(state) {
-    this.setState(state);
-  },
-
+var BookForm = React.createClass(_.extend(config, {
   onNew: function() {
     this.props.bookActions.newBook();
   },
-
   onSave: function(event) {
     event.preventDefault();
     this.props.bookActions.saveBook(this.state.book);
@@ -75,6 +54,6 @@ var BookForm = React.createClass({
       </div>
     );
   }
-});
+}));
 
 module.exports = BookForm;

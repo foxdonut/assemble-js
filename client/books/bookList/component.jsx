@@ -1,4 +1,7 @@
 var React = require("react");
+var _ = require("lodash");
+
+var config = require("../altComponentConfig")();
 
 var BookItem = React.createClass({
   onEdit: function() {
@@ -22,27 +25,7 @@ var BookItem = React.createClass({
   }
 });
 
-var BookList = React.createClass({
-  getInitialState: function() {
-/*
-    return {
-      bookList: []
-    };
-*/
-    return this.props.store.getState();
-  },
-  componentDidMount: function() {
-//  this.props.store.addChangeListener(this.onDataChange);
-    this.props.store.listen(this.onDataChange);
-  },
-  componentWillUnmount: function() {
-//  this.props.store.removeChangeListener(this.onDataChange);
-    this.props.store.unlisten(this.onDataChange);
-  },
-  onDataChange: function(state) {
-    this.setState(state);
-  },
-
+var BookList = React.createClass(_.extend(config, {
   render: function() {
     var bookList = this.state.bookList || [];
     var props = this.props;
@@ -58,6 +41,6 @@ var BookList = React.createClass({
       </div>
     );
   }
-});
+}));
 
 module.exports = BookList;
