@@ -32,11 +32,11 @@ var BookList = React.createClass({
     return this.props.store.getState();
   },
   componentDidMount: function() {
-//this.props.store.addChangeListener(this.onDataChange);
+//  this.props.store.addChangeListener(this.onDataChange);
     this.props.store.listen(this.onDataChange);
   },
   componentWillUnmount: function() {
-//this.props.store.removeChangeListener(this.onDataChange);
+//  this.props.store.removeChangeListener(this.onDataChange);
     this.props.store.unlisten(this.onDataChange);
   },
   onDataChange: function(state) {

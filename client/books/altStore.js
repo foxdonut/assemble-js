@@ -21,20 +21,22 @@
 // - calls getState() or other getter methods on Stores
 // - calls setState() on itself to update the view.
 
-var storeFactory = function(alt, storeHelper, bookActions) {
+var storeFactory = function(alt, bookActions) {
   var storeConfig = {
     state: {
       bookList: []
+    },
+
+    bindListeners: {
+      onData: bookActions.data
+    },
+
+    onData: function(bookList) {
+      this.setState({bookList: bookList});
     }
   };
 
-  var Store = storeHelper(storeConfig, bookActions);
-
-  Store.prototype.onData = function(bookList) {
-    this.setState({bookList: bookList});
-  };
-
-  return alt.createStore(Store, "BookStore");
+  return alt.createStore(storeConfig, "BookStore");
 };
 
 module.exports = storeFactory;
