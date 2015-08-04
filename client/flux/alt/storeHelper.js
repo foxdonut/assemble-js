@@ -7,7 +7,7 @@ var storeHelper = function(storeConfig, actions) {
     },
     removeChangeListener: function(callback) {
       this.unlisten(callback);
-    },
+    }
   }, storeConfig);
 
   var StoreFactory = function() {
