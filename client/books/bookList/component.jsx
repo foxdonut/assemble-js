@@ -1,7 +1,7 @@
 var React = require("react");
 var _ = require("lodash");
 
-var componentConfig = require("../altComponentConfig");
+var componentConfig = require("../componentConfig");
 
 var BookItem = React.createClass({
   onEdit: function() {

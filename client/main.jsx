@@ -1,26 +1,13 @@
 var React = require("react");
 
-//var pubsub = require("./pubsub/pubsub-jquery");
-
-//var dispatcher = require("./flux/pubsub/dispatcher")(pubsub);
-//var storeHelper = require("./flux/pubsub/storeHelper")(pubsub);
-
-//var dispatcher = require("./flux/fb/dispatcher")();
-//var storeHelper = require("./flux/fb/storeHelper")(pubsub);
-
 var bookResource = require("./resource/resource-fetch")("/books");
 
-//var bookActions = require("./books/bookActions")(dispatcher);
 var alt = require("./flux/alt/alt");
-var bookActions = require("./books/altBookActions")(alt);
+var bookActions = require("./books/bookActions")(alt);
 
-//var store = require("./books/store.es6")(storeHelper, dispatcher);
-//var formStore = require("./books/formStore")(storeHelper, dispatcher);
-//var remote = require("./books/remote.es6")(bookResource, dispatcher);
-
-var store = require("./books/altStore")(alt, bookActions);
-var formStore = require("./books/altFormStore")(alt, bookActions);
-var remote = require("./books/altRemote")(alt, bookActions, bookResource);
+var store = require("./books/store")(alt, bookActions);
+var formStore = require("./books/formStore")(alt, bookActions);
+var remote = require("./books/remote")(alt, bookActions, bookResource);
 
 var BookManager = require("./books/bookManager/component.jsx");
 

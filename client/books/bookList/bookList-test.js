@@ -9,8 +9,8 @@ var TestUtils = React.addons.TestUtils;
 var componentTestUtils = require("../../test/component-test-utils");
 
 var alt = require("../../flux/alt/alt");
-var bookActions = require("../altBookActions")(alt);
-var store = require("../altStore")(alt, bookActions);
+var bookActions = require("../bookActions")(alt);
+var store = require("../store")(alt, bookActions);
 
 var BookList = require("./component.jsx");
 

@@ -13,8 +13,8 @@ var componentTestUtils = require("../../test/component-test-utils");
 var BookForm = require("./component.jsx");
 
 var alt = require("../../flux/alt/alt");
-var bookActions = require("../altBookActions")(alt);
-var formStore = require("../altFormStore")(alt, bookActions);
+var bookActions = require("../bookActions")(alt);
+var formStore = require("../formStore")(alt, bookActions);
 
 var book = { author: "Test1", title: "One" };
 

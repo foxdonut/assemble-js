@@ -1,46 +1,33 @@
 var _ = require("lodash");
-var BookEvents = require("./events");
 
-var formStoreFactory = function(storeHelper, dispatcher) {
-  var store = _.extend({}, storeHelper);
-
-  store.state = {
-    book: {},
-    editing: false
+var storeFactory = function(alt, bookActions) {
+  var storeConfig = {
+    state: {
+      book: {},
+      editing: false
+    },
+    bindListeners: {
+      onNewBook: bookActions.newBook,
+      onEditBook: bookActions.editBook,
+      onSaveBook: bookActions.saveBook,
+      onCancelBook: bookActions.cancelBook
+    },
+    onNewBook: function() {
+      this.setState({book: {}, editing: true});
+    },
+    onEditBook: function(book) {
+      this.setState({book: _.extend({}, book), editing: true});
+    },
+    onSaveBook: function() {
+      this.setState({book: {}, editing: false});
+    },
+    onCancelBook: function() {
+      this.setState({book: {}, editing: false});
+    }
   };
 
-  store.onNewBook = function() {
-    store.state.book = {};
-    store.state.editing = true;
-    store.emitChange(store.state);
-  };
-
-  store.onEditBook = function(book) {
-    store.state.book = _.extend({}, book);
-    store.state.editing = true;
-    store.emitChange(store.state);
-  };
-
-  store.onSaveBook = function() {
-    store.state.book = {};
-    store.state.editing = false;
-    store.emitChange(store.state);
-  };
-
-  store.onCancelBook = function() {
-    store.state.book = {};
-    store.state.editing = false;
-    store.emitChange(store.state);
-  }
-
-  dispatcher.register([
-    { eventType: BookEvents.NEW, handler: store.onNewBook },
-    { eventType: BookEvents.EDIT, handler: store.onEditBook },
-    { eventType: BookEvents.SAVE, handler: store.onSaveBook },
-    { eventType: BookEvents.CANCEL, handler: store.onCancelBook }
-  ]);
-
-  return store;
+  return alt.createStore(storeConfig, "FormStore");
 };
 
-module.exports = formStoreFactory;
+module.exports = storeFactory;
+
