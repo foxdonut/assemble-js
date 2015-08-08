@@ -4,14 +4,14 @@ module.exports = function(storeProperty) {
       return this.props[storeProperty].getState();
     },
     componentDidMount: function() {
-      this.props[storeProperty].listen(this.onDataChange);
+      this.props[storeProperty].addChangeListener(this.onDataChange);
     },
     componentWillUnmount: function() {
-      this.props[storeProperty].unlisten(this.onDataChange);
+      this.props[storeProperty].removeChangeListener(this.onDataChange);
     },
     onDataChange: function(state) {
       this.setState(state);
-    },
-  }
+    }
+  };
 };
 

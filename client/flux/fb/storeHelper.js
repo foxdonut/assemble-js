@@ -10,6 +10,9 @@ var storeHelper = function(pubsub) {
     },
     emitChange: function(data) {
       pubsub.publish(CHANGE_EVENT, data);
+    },
+    getState: function() {
+      return this.state;
     }
   };
 };
