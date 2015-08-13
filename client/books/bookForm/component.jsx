@@ -1,6 +1,11 @@
 var React = require("react");
 
 var BookForm = React.createClass({
+  getInitialState: function() {
+    return {
+      editing: true
+    }
+  },
   onNew: function() {
     this.props.bookActions.newBook();
   },
@@ -12,33 +17,33 @@ var BookForm = React.createClass({
   },
   onCancel: function(event) {
     event.preventDefault();
-    this.props.bookActions.cancelBook();
+// this.props.bookActions.cancelBook();
   },
 
-/*
   onChangeText: function(field) {
 
+/*
     return (event) => {
       var book = this.state.book;
       book[field] = event.target.value;
       this.props.bookActions.editBook(book);
     };
-  },
 */
+  },
 
   render: function() {
-    var book = {}; // this.state.book;
+    var book = this.props.model.editBook;
 
     var form = null;
-/*
+
     if (this.state.editing) {
       form = (
         <form data-element="bookForm" onSubmit={this.onSave}>
           <div>Author:</div>
-          <div><input type="text" data-field="author" value={this.state.book.author} onChange={this.onChangeText("author")}/></div>
+          <div><input type="text" data-field="author" value={book.author} onChange={this.onChangeText("author")}/></div>
 
           <div>Title:</div>
-          <div><input type="text" data-field="title" value={this.state.book.title} onChange={this.onChangeText("title")}/></div>
+          <div><input type="text" data-field="title" value={book.title} onChange={this.onChangeText("title")}/></div>
 
           <div>
             <input data-action="save" type="submit" value="Save"/>
@@ -47,7 +52,6 @@ var BookForm = React.createClass({
         </form>
       );
     }
-*/
 
     return (
       <div>

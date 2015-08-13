@@ -11,9 +11,10 @@ var model = function(actions, bookResource) {
     return bookResource.query();
   });
 
-  return bookList$.map(function(bookList) {
+  return Rx.Observable.combineLatest(bookList$, actions.editBook$, function(bookList, editBook) {
     return {
-      bookList: bookList
+      bookList: bookList,
+      editBook: editBook
     };
   });
 };
