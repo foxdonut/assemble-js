@@ -2,23 +2,21 @@ var React = require("react");
 
 var bookResource = require("./resource/resource-fetch")("/books");
 
-var alt = require("./flux/alt/alt");
-var bookActions = require("./books/bookActions")(alt);
-
-var store = require("./books/store")(alt, bookActions);
-var formStore = require("./books/formStore")(alt, bookActions);
-var remote = require("./books/remote")(alt, bookActions, bookResource);
+var actions = require("./books/actions");
+var triggers = require("./books/triggers")(actions);
+var model = require("./books/model")(actions, bookResource);
 
 var BookManager = require("./books/bookManager/component.jsx");
 
-var props = {
-  store: store,
-  formStore: formStore,
-  bookActions: bookActions
+var view = function(model$) {
+  return model$.map(function(model) {
+    return <BookManager model={model} triggers={triggers}/>;
+  });
 };
 
-React.render(
-  <BookManager {...props}/>,
-  document.getElementById("app")
-);
+var renderView = function(view) {
+  React.render(view, document.getElementById("app"));
+};
+
+view(model).subscribe(renderView);
 

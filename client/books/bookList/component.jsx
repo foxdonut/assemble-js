@@ -1,14 +1,11 @@
 var React = require("react");
-var _ = require("lodash");
-
-var componentConfig = require("../componentConfig");
 
 var BookItem = React.createClass({
   onEdit: function() {
-    this.props.bookActions.editBook(this.props.book);
+    this.props.triggers.editBook(this.props.book);
   },
   onDelete: function() {
-    this.props.bookActions.deleteBook(this.props.book);
+    this.props.triggers.deleteBook(this.props.book);
   },
 
   render: function() {
@@ -25,9 +22,9 @@ var BookItem = React.createClass({
   }
 });
 
-var BookList = React.createClass(_.extend({
+var BookList = React.createClass({
   render: function() {
-    var bookList = this.state.bookList || [];
+    var bookList = this.props.model.bookList || [];
     var props = this.props;
 
     return (
@@ -41,6 +38,6 @@ var BookList = React.createClass(_.extend({
       </div>
     );
   }
-}, componentConfig("store")));
+});
 
 module.exports = BookList;

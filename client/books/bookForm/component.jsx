@@ -1,33 +1,36 @@
 var React = require("react");
-var _ = require("lodash");
 
-var componentConfig = require("../componentConfig");
-
-var BookForm = React.createClass(_.extend({
+var BookForm = React.createClass({
   onNew: function() {
     this.props.bookActions.newBook();
   },
   onSave: function(event) {
+/*
     event.preventDefault();
     this.props.bookActions.saveBook(this.state.book);
+*/
   },
   onCancel: function(event) {
     event.preventDefault();
     this.props.bookActions.cancelBook();
   },
 
+/*
   onChangeText: function(field) {
+
     return (event) => {
       var book = this.state.book;
       book[field] = event.target.value;
       this.props.bookActions.editBook(book);
     };
   },
+*/
 
   render: function() {
-    var book = this.state.book;
+    var book = {}; // this.state.book;
 
     var form = null;
+/*
     if (this.state.editing) {
       form = (
         <form data-element="bookForm" onSubmit={this.onSave}>
@@ -44,6 +47,7 @@ var BookForm = React.createClass(_.extend({
         </form>
       );
     }
+*/
 
     return (
       <div>
@@ -54,6 +58,6 @@ var BookForm = React.createClass(_.extend({
       </div>
     );
   }
-}, componentConfig("formStore")));
+});
 
 module.exports = BookForm;
