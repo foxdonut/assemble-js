@@ -9,16 +9,19 @@ var model = function(events, bookResource) {
     return bookResource.save(book);
   });
 
-  var bookListQuery$ = new Rx.BehaviorSubject({}).merge(refresh$);
+  var bookListQuery$ = Rx.Observable.merge(
+    new Rx.BehaviorSubject({}), deletedBook$, savedBook$);
 
   var bookList$ = bookListQuery$.flatMap(function() {
     return bookResource.query();
   });
 
-  return Rx.Observable.combineLatest(bookList$, events.editBook$, function(bookList, editBook) {
+  var editing$ = events.editBook$.merge(events.editingBook$);
+
+  return Rx.Observable.combineLatest(bookList$, editing$, function(bookList, editingBook) {
     return {
       bookList: bookList,
-      editBook: editBook
+      editingBook: editingBook
     };
   });
 };

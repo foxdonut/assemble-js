@@ -7,11 +7,11 @@ var BookForm = React.createClass({
     }
   },
   onNew: function() {
-    this.props.bookActions.newBook();
+// this.props.bookActions.newBook();
   },
   onSave: function(event) {
-/*
     event.preventDefault();
+/*
     this.props.bookActions.saveBook(this.state.book);
 */
   },
@@ -21,18 +21,15 @@ var BookForm = React.createClass({
   },
 
   onChangeText: function(field) {
-
-/*
     return (event) => {
-      var book = this.state.book;
+      var book = this.props.model.editingBook;
       book[field] = event.target.value;
-      this.props.bookActions.editBook(book);
+      this.props.actions.editingBook(book);
     };
-*/
   },
 
   render: function() {
-    var book = this.props.model.editBook;
+    var book = this.props.model.editingBook || {};
 
     var form = null;
 
