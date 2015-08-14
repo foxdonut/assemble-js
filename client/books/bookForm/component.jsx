@@ -11,9 +11,7 @@ var BookForm = React.createClass({
   },
   onSave: function(event) {
     event.preventDefault();
-/*
-    this.props.bookActions.saveBook(this.state.book);
-*/
+    this.props.actions.saveBook(this.props.model.editingBook);
   },
   onCancel: function(event) {
     event.preventDefault();
