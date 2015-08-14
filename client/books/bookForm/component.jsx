@@ -2,41 +2,33 @@ var React = require("react");
 var _ = require("lodash");
 
 var BookForm = React.createClass({
-  getInitialState: function() {
-    return {
-      editing: false
-    }
-  },
   onNew: function() {
-    this.props.actions.editingBook({});
-    this.setState({editing: true});
+    this.props.actions.editingBook({book:{}, editing:true});
   },
   onSave: function(event) {
     event.preventDefault();
-    this.props.actions.saveBook(this.props.model.editingBook);
-    this.props.actions.editingBook({});
-    this.setState({editing: false});
+    this.props.actions.saveBook(this.props.model.editingBook.book);
+    this.props.actions.editingBook({editing:false});
   },
   onCancel: function(event) {
     event.preventDefault();
-    this.props.actions.editingBook({});
-    this.setState({editing: false});
+    this.props.actions.editingBook({editing:false});
   },
 
   onChangeText: function(field) {
     return (event) => {
-      var book = this.props.model.editingBook;
+      var book = this.props.model.editingBook.book;
       book[field] = event.target.value;
-      this.props.actions.editingBook(book);
+      this.props.actions.editingBook({book:book, editing:true});
     };
   },
 
   render: function() {
-    var book = this.props.model.editingBook || {};
+    var book = this.props.model.editingBook.book || {};
 
     var form = null;
 
-    if (this.state.editing || !_.isEmpty(book)) {
+    if (this.props.model.editingBook.editing) {
       form = (
         <form data-element="bookForm" onSubmit={this.onSave}>
           <div>Author:</div>
