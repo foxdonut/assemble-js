@@ -1,21 +1,26 @@
 var React = require("react");
+var _ = require("lodash");
 
 var BookForm = React.createClass({
   getInitialState: function() {
     return {
-      editing: true
+      editing: false
     }
   },
   onNew: function() {
-// this.props.bookActions.newBook();
+    this.props.actions.editingBook({});
+    this.setState({editing: true});
   },
   onSave: function(event) {
     event.preventDefault();
     this.props.actions.saveBook(this.props.model.editingBook);
+    this.props.actions.editingBook({});
+    this.setState({editing: false});
   },
   onCancel: function(event) {
     event.preventDefault();
-// this.props.bookActions.cancelBook();
+    this.props.actions.editingBook({});
+    this.setState({editing: false});
   },
 
   onChangeText: function(field) {
@@ -31,7 +36,7 @@ var BookForm = React.createClass({
 
     var form = null;
 
-    if (this.state.editing) {
+    if (this.state.editing || !_.isEmpty(book)) {
       form = (
         <form data-element="bookForm" onSubmit={this.onSave}>
           <div>Author:</div>
