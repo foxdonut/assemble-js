@@ -1,13 +1,13 @@
-var triggers = function(actions) {
+var triggers = function(events) {
   return {
     editBook: function(book) {
-      actions.editBook$.onNext(book);
+      events.editBook$.onNext(book);
     },
     deleteBook: function(book) {
-      actions.deleteBook$.onNext(book);
+      events.deleteBook$.onNext(book);
     },
     saveBook: function(book) {
-      actions.saveBook$.onNext(book);
+      events.saveBook$.onNext(book);
     }
   };
 };

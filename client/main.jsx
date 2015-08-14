@@ -2,9 +2,9 @@ var React = require("react");
 
 var bookResource = require("./resource/resource-fetch")("/books");
 
-var actions = require("./books/actions")();
-var triggers = require("./books/triggers")(actions);
-var model = require("./books/model")(actions, bookResource);
+var events = require("./books/events")();
+var triggers = require("./books/triggers")(events);
+var model = require("./books/model")(events, bookResource);
 
 var BookManager = require("./books/bookManager/component.jsx");
 

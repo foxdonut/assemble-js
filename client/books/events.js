@@ -1,6 +1,6 @@
 var Rx = require("rx-lite");
 
-var actions = function() {
+var events = function() {
   return {
     editBook$: new Rx.BehaviorSubject({}),
     deleteBook$: new Rx.Subject(),
@@ -8,4 +8,4 @@ var actions = function() {
   };
 };
 
-module.exports = actions;
+module.exports = events;

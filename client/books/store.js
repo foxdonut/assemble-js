@@ -12,11 +12,11 @@
 // - can be coupled to other Stores, in case they need to waitFor
 //
 // Action Creator / Dispatcher
-// - creates actions that have a type and some data
+// - creates events that have a type and some data
 // - the Dispatcher sends the events to listeners, which are Stores
 //
 // Component
-// - calls actions
+// - calls events
 // - listens to change events from Stores
 // - calls getState() or other getter methods on Stores
 // - calls setState() on itself to update the view.
