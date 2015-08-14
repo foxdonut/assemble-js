@@ -1,4 +1,4 @@
-var triggers = function(events) {
+var actions = function(events) {
   return {
     editBook: function(book) {
       events.editBook$.onNext(book);
@@ -12,4 +12,4 @@ var triggers = function(events) {
   };
 };
 
-module.exports = triggers;
+module.exports = actions;

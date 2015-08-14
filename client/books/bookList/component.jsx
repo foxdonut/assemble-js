@@ -2,10 +2,10 @@ var React = require("react");
 
 var BookItem = React.createClass({
   onEdit: function() {
-    this.props.triggers.editBook(this.props.book);
+    this.props.actions.editBook(this.props.book);
   },
   onDelete: function() {
-    this.props.triggers.deleteBook(this.props.book);
+    this.props.actions.deleteBook(this.props.book);
   },
 
   render: function() {
