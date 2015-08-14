@@ -3,7 +3,8 @@ var Rx = require("rx-lite");
 var actions = function() {
   return {
     editBook$: new Rx.BehaviorSubject({}),
-    deleteBook$: new Rx.Subject()
+    deleteBook$: new Rx.Subject(),
+    saveBook$: new Rx.Subject()
   };
 };
 

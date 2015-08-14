@@ -1,8 +1,12 @@
 var Rx = require("rx-lite");
 
 var model = function(actions, bookResource) {
-  var refresh$ = actions.deleteBook$.map(function(book) {
+  var deletedBook$ = actions.deleteBook$.map(function(book) {
     return bookResource.delete(book);
+  });
+
+  var savedBook$ = actions.saveBook$.map(function(book) {
+    return bookResource.save(book);
   });
 
   var bookListQuery$ = new Rx.BehaviorSubject({}).merge(refresh$);
@@ -20,4 +24,3 @@ var model = function(actions, bookResource) {
 };
 
 module.exports = model;
-

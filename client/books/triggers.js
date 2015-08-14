@@ -5,6 +5,9 @@ var triggers = function(actions) {
     },
     deleteBook: function(book) {
       actions.deleteBook$.onNext(book);
+    },
+    saveBook: function(book) {
+      actions.saveBook$.onNext(book);
     }
   };
 };

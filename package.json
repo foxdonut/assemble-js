@@ -38,6 +38,7 @@
     "alt": "^0.17.1",
     "body-parser": "^1.12.2",
     "express": "^4.12.3",
+    "immutable": "^3.7.4",
     "lodash": "^3.6.0",
     "lodash-fp": "^0.10.1",
     "react": "^0.13.3",
