@@ -1,9 +1,11 @@
 var React = require("react/addons");
 var TestUtils = React.addons.TestUtils;
+var testdom = require("./testdom");
 
 module.exports = {
   setup: function(component, props, context) {
     return function() {
+      testdom.clearDocument();
       var TestComponent = component;
       var testComponent = TestUtils.renderIntoDocument(
         <TestComponent {...props}/>
@@ -11,9 +13,6 @@ module.exports = {
       context.testComponent = testComponent;
       return testComponent;
     };
-  },
-
-  cleanup: function() {
   },
 
   findAllByAttribute: function(component, attribute, value) {

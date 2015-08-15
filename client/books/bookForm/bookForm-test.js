@@ -1,4 +1,4 @@
-require("../../test/testdom")();
+require("../../test/testdom").createDocument();
 
 var expect = require("chai").expect;
 var sinon = require("sinon");
@@ -26,7 +26,6 @@ describe("BookForm component", function() {
     };
 
     beforeEach(componentTestUtils.setup(BookForm, props, context));
-    afterEach(componentTestUtils.cleanup);
 
     it("renders a New button", function() {
       var newButton = componentTestUtils.findByAttribute(context.testComponent, "data-action", "new");
@@ -56,7 +55,6 @@ describe("BookForm component", function() {
     };
 
     beforeEach(componentTestUtils.setup(BookForm, props, context));
-    afterEach(componentTestUtils.cleanup);
 
     it("renders the form in editing mode", function() {
       var newButton = componentTestUtils.findByAttribute(context.testComponent, "data-action", "new");
@@ -85,7 +83,6 @@ describe("BookForm component", function() {
     };
 
     beforeEach(componentTestUtils.setup(BookForm, props, context));
-    afterEach(componentTestUtils.cleanup);
 
     it("edits a book", function() {
       var bookForm = componentTestUtils.findByAttribute(context.testComponent, "data-element", "bookForm");

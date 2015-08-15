@@ -1,4 +1,4 @@
-require("../../test/testdom")();
+require("../../test/testdom").createDocument();
 
 var expect = require("chai").expect;
 var sinon = require("sinon");
@@ -17,7 +17,6 @@ var bookList = [
 
 describe("BookList component", function() {
   var context = {};
-  afterEach(componentTestUtils.cleanup);
 
   describe("book list", function() {
     var props = {
@@ -77,4 +76,3 @@ describe("BookList component", function() {
     });
   });
 });
-
