@@ -16,13 +16,19 @@ var book = { author: "Test1", title: "One" };
 
 describe("BookForm component", function() {
   var context = {};
-  var props = {
-  };
 
-  beforeEach(componentTestUtils.setup(BookForm, props, context));
   afterEach(componentTestUtils.cleanup);
 
-  xdescribe("initial", function() {
+  describe("initial", function() {
+    var props = {
+      model: {
+        editingBook: {
+        }
+      }
+    };
+
+    beforeEach(componentTestUtils.setup(BookForm, props, context));
+
     it("renders a New button", function() {
       var newButton = componentTestUtils.findByAttribute(context.testComponent, "data-action", "new");
       expect(newButton).to.exist;
@@ -32,8 +38,26 @@ describe("BookForm component", function() {
       var bookForm = componentTestUtils.findByAttribute(context.testComponent, "data-element", "bookForm");
       expect(bookForm).not.to.exist;
     });
+  });
 
-    it("renders the form after pressing the New button", function() {
+  describe("new book button", function() {
+    var props = {
+      model: {
+        editingBook: {
+          editing: false
+        }
+      }
+    };
+
+    props.actions = {
+      editingBook: function(value) {
+        props.model.editingBook = value;
+      }
+    };
+
+    beforeEach(componentTestUtils.setup(BookForm, props, context));
+
+    it("renders the form in editing mode", function() {
       var newButton = componentTestUtils.findByAttribute(context.testComponent, "data-action", "new");
       TestUtils.Simulate.click(newButton);
       var bookForm = componentTestUtils.findByAttribute(context.testComponent, "data-element", "bookForm");

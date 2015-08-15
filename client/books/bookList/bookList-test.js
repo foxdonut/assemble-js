@@ -11,8 +11,8 @@ var componentTestUtils = require("../../test/component-test-utils");
 var BookList = require("./component.jsx");
 
 var bookList = [
-  { author: "Test1", title: "One" },
-  { author: "Test2", title: "Two" }
+  { id: 1, author: "Test1", title: "One" },
+  { id: 2, author: "Test2", title: "Two" }
 ];
 
 describe("BookList component", function() {
