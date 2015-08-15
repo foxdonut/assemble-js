@@ -52,6 +52,7 @@ describe("BookForm component", function() {
     props.actions = {
       editingBook: function(value) {
         props.model.editingBook = value;
+        context.testComponent.forceUpdate();
       }
     };
 
