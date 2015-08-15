@@ -8,10 +8,6 @@ var TestUtils = React.addons.TestUtils;
 
 var componentTestUtils = require("../../test/component-test-utils");
 
-var alt = require("../../flux/alt/alt");
-var bookActions = require("../bookActions")(alt);
-var store = require("../store")(alt, bookActions);
-
 var BookList = require("./component.jsx");
 
 var bookList = [
@@ -21,22 +17,23 @@ var bookList = [
 
 describe("BookList component", function() {
   var context = {};
-  var props = {
-    store: store,
-    bookActions: bookActions
-  };
-
-  beforeEach(componentTestUtils.setup(BookList, props, context));
   afterEach(componentTestUtils.cleanup);
 
   describe("book list", function() {
+    var props = {
+      model: {
+        bookList: bookList
+      }
+    };
+
+    beforeEach(componentTestUtils.setup(BookList, props, context));
+
     it("displays an initially empty list", function() {
       var bookListElement = componentTestUtils.findByAttribute(context.testComponent, "data-element", "bookList");
       expect(bookListElement).to.exist;
     });
 
     it("displays a list of books", function() {
-      bookActions.data(bookList);
       var bookListElements = componentTestUtils.findAllByAttribute(context.testComponent, "data-element", "book");
       expect(bookListElements.length).to.equal(bookList.length);
 
@@ -53,26 +50,30 @@ describe("BookList component", function() {
   });
 
   describe("book functions", function() {
-    it("emits an event to edit a book", function() {
-      var onEditSpy = sinon.spy();
-      alt.createStore({bindListeners: {onEdit: bookActions.editBook}, onEdit: onEditSpy}, "TestStoreEdit");
+    var props = {
+      model: {
+        bookList: bookList
+      },
+      actions: {
+        editBook: sinon.spy(),
+        deleteBook: sinon.spy()
+      }
+    };
 
-      bookActions.data(bookList);
+    beforeEach(componentTestUtils.setup(BookList, props, context));
+
+    it("emits an event to edit a book", function() {
       var bookListElement = componentTestUtils.findByAttribute(context.testComponent, "data-element", "book");
       var editButton = componentTestUtils.findByAttribute(bookListElement, "data-action", "edit");
       TestUtils.Simulate.click(editButton);
-      expect(onEditSpy.calledWith(bookList[0])).to.equal(true);
+      expect(props.actions.editBook.calledWith(bookList[0])).to.equal(true);
     });
 
     it("emits an event to delete a book", function() {
-      var onDeleteSpy = sinon.spy();
-      alt.createStore({bindListeners: {onDelete: bookActions.deleteBook}, onDelete: onDeleteSpy}, "TestStoreDelete");
-
-      bookActions.data(bookList);
       var bookListElement = componentTestUtils.findByAttribute(context.testComponent, "data-element", "book");
       var deleteButton = componentTestUtils.findByAttribute(bookListElement, "data-action", "delete");
       TestUtils.Simulate.click(deleteButton);
-      expect(onDeleteSpy.calledWith(bookList[0])).to.equal(true);
+      expect(props.actions.deleteBook.calledWith(bookList[0])).to.equal(true);
     });
   });
 });
