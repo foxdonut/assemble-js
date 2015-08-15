@@ -17,8 +17,6 @@ var book = { author: "Test1", title: "One" };
 describe("BookForm component", function() {
   var context = {};
 
-  afterEach(componentTestUtils.cleanup);
-
   describe("initial", function() {
     var props = {
       model: {
@@ -28,6 +26,7 @@ describe("BookForm component", function() {
     };
 
     beforeEach(componentTestUtils.setup(BookForm, props, context));
+    afterEach(componentTestUtils.cleanup);
 
     it("renders a New button", function() {
       var newButton = componentTestUtils.findByAttribute(context.testComponent, "data-action", "new");
@@ -57,6 +56,7 @@ describe("BookForm component", function() {
     };
 
     beforeEach(componentTestUtils.setup(BookForm, props, context));
+    afterEach(componentTestUtils.cleanup);
 
     it("renders the form in editing mode", function() {
       var newButton = componentTestUtils.findByAttribute(context.testComponent, "data-action", "new");
@@ -66,10 +66,28 @@ describe("BookForm component", function() {
     });
   });
 
-  xdescribe("book functions", function() {
-    it("edits a book", function() {
-      // bookActions.editBook(book);
+  describe("book functions", function() {
+    var props = {
+      model: {
+        editingBook: {
+          editing: true,
+          book: book
+        }
+      }
+    };
 
+    props.actions = {
+      saveBook: sinon.spy(),
+      editingBook: function(value) {
+        props.model.editingBook = value;
+        context.testComponent.forceUpdate();
+      }
+    };
+
+    beforeEach(componentTestUtils.setup(BookForm, props, context));
+    afterEach(componentTestUtils.cleanup);
+
+    it("edits a book", function() {
       var bookForm = componentTestUtils.findByAttribute(context.testComponent, "data-element", "bookForm");
       expect(bookForm).to.exist;
 
@@ -81,19 +99,13 @@ describe("BookForm component", function() {
     });
 
     it("saves a book", function() {
-      var onSaveSpy = sinon.spy();
-      // alt.createStore({bindListeners: {onSave: bookActions.saveBook}, onSave: onSaveSpy}, "TestStoreEdit");
-
-      // bookActions.editBook(book);
       var bookForm = componentTestUtils.findByAttribute(context.testComponent, "data-element", "bookForm");
       TestUtils.Simulate.submit(bookForm);
 
-      expect(onSaveSpy.calledWith(book)).to.equal(true);
+      expect(props.actions.saveBook.calledWith(book)).to.equal(true);
     });
 
     it("cancels editing", function() {
-      // bookActions.editBook(book);
-
       var cancelButton = componentTestUtils.findByAttribute(context.testComponent, "data-action", "cancel");
       TestUtils.Simulate.click(cancelButton);
 
