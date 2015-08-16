@@ -65,24 +65,27 @@ describe("BookForm component", function() {
   });
 
   describe("book functions", function() {
-    var props = {
-      model: {
-        editingBook: {
-          editing: true,
-          book: book
+    var props = null;
+
+    beforeEach(function() {
+      props = {
+        model: {
+          editingBook: {
+            editing: true,
+            book: book
+          }
         }
-      }
-    };
+      };
 
-    props.actions = {
-      saveBook: sinon.spy(),
-      editingBook: function(value) {
-        props.model.editingBook = value;
-        context.testComponent.forceUpdate();
-      }
-    };
-
-    beforeEach(componentTestUtils.setup(BookForm, props, context));
+      props.actions = {
+        saveBook: sinon.spy(),
+        editingBook: function(value) {
+          props.model.editingBook = value;
+          context.testComponent.forceUpdate();
+        }
+      };
+      componentTestUtils.setup(BookForm, props, context)();
+    });
 
     it("edits a book", function() {
       var bookForm = componentTestUtils.findByAttribute(context.testComponent, "data-element", "bookForm");
